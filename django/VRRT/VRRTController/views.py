@@ -12,6 +12,8 @@ from django.urls import reverse_lazy
 
 # Create your views here.
 
+
+
 def index(request):
     """View function for home page of site"""
 
@@ -37,13 +39,9 @@ class MissionStatmentView(generic.View):
     def get(self, request):
         return render(request, "mission_statment.html")
 
-
-
-
 class SurveyInstanceListView(generic.ListView):
     model = SurveyInstance 
     
-
 class SurveyCreate(CreateView):
     model = SurveyInstance
     fields = ['PainScoreStart','PainScoreEnd', 'HeartRateStart', 
@@ -54,7 +52,6 @@ class SurveyCreate(CreateView):
 
 class SiteListView(generic.ListView):
     model = SiteID
-
 
 @login_required
 def logInRedirect(request):
@@ -69,13 +66,40 @@ def logInRedirect(request):
     template = "base_generic.html"
     return HttpResponseRedirect(reverse_lazy('index'))
 
+
 class staffLandingPage(generic.View):
     def get(self, request):
-        return render(request, "staff_landing_page.html")
+        return render(request, "admin_landing_pg.html")
 
 class patientLandingPage(generic.View):
     def get(self, request):
         return render(request, "patient_landing_page.html")
+
+class adminProgressPage(generic.View):
+    def get(self, request):
+        return render(request, "admin_progress.html")
+
+class adminProgressPreviewPage(generic.View):
+    def get(self, request):
+        return render(request, "admin_progress_preview.html")
+
+class surveyInputPage(generic.View):
+    def get(self, request):
+        return render(request, "survey_input.html")
+
+class surveyVerifyPage(generic.View):
+    def get(self, request):
+        return render(request, "survey_verify.html")
+
+class patientProgressPage(generic.View):
+    def get(self, request):
+        return render(request, "patient_progress.html")
+
+class chatbotPage(generic.View):
+    def get(self, request):
+        return render(request, "chatbot.html")
+    
+
 
 # class analyticsPage(DetailView):
 #     def get(self, request)

@@ -1,13 +1,6 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bert from VRRT</title>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
-    <script src="function.js"></script>
-</head>
-<body>
+{% extends "base_generic.html" %}
+
+{% block content %}
     <div id="bert">
         <div class="chatbot_online">
             <ul class="is_bert_online">
@@ -15,7 +8,7 @@
             </ul>
         </div>
         <div class="open_menu">
-            <a href="patient_landing_pg.html">Leave conversation</a>
+            <a href="patientLandingPage">Leave conversation</a>
         </div>  
         <div class="chat_history">
             <ul class="history">
@@ -34,5 +27,4 @@
             <input type="text" name="Response" class = "patient_response" placeholder="Type response here..."> <br>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div id="admin_progress">
+        <div class="progress_header">
+            <h1>Data Analytics</h1>
+        </div>
+        <div class="choose_site">
+            <h4>Choose your site</h4>
+            <form>
+                <select name = "dropdown">
+                   <option value = "Site 1" class="dropdown" selected>Site 1 - Reno, NV</option>
+                   <option value = "Site 2" class="dropdown">Site 2 - Las Vegas, NV</option>
+                   <option value = "Site 3" class="dropdown">Site 3 - Carson City, NV</option>
+                </select>
+             </form>
+        </div>
+        <div class="graph_links">
+            <ul class="nav">
+                <li><a href="adminProgressPreviewPage">Pain Score</a></li>
+                <li><a href="adminProgressPreviewPage">Heart Rate</a></li>
+                <li><a href="adminProgressPreviewPage">Blood Pressure</a></li>
+            </ul>
+            <ul class="nav">
+                <li><a href="adminProgressPreviewPage">Respiration Rate</a></li>
+                <li><a href="adminProgressPreviewPage">Oxygen Saturation</a></li>
+                <li><a href="adminProgressPreviewPage">Mood</a></li>
+            </ul>
+        </div>
+        <div class="combined_data_link">
+            <a href="adminProgressPreviewPage">Combined data</a>
+        </div>
+        <div class="progress_footer">
+            <ul class="nav">
+                <li><a href="surveyInputPage">Add new data</a></li>
+                <li><a href="staffLandingPage">Back to main</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

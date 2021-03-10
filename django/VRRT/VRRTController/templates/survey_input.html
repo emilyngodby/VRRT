@@ -1,12 +1,6 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DSurvey</title>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
-</head>
-<body>
+{% extends "base_generic.html" %}
+
+{% block content %}
     <div id="survey">
         <div class="headspace">
         </div>
@@ -16,40 +10,54 @@
         </div>
         <div class="pre_session">
             <h4>Patient status PRIOR to virtual reality session.</h4>
-            <form>
+            
+            <form action="" method="post">
+                {% csrf_token %}
                 <label for="painScore">Pain Score:</label>
                 <input type="text" id="painScore" name="painScore" placeholder="0-10"><br>
+                
                 <label for="heartRate">Heart Rate:</label>
                 <input type="text" id="heartRate" name="heartRate" placeholder="BPM"><br>
+                
                 <label for="bloodPressure">Blood Pressure:</label>
                 <input type="text" id="bloodPressure" name="systolicBP" placeholder="Systolic"> / <input type="text" id="bloodPressure" name="diastolicBP" placeholder="Diastolic"><br>
+                
                 <label for="respirationRate">Respiration Rate:</label>
                 <input type="text" id="respirationRate" name="respirationRate" placeholder="R/min"><br>
+                
                 <label for="oxygenSaturation">Oxygen Saturation:</label>
                 <input type="text" id="oxygenSaturation" name="oxygenSaturation" placeholder="%"><br>
+                
                 <b>Please check all that apply:</b><br>
+                
                 <input type="checkbox" id="restlessness" name="restlessness">
                 <label for="restlessness" class="checkbox">Restlessness</label><br>
+                
                 <input type="checkbox" id="depression" name="depression">
                 <label for="depression" class="checkbox">Depression</label><br>
+                
                 <input type="checkbox" id="nausea" name="nausea">
                 <label for="nausea" class="checkbox">Nausea</label><br>
+                
                 <input type="checkbox" id="mobility" name="mobility">
                 <label for="mobility" class="checkbox">Loss of mobility</label> <br>
+                
                 <input type="checkbox" id="Anxiety" name="anxiety">
                 <label for="anxiety" class="checkbox">Anxiety</label><br>
+                
                 <input type="checkbox" id="visiblePain" name="visiblePain">
                 <label for="visiblePain" class="checkbox">Visible pain</label><br>
+                
                 <input type="checkbox" id="tremors" name="tremors">
                 <label for="tremors" class="checkbox">Tremors</label><br>
+                
                 <input type="checkbox" id="delusions" name="delusions">
                 <label for="delusions" class="checkbox">Delusions</label><br>
 
-              </form>
-        </div>
-        <div class="post_session">
-            <h4>Patient status AFTER the virtual reality session.</h4>
-            <form>
+
+                <h4>Patient status AFTER the virtual reality session.</h4>
+
+
                 <label for="painScore2">Pain Score:</label>
                 <input type="text" id="painScore2" name="painScore2" placeholder="0-10"><br>
                 <label for="heartRate2">Heart Rate:</label>
@@ -77,14 +85,10 @@
                 <label for="tremors2" class="checkbox">Tremors</label><br>
                 <input type="checkbox" id="delusions2" name="delusions2">
                 <label for="delusions2" class="checkbox">Delusions</label><br>
+
+                <a href="staffLandingPage" id="surveyBtn">Cancel</a>
+                <input type="submit" value="Submit" id="surveyBtn" class = "SubmitButton">
               </form>
         </div>
-        <div class="survey_cancel">
-            <a href="admin_landing_pg.html">Cancel</a>
-        </div>
-        <div class="survey_submit">
-            <a href="submit_pass.html">Submit</a>
-        </div>
     </div>
-</body>
-</html>
+{% endblock %}

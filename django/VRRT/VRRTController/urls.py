@@ -3,7 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.index, name='index')
+    path('', views.logInRedirect, name='index')
 ]
 
 urlpatterns += [
@@ -32,6 +32,21 @@ urlpatterns += [
 
 urlpatterns += [
     path('patientLandingPage', views.patientLandingPage.as_view(), name='patientLandingPage')
+]
+urlpatterns += [
+    path('surveyInputPage', views.surveyInputPage.as_view(), name='surveyInputPage')
+]
+urlpatterns += [
+    path('adminProgressPage', views.adminProgressPage.as_view(), name='adminProgressPage')
+]
+urlpatterns += [
+    path('adminProgressPreviewPage', views.adminProgressPreviewPage.as_view(), name='adminProgressPreviewPage')
+]
+urlpatterns += [
+    path('patientProgressPage', views.patientProgressPage.as_view(), name='patientProgressPage')
+]
+urlpatterns += [
+    path('chatbotPage', views.chatbotPage.as_view(), name='chatbotPage')
 ]
 
 

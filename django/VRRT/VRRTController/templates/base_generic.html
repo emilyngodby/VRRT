@@ -4,35 +4,10 @@
     <head>{% block title%}<title>Virtual Reality Research Tool</title>{% endblock %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"/> -->
+    <link rel="stylesheet" href="{% static 'css/newStyle.css' %}"/>
     </head>
     <body>
-        <h1 class="page-title">Virtual Reality Research Tool</h1>
-        {% if user.is_authenticated %}
-            <p>Welcome, {{ user.get_username }} </p>
-        {% endif %}
-        <div class="row">
-            <div class="col-3 col-s-3 sidebar-nav">
-                {% block sidebar %}
-                <ul>
-                    <a href="{% url 'index' %}"><li>Home</li></a>
-                    <a href="{% url 'Mission_Statment' %}"><li>Mission Statment</a></li></a>
-                    <a href="{% url 'Site_List_View' %}"><li>VA Sites</li></a>
-                    {%  if user.is_authenticated %}
-                        <a class="logout" href="{% url 'logout'%}"><li>LogOut</li></a>
-                        {% else %}
-                        <a href="{% url 'login'%}"><li>Pain Journal</li></a>
-                        <a href="{% url 'login'%}"><li>Staff Login</li></a>
-                    {% endif %}
-
-                </ul>
-                {% endblock %}
-            </div>
-            <div>{% block content %}{% endblock %}</div>
-    </div>
-    <div class="footer">
-        <p>Welcome to VRRT, a data collection tool developed by <em>Team 10</em>!!</p>
-      </div>
-        </div>
+        <div>{% block content %}{% endblock %}</div>
     </body>
 </html>
