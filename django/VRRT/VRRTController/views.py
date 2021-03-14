@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.views.generic.detail import DetailView
 from VRRTController.models import Survey, SurveyInstance, SiteID
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -67,39 +68,95 @@ def logInRedirect(request):
     return HttpResponseRedirect(reverse_lazy('index'))
 
 
-class staffLandingPage(generic.View):
+class staffLandingPage(LoginRequiredMixin,generic.View):
+    login_url = 'index'
+    redirect_field_name = 'index'
+    #@login_required(redirect_field_name='index')
     def get(self, request):
-        return render(request, "admin_landing_pg.html")
+        if request.user.groups == 'Staff':
+            return render(request, "admin_landing_pg.html")
+        elif request.user.groups == 'Patient':
+            return HttpResponseRedirect(reverse_lazy('patientLandingPage'))
+        else:
+            return HttpResponseRedirect(reverse_lazy('index'))
 
-class patientLandingPage(generic.View):
+class patientLandingPage(LoginRequiredMixin,generic.View):
+    login_url = 'index'
+    redirect_field_name = 'index'
     def get(self, request):
-        return render(request, "patient_landing_page.html")
+        if request.user.groups == 'Patient':
+            return render(request, "patient_landing_page.html")
+        elif request.user.groups == 'Staff':
+            return HttpResponseRedirect(reverse_lazy('staffLandingPage'))
+        else:
+            return HttpResponseRedirect(reverse_lazy('index'))
+        
 
-class adminProgressPage(generic.View):
+class adminProgressPage(LoginRequiredMixin,generic.View):
+    login_url = 'index'
+    redirect_field_name = 'index'
     def get(self, request):
-        return render(request, "admin_progress.html")
+        if request.user.groups == 'Staff':
+            return render(request, "admin_progress.html")
+        elif request.user.groups == 'Patient':
+            return HttpResponseRedirect(reverse_lazy('patientLandingPage'))
+        else:
+            return HttpResponseRedirect(reverse_lazy('index'))
+        
 
-class adminProgressPreviewPage(generic.View):
+class adminProgressPreviewPage(LoginRequiredMixin,generic.View):
+    login_url = 'index'
+    redirect_field_name = 'index'
+    def get(self, request):  
+        if request.user.groups == 'Staff':
+            return render(request, "admin_progress_preview.html")
+        elif request.user.groups == 'Patient':
+            return HttpResponseRedirect(reverse_lazy('patientLandingPage'))
+        else:
+            return HttpResponseRedirect(reverse_lazy('index'))
+
+class surveyInputPage(LoginRequiredMixin,generic.View):
+    login_url = 'index'
+    redirect_field_name = 'index'
     def get(self, request):
-        return render(request, "admin_progress_preview.html")
+        if request.user.groups == 'Staff':
+            return render(request, "survey_input.html")
+        elif request.user.groups == 'Patient':
+            return HttpResponseRedirect(reverse_lazy('patientLandingPage'))
+        else:
+            return HttpResponseRedirect(reverse_lazy('index'))
+        
 
-class surveyInputPage(generic.View):
+class surveyVerifyPage(LoginRequiredMixin,generic.View):
+    login_url = 'index'
+    redirect_field_name = 'index'
     def get(self, request):
-        return render(request, "survey_input.html")
+        if request.user.groups == 'Staff':
+            return render(request, "survey_verify.html")
+        elif request.user.groups == 'Patient':
+            return HttpResponseRedirect(reverse_lazy('patientLandingPage'))
+        else:
+            return HttpResponseRedirect(reverse_lazy('index'))
+        
 
-class surveyVerifyPage(generic.View):
+class patientProgressPage(LoginRequiredMixin,generic.View):
+    login_url = 'index'
+    redirect_field_name = 'index'
     def get(self, request):
-        return render(request, "survey_verify.html")
+        if request.user.groups == 'Patient':
+            return render(request, "patient_progress.html")
+        elif request.user.groups == 'Staff':
+            return HttpResponseRedirect(reverse_lazy('staffLandingPage'))
+        else:
+            return HttpResponseRedirect(reverse_lazy('index'))
+        
 
-class patientProgressPage(generic.View):
+class chatbotPage(LoginRequiredMixin,generic.View):
+    login_url = 'index'
+    redirect_field_name = 'index'
     def get(self, request):
-        return render(request, "patient_progress.html")
-
-class chatbotPage(generic.View):
-    def get(self, request):
-        return render(request, "chatbot.html")
-    
-
-
-# class analyticsPage(DetailView):
-#     def get(self, request)
+        if request.user.groups == 'Patient' or request.user.groups == 'Staff':
+            return render(request, "chatbot.html")
+        else:
+            return HttpResponseRedirect(reverse_lazy('index'))
+        
