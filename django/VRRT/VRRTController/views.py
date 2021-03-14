@@ -4,13 +4,67 @@ from django.views.generic.detail import DetailView
 from VRRTController.models import Survey, SurveyInstance, SiteID
 from django.views import generic
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 
+"""
+************************ METHODS ************************
+"""
+
+"""
+pageUserAuth(request,neededGroup,pageTemplate,context=None)
+
+The page User Auth function takes 4 paramaters
+-request(pass in the request from the view function this is being called from)
+-neededGroup is a string that is the name of the group the user needs to be in to access the current page Ex: neeededGroup = 'Staff'
+-pageTemplate is a string that is the html file for the page that will be loaded if the user is apart of the correct group
+-context This is a arr and is set to none by dafult and is not needed, only used in views where we are retreving data such as survey list
+
+"""
+
+def pageUserAuth(request,neededGroup,pageTemplate,context=None):
+
+    userGroup = request.user.groups.filter(user=request.user)[0]
+    userGroup = str(userGroup)
+    print("PageUserAuth: context: " + str(context))
+    print("PageUserAuth: userGroup: " + str(userGroup))
+    print("PageUserAuth: pageTemplate: " + str(pageTemplate))
+
+    if context == None:
+        print("PageUserAuth: context is empty")
+        if userGroup == neededGroup:
+            print("PageUserAuth: Group Check Passed")
+            return render(request,pageTemplate)
+        elif userGroup == 'Staff':
+            print("PageUserAuth: Group Check Failed")
+            return HttpResponseRedirect(reverse_lazy('staffLandingPage'))
+        elif userGroup == 'Patient':
+            print("PageUserAuth: Group Check Failed")
+            return HttpResponseRedirect(reverse_lazy('patientLandingPage'))
+        else:
+            return HttpResponseRedirect(reverse_lazy('logout'))
+    elif context != None:
+        print("PageUserAuth: context is NOT empty")
+        if userGroup == neededGroup:
+            print("PageUserAuth: Group Check Passed")
+            return render(request,pageTemplate)
+        elif userGroup == 'Staff':
+            print("PageUserAuth: Group Check Failed")
+            return HttpResponseRedirect(reverse_lazy('staffLandingPage'))
+        elif userGroup == 'Patient':
+            print("PageUserAuth: Group Check Failed")
+            return HttpResponseRedirect(reverse_lazy('patientLandingPage'))
+        else:
+            return HttpResponseRedirect(reverse_lazy('logout'))
 
 
-# Create your views here.
+""" 
+
+************************ NON LOGIN VIEWS ************************
+
+"""
 
 
 
@@ -35,24 +89,6 @@ def index(request):
     return render(request,'index.html',context=context)
 
 
-class MissionStatmentView(generic.View):
-    def get(self, request):
-        return render(request, "mission_statment.html")
-
-class SurveyInstanceListView(generic.ListView):
-    model = SurveyInstance 
-    
-class SurveyCreate(CreateView):
-    model = SurveyInstance
-    fields = ['PainScoreStart','PainScoreEnd', 'HeartRateStart', 
-        'HeartRateEnd', 'BPStartValue1', 'BPStartValue2', 
-        'BPEndValue1', 'BPEndValue2', 'O2SaturationStart',
-        'O2SaturationEnd']
-    success_url = reverse_lazy('index')
-
-class SiteListView(generic.ListView):
-    model = SiteID
-
 @login_required
 def logInRedirect(request):
     group = request.user.groups.filter(user=request.user)[0]
@@ -65,41 +101,137 @@ def logInRedirect(request):
     context = {}
     template = "base_generic.html"
     return HttpResponseRedirect(reverse_lazy('index'))
-
-
-class staffLandingPage(generic.View):
-    def get(self, request):
-        return render(request, "admin_landing_pg.html")
-
-class patientLandingPage(generic.View):
-    def get(self, request):
-        return render(request, "patient_landing_page.html")
-
-class adminProgressPage(generic.View):
-    def get(self, request):
-        return render(request, "admin_progress.html")
-
-class adminProgressPreviewPage(generic.View):
-    def get(self, request):
-        return render(request, "admin_progress_preview.html")
-
-class surveyInputPage(generic.View):
-    def get(self, request):
-        return render(request, "survey_input.html")
-
-class surveyVerifyPage(generic.View):
-    def get(self, request):
-        return render(request, "survey_verify.html")
-
-class patientProgressPage(generic.View):
-    def get(self, request):
-        return render(request, "patient_progress.html")
-
-class chatbotPage(generic.View):
-    def get(self, request):
-        return render(request, "chatbot.html")
     
 
 
-# class analyticsPage(DetailView):
-#     def get(self, request)
+class MissionStatmentView(generic.View):
+    def get(self, request):
+        return render(request, "mission_statment.html")
+
+class SiteListView(generic.ListView):
+    model = SiteID
+
+
+
+""" 
+
+************************ STAFF VIEWS ************************
+
+"""
+
+class staffLandingPage(LoginRequiredMixin, generic.View):
+
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        userGRoup = request.user.groups.filter(user=request.user)[0]
+
+        return pageUserAuth(request,'Staff',"admin_landing_pg.html")
+
+
+class adminProgressPage(LoginRequiredMixin, generic.View):
+
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        return pageUserAuth(request,'Staff',"admin_progress.html")
+
+        return render(request, "admin_progress.html")
+
+
+class adminProgressPreviewPage(LoginRequiredMixin, generic.View):
+
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        return pageUserAuth(request,'Staff',"admin_progress_preview.html")
+
+        return render(request, "admin_progress_preview.html")
+
+class surveyInputPage(LoginRequiredMixin, generic.View):
+
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        return pageUserAuth(request,'Staff',"survey_input.html")
+
+        return render(request, "survey_input.html")
+
+class surveyVerifyPage(LoginRequiredMixin, generic.View):
+
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        return pageUserAuth(request,'Staff',"survey_verify.html")
+
+        return render(request, "survey_verify.html")
+
+
+"""
+    These two functions are from before and need to be updated
+"""
+
+class SurveyInstanceListView(generic.ListView):
+    model = SurveyInstance 
+    
+class SurveyCreate(CreateView):
+    model = SurveyInstance
+    fields = ['PainScoreStart','PainScoreEnd', 'HeartRateStart', 
+        'HeartRateEnd', 'BPStartValue1', 'BPStartValue2', 
+        'BPEndValue1', 'BPEndValue2', 'O2SaturationStart',
+        'O2SaturationEnd']
+    success_url = reverse_lazy('index')
+
+
+
+""" 
+
+************************ PATIENT VIEWS ************************
+
+"""
+
+class patientLandingPage(LoginRequiredMixin, generic.View):
+
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        return pageUserAuth(request,'Patient',"patient_landing_page.html")
+
+        return render(request, "patient_landing_page.html")
+
+
+class patientProgressPage(LoginRequiredMixin, generic.View):
+
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        return pageUserAuth(request,'Patient',"patient_progress.html")
+
+        return render(request, "patient_progress.html")
+
+class chatbotPage(LoginRequiredMixin, generic.View):
+
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        return pageUserAuth(request,'Patient',"chatbot.html")
+
+        return render(request, "chatbot.html")
+
+
