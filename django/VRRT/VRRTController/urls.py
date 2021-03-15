@@ -48,6 +48,9 @@ urlpatterns += [
 urlpatterns += [
     path('chatbotPage', views.chatbotPage.as_view(), name='chatbotPage')
 ]
+urlpatterns += [
+    path('chatterBotPage', views.ChatterBotApiView.as_view(), name='chatterBotPage')
+]
 
 
 
