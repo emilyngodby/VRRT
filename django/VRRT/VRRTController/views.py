@@ -427,7 +427,7 @@ class SurveyCreate(CreateView):
         'O2SaturationEnd', 'RestlessnessStart', 'RestlessnessEnd', 'DepressionStart', 'DepressionEnd', 
         'NauseaStart', 'NauseaEnd', 'MobilityStart', 'MobilityEnd', 'AnxietyStart', 'AnxietyEnd', 
         'VisiblePainStart', 'VisiblePainEnd', 'TremorsStart', 'TremorsEnd', 'DelusionsStart', 
-        'DelusionsEnd','TherapyDuration']
+        'DelusionsEnd','TherapyDuration', 'PatientID']
     success_url = reverse_lazy('staffLandingPage')
 
 

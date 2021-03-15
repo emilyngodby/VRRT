@@ -11,6 +11,15 @@
     <form action="" method="post">
       {% csrf_token %}
       <br>
+      <b>Please enter the unique identifier for the patient corresponding to the following health information (VA_SiteNumber_PatientNumber):</b><br>
+      <br>
+
+      <div class="fieldWrapper">
+        <label for="{{ form.subject.PatientID }}">Patient ID:</label>
+        {{ form.PatientID }}
+      </div>
+
+      <br>
       <b>Patient status PRIOR to virtual reality session.</b><br>
       <br>
 

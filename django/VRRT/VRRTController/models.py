@@ -32,6 +32,8 @@ class SurveyInstance(models.Model):
     #ID for the specfic survey instance
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular survey')
 
+    PatientID = models.CharField(default='VA_00_00', max_length=8) 
+    
     #Pain score at start of session
     PainScoreStart = models.PositiveIntegerField(default=0)
 
