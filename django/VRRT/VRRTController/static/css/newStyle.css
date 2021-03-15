@@ -433,6 +433,12 @@ td #us {
 }
 .chat_history {
     grid-area: chat_history;
+    
+}
+.history{
+    overflow-y: scroll;
+    scroll-snap-type: y proximity;
+    overscroll-behavior-y: contain;
 }
 .chat_history ul li {
     list-style: none;
@@ -442,7 +448,20 @@ td #us {
     position: relative;
     font-size: 20px;
 }
-.chat_history ul li::before{
+.chat_history ul li:last-child {
+    scroll-snap-align: end;
+}
+.chat_history .patient_answer ul li::before{
+    content: "\258C";
+    color:#B3BFFF;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 1em;
+    left: -1.1225em;
+    top:0em;
+    
+}
+.chat_history .bert_answer ul li::before{
     content: "\258C";
     color:#9CFFAA;
     font-weight: bold;
@@ -587,12 +606,12 @@ td #us {
 /* Admin Landing Page */
 /*********************/
 #admin {
-    background-color: var(--accent-blue-06);
+    background-color: var(--accent-blue-01);
     height: 100vh;
     display: grid;
     grid-template-columns: 
         1fr
-        550px
+        650px
         1fr
     ;
     grid-gap:0px;
@@ -605,7 +624,7 @@ td #us {
     ;
     grid-template-areas: 
     "headspace headspace headspace"
-    ". a_header ."
+    "a_header a_header a_header"
     ". a_buttons ."
     "blank_space blank_space blank_space"
     ". . a_footer"
