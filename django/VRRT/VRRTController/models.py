@@ -58,6 +58,12 @@ class SurveyInstance(models.Model):
     # O2 saturation at the end
     O2SaturationEnd = models.PositiveIntegerField(default=0, help_text='Oxygen saturation level at the end of session')
 
+    # Resperation rate at start
+    ReperationRateStart = models.PositiveIntegerField(default=0, help_text='Resperation rate at the start of session')
+
+    # Resperation rate at end
+    ReperationRateEnd = models.PositiveIntegerField(default=0, help_text='Resperation rate at the end of session')
+
 
 class SiteID(models.Model):
     """A model that describes the VA location"""

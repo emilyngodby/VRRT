@@ -53,7 +53,7 @@ def pageUserAuth(request,neededGroup,pageTemplate,context=None):
         print("PageUserAuth: context is NOT empty")
         if userGroup == neededGroup:
             print("PageUserAuth: Group Check Passed")
-            return render(request,pageTemplate)
+            return render(request,pageTemplate,context)
         elif userGroup == 'Staff':
             print("PageUserAuth: Group Check Failed")
             return HttpResponseRedirect(reverse_lazy('staffLandingPage'))
@@ -62,6 +62,136 @@ def pageUserAuth(request,neededGroup,pageTemplate,context=None):
             return HttpResponseRedirect(reverse_lazy('patientLandingPage'))
         else:
             return HttpResponseRedirect(reverse_lazy('logout'))
+
+
+"""
+A function that takes in a string 
+-Heartrate
+-pain score
+-BP
+-BR
+-O2Sat
+
+Querrys the database of values for all the start and stops values
+"""
+def databaseQuery(field):
+    print("DATABASEQUERY CALLED")
+    if field == 'painScore':
+        startValues = SurveyInstance.objects.values_list('PainScoreStart')
+        endValues = SurveyInstance.objects.values_list('PainScoreEnd')
+    elif field == 'heartRate':
+        startValues = SurveyInstance.objects.values_list('HeartRateStart')
+        endValues = SurveyInstance.objects.values_list('HeartRateEnd')
+    
+    elif field == 'bloodPressure':
+        startValues = SurveyInstance.objects.values_list('PainScoreStart')
+        endValues = SurveyInstance.objects.values_list('PainScoreEnd')
+    
+    elif field == 'resperationRate':
+        startValues = SurveyInstance.objects.values_list('ReperationRateStart')
+        endValues = SurveyInstance.objects.values_list('ReperationRateEnd')
+
+    elif field == 'O2Saturation':
+        startValues = SurveyInstance.objects.values_list('PainScoreStart')
+        endValues = SurveyInstance.objects.values_list('PainScoreEnd')
+
+    startValues = list(startValues)
+    endValues = list(endValues)
+
+    #print(field + " start: " + str(startValues))
+    #print(field + " start: type: " + str(type(startValues)))
+    #print(field + " end: type: " + str(type(endValues)))
+    print(field + " end: " + str(endValues))
+
+    print("DATABASEQUERY: start list size: " + str(len(startValues)) + " end list size: " + str(len(endValues)))  
+
+    results = []
+    results.append(startValues)
+    results.append(endValues)
+    return results
+
+"""
+This function takes in the array produced by databaseQuery and parses the data
+returning it cleaned
+"""
+
+def databaseQuerryParser(values,field):
+    if field == 'bloodPressure':
+        pass
+
+    startValues = []
+    endValues = []
+
+    print("The size of values is: " + str(len(values)))
+
+    for value in values[0]:
+        startValues.append(value[0])
+    
+    for value in values[1]:
+        endValues.append(value[0])
+
+    print("Starting values: " + str(startValues))
+    print("Ending values: " + str(endValues))
+
+    results = []
+
+    results.append(startValues)
+    results.append(endValues)
+
+    return results
+
+"""
+Average Change calculation fuction that calculates the average change between sets
+"""
+def averageChageCalculation(values):
+
+    differinces = []
+
+    print("The size of values is: " + str(len(values)))
+
+    for position in range(len(values[0])):
+        differinces.append(values[0][position]-values[1][position])
+
+
+    sum = 0
+    for value in differinces:
+        sum += value
+    
+    averageChange = sum/len(differinces)
+
+    if averageChange == 0:
+        return "The average change is 0"
+    elif averageChange > 0:
+        return "The average change was a decrease of " + str(averageChange) + " per minute"
+    elif averageChange < 0:
+        averageChange = averageChange * -1
+        return "The average change was a increase of " + str(averageChange) + " per minute"
+
+    return averageChange
+
+
+def maxPostiveChange(values):
+
+    currentMax = 0
+
+    for position in range(len(values[0])):
+        buffer = values[0][position]-values[1][position]
+        if buffer > currentMax:
+            currentMax = buffer
+
+    return currentMax
+
+
+def minChange(values):
+
+    currentMin = 1000
+
+    for position in range(len(values[0])):
+        buffer = values[0][position]-values[1][position]
+        if buffer < currentMin:
+            currentMin = buffer
+    
+    return currentMin
 
 
 """ 
@@ -154,9 +284,110 @@ class adminProgressPreviewPage(LoginRequiredMixin, generic.View):
 
     def get(self, request):
 
+        databaseEntrie = SurveyInstance.objects.all()
+
+        #print(databaseEntrie)
+
+        databaseEntriePainStart = SurveyInstance.objects.values_list('PainScoreStart')
+        databaseEntriePainEnd = SurveyInstance.objects.values_list('PainScoreEnd')
+
+        #print("Starting pain scores: " + str(databaseEntriePainStart))
+        #print("Ending pain scores: " + str(databaseEntriePainEnd))
+
+
+
         return pageUserAuth(request,'Staff',"admin_progress_preview.html")
 
         return render(request, "admin_progress_preview.html")
+
+class adminPainScoreProgressView(LoginRequiredMixin, generic.View):
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        fieldValue = 'painScore'
+        results = databaseQuery(fieldValue)
+
+        results = databaseQuerryParser(results, fieldValue)
+
+        averageChange = averageChageCalculation(results)
+
+        maxPostiveChangeVal = maxPostiveChange(results)
+
+        minChangeVal = minChange(results)
+
+
+        context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal, 'minChange' : minChangeVal}
+
+        return pageUserAuth(request,'Staff',"admin_progress_preview.html",context)
+        
+
+class adminHearRateProgressView(LoginRequiredMixin, generic.View):
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        fieldValue = 'heartRate'
+        results = databaseQuery(fieldValue)
+
+        results = databaseQuerryParser(results, fieldValue)
+
+        averageChange = averageChageCalculation(results)
+
+        maxPostiveChangeVal = maxPostiveChange(results)
+
+        minChangeVal = minChange(results)
+
+
+        context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal, 'minChange' : minChangeVal}
+
+        return pageUserAuth(request,'Staff',"admin_progress_preview.html",context)
+
+class adminResperationRateProgressView(LoginRequiredMixin, generic.View):
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        fieldValue = 'resperationRate'
+        results = databaseQuery(fieldValue)
+
+        results = databaseQuerryParser(results, fieldValue)
+
+        averageChange = averageChageCalculation(results)
+
+        maxPostiveChangeVal = maxPostiveChange(results)
+
+        minChangeVal = minChange(results)
+
+
+        context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal, 'minChange' : minChangeVal}
+
+        return pageUserAuth(request,'Staff',"admin_progress_preview.html",context)
+
+class adminO2SaturationProgressView(LoginRequiredMixin, generic.View):
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        fieldValue = 'O2Saturation'
+        results = databaseQuery(fieldValue)
+
+        results = databaseQuerryParser(results, fieldValue)
+
+        averageChange = averageChageCalculation(results)
+
+        maxPostiveChangeVal = maxPostiveChange(results)
+
+        minChangeVal = minChange(results)
+
+
+        context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal, 'minChange' : minChangeVal}
+
+        return pageUserAuth(request,'Staff',"admin_progress_preview.html",context)
 
 class surveyInputPage(LoginRequiredMixin, generic.View):
 
