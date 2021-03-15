@@ -89,6 +89,9 @@ class SurveyInstance(models.Model):
     DelusionsStart = models.BooleanField(blank=True, default=False)
     DelusionsEnd = models.BooleanField(blank=True, default=False)
 
+    # duration of therapy
+    TherapyDuration = models.PositiveIntegerField(default=0, help_text='Length of therapy in minutes')
+
 class SiteID(models.Model):
     """A model that describes the VA location"""
 

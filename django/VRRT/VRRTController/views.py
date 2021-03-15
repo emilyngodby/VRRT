@@ -162,10 +162,10 @@ def averageChageCalculation(values):
     if averageChange == 0:
         return "The average change is 0"
     elif averageChange > 0:
-        return "The average change was a decrease of " + str(averageChange) + " per minute"
+        return "The average change was a decrease of " + str(averageChange)
     elif averageChange < 0:
         averageChange = averageChange * -1
-        return "The average change was a increase of " + str(averageChange) + " per minute"
+        return "The average change was a increase of " + str(averageChange)
 
     return averageChange
 
@@ -351,7 +351,7 @@ class adminResperationRateProgressView(LoginRequiredMixin, generic.View):
 
     def get(self, request):
 
-        fieldValue = 'resperationRate'
+        fieldValue = 'respirationRate'
         results = databaseQuery(fieldValue)
 
         results = databaseQuerryParser(results, fieldValue)
@@ -424,7 +424,10 @@ class SurveyCreate(CreateView):
     fields = ['PainScoreStart','PainScoreEnd', 'HeartRateStart', 
         'HeartRateEnd', 'BPStartValue1', 'BPStartValue2', 
         'BPEndValue1', 'BPEndValue2', 'RespirationRateStart', 'RespirationRateEnd', 'O2SaturationStart',
-        'O2SaturationEnd', 'RestlessnessStart', 'RestlessnessEnd', 'DepressionStart', 'DepressionEnd', 'NauseaStart', 'NauseaEnd', 'MobilityStart', 'MobilityEnd', 'AnxietyStart', 'AnxietyEnd', 'VisiblePainStart', 'VisiblePainEnd', 'TremorsStart', 'TremorsEnd', 'DelusionsStart', 'DelusionsEnd']
+        'O2SaturationEnd', 'RestlessnessStart', 'RestlessnessEnd', 'DepressionStart', 'DepressionEnd', 
+        'NauseaStart', 'NauseaEnd', 'MobilityStart', 'MobilityEnd', 'AnxietyStart', 'AnxietyEnd', 
+        'VisiblePainStart', 'VisiblePainEnd', 'TremorsStart', 'TremorsEnd', 'DelusionsStart', 
+        'DelusionsEnd','TherapyDuration']
     success_url = reverse_lazy('staffLandingPage')
 
 
