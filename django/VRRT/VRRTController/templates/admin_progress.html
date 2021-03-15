@@ -17,13 +17,13 @@
         </div>
         <div class="graph_links">
             <ul class="nav">
-                <li><a href="adminProgressPreviewPage">Pain Score</a></li>
-                <li><a href="adminProgressPreviewPage">Heart Rate</a></li>
+                <li><a href="{% url 'adminPainScoreProgressView'%}">Pain Score</a></li>
+                <li><a href="{% url 'adminHearRateProgressView'%}">Heart Rate</a></li>
                 <li><a href="adminProgressPreviewPage">Blood Pressure</a></li>
             </ul>
             <ul class="nav">
-                <li><a href="adminProgressPreviewPage">Respiration Rate</a></li>
-                <li><a href="adminProgressPreviewPage">Oxygen Saturation</a></li>
+                <li><a href="{% url 'adminResperationRateProgressView'%}">Respiration Rate</a></li>
+                <li><a href="{% url 'adminO2SaturationProgressView'%}">Oxygen Saturation</a></li>
                 <li><a href="adminProgressPreviewPage">Mood</a></li>
             </ul>
         </div>

@@ -51,7 +51,13 @@ class SurveyInstance(models.Model):
     # Blood Pressure at end
     BPEndValue1 = models.PositiveIntegerField(default=0, help_text='Blood Pressure value1 at the end of session')
     BPEndValue2 = models.PositiveIntegerField(default=0, help_text='Blood Pressure value2 at the end of session')
+
+    #Resperation rate start
+    ReperationRateStart = models.PositiveIntegerField(default=0, help_text='Resperation rate at the start of each session')
     
+    #Resperation rate start
+    ReperationRateEnd = models.PositiveIntegerField(default=0, help_text='Resperation rate at the end of each session')
+
     # O2 saturation at start
     O2SaturationStart = models.PositiveIntegerField(default=0, help_text='Oxygen saturation level at start of session')
 

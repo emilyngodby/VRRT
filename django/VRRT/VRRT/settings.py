@@ -41,7 +41,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'VRRTController',
+    'chatterbot.ext.django_chatterbot',
 ]
+
+CHATTERBOT = {
+    'name': 'Berrt',
+    'django_app_name': 'django_chatterbot',
+    'logic_adapters': [
+        'chatterbot.logic.MathematicalEvaluation',
+        'chatterbot.logic.TimeLogicAdapter',
+        'chatterbot.logic.BestMatch'
+    ]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
