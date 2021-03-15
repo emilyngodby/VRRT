@@ -52,29 +52,7 @@ urlpatterns += [
     path('chatterBotPage', views.ChatterBotApiView.as_view(), name='chatterBotPage')
 ]
 
-urlpatterns += [ 
-    path('ChatterBotApiView', views.ChatterBotApiView.as_view(), name='ChatterBotApi')
-]
 
-urlpatterns += [ 
-    path('testingChatBotPage', views.testingChatBotPage.as_view(), name='testingChatBotPage')
-]
-
-urlpatterns += [
-    path('adminPainScoreProgressView', views.adminPainScoreProgressView.as_view(), name='adminPainScoreProgressView')
-]
-
-urlpatterns += [
-    path('adminHearRateProgressView', views.adminHearRateProgressView.as_view(), name='adminHearRateProgressView')
-]
-
-urlpatterns += [
-    path('adminResperationRateProgressView', views.adminResperationRateProgressView.as_view(), name='adminResperationRateProgressView')
-]
-
-urlpatterns += [
-    path('adminO2SaturationProgressView', views.adminO2SaturationProgressView.as_view(), name='adminO2SaturationProgressView')
-]
 
 # urlpatterns += [
 #     path('SurveyInstance/', views.SurveyInstanceListView.as_view(), name='SurveyInstanceList')
