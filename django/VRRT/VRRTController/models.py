@@ -59,11 +59,35 @@ class SurveyInstance(models.Model):
     O2SaturationEnd = models.PositiveIntegerField(default=0, help_text='Oxygen saturation level at the end of session')
 
     # Resperation rate at start
-    ReperationRateStart = models.PositiveIntegerField(default=0, help_text='Resperation rate at the start of session')
+    RespirationRateStart = models.PositiveIntegerField(default=0, help_text='Resperation rate at the start of session')
 
     # Resperation rate at end
-    ReperationRateEnd = models.PositiveIntegerField(default=0, help_text='Resperation rate at the end of session')
+    RespirationRateEnd = models.PositiveIntegerField(default=0, help_text='Resperation rate at the end of session')
 
+    # Checkboxes
+    RestlessnessStart = models.BooleanField(blank=True, default=False)
+    RestlessnessEnd = models.BooleanField(blank=True, default=False)
+
+    DepressionStart = models.BooleanField(blank=True, default=False)
+    DepressionEnd = models.BooleanField(blank=True, default=False)
+
+    NauseaStart = models.BooleanField(blank=True, default=False)
+    NauseaEnd = models.BooleanField(blank=True, default=False)
+
+    MobilityStart = models.BooleanField(blank=True, default=False)
+    MobilityEnd = models.BooleanField(blank=True, default=False)
+
+    AnxietyStart = models.BooleanField(blank=True, default=False)
+    AnxietyEnd = models.BooleanField(blank=True, default=False)
+
+    VisiblePainStart = models.BooleanField(blank=True, default=False)
+    VisiblePainEnd = models.BooleanField(blank=True, default=False)
+
+    TremorsStart = models.BooleanField(blank=True, default=False)
+    TremorsEnd = models.BooleanField(blank=True, default=False)
+
+    DelusionsStart = models.BooleanField(blank=True, default=False)
+    DelusionsEnd = models.BooleanField(blank=True, default=False)
 
 class SiteID(models.Model):
     """A model that describes the VA location"""

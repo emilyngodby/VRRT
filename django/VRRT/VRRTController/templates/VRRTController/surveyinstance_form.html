@@ -1,14 +1,152 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<div id= "container1"> 
-  <h2> Please complete the patient health survey. </h2>
-  <div class = "box1">
+<div id= "survey"> 
+  <div class="headspace"></div>
+  <div class="survey_header">
+    <h1>Please complete the following patient health survey.</h1>
+    <h4>Responses will be recorded for research purposes only.</h4>
+  </div>
+  <div class = "pre_session">
     <form action="" method="post">
       {% csrf_token %}
-      <table>
+      <br>
+      <b>Patient status PRIOR to virtual reality session.</b><br>
+      <br>
+
+      <div class="fieldWrapper">
+        <label for="{{ form.subject.PainScoreStart }}">Pain Score:</label>
+        {{ form.PainScoreStart }}
+      </div>
+      <div class="fieldWrapper">
+        <label for="{{ form.subject.HeartRateStart }}">Heart Rate:</label>
+        {{ form.HeartRateStart }}
+      </div>
+      <div class="fieldWrapper">
+        <label for="{{ form.subject.BPStartValue1 }}">Blood Pressure Diastolic:</label>
+        {{ form.BPStartValue1 }}
+      </div>
+      <div class="fieldWrapper">
+        <label for="{{ form.subject.BPStartValue2 }}">Blood Pressure Systolic:</label>
+        {{ form.BPStartValue2 }}
+      </div>
+      <div class="fieldWrapper">
+        <label for="{{ form.subject.RespirationRateStart }}">Respiration Rate:</label>
+        {{ form.RespirationRateStart }}
+      </div>
+      <div class="fieldWrapper">
+        <label for="{{ form.subject.O2SaturationStart }}">Oxygen Saturation:</label>
+        {{ form.O2SaturationStart }}
+      </div>
+
+      <br>
+      <b>Please check all that apply:</b><br>
+      <br>
+
+      <div class="fieldWrapper">
+        {{ form.RestlessnessStart }}
+        <label for="{{ form.subject.RestlessnessStart }}">Restlessness</label>
+      </div>
+      <div class="fieldWrapper">
+        {{ form.DepressionStart }}
+        <label for="{{ form.subject.DepressionStart }}">Depression</label> 
+      </div>
+      <div class="fieldWrapper">
+        {{ form.NauseaStart }}
+        <label for="{{ form.subject.NauseaStart }}">Nausea</label>
+      </div>
+      <div class="fieldWrapper">
+        {{ form.MobilityStart }}
+        <label for="{{ form.subject.MobilityStart }}">Mobility</label>
+      </div>
+      <div class="fieldWrapper">
+        {{ form.AnxietyStart }}
+        <label for="{{ form.subject.AnxietyStart }}">Anxiety</label>
+      </div>
+      <div class="fieldWrapper">
+        {{ form.VisiblePainStart }}
+        <label for="{{ form.subject.VisiblePainStart }}">Visible Pain</label>        
+      </div>
+      <div class="fieldWrapper">
+        {{ form.TremorsStart }}
+        <label for="{{ form.subject.TremorsStart }}">Tremors</label>        
+      </div>
+      <div class="fieldWrapper">
+        {{ form.DelusionsStart }}
+        <label for="{{ form.subject.DelusionsStart }}">Delusions</label>        
+      </div>
+      
+      <br>
+      <b>Patient status AFTER the virtual reality session.</b><br>
+      <br>
+
+      <div class="fieldWrapper">
+        <label for="{{ form.subject.PainScoreEnd }}">Pain Score:</label>
+        {{ form.PainScoreEnd }}
+      </div>
+      <div class="fieldWrapper">
+        <label for="{{ form.subject.HeartRateEnd }}">Heart Rate:</label>
+        {{ form.HeartRateEnd }}
+      </div>
+      <div class="fieldWrapper">
+        <label for="{{ form.subject.BPEndValue1 }}">Blood Pressure Diastolic:</label>
+        {{ form.BPEndValue1 }}
+      </div>
+      <div class="fieldWrapper">
+        <label for="{{ form.subject.BPEndValue2 }}">Blood Pressure Systolic:</label>
+        {{ form.BPEndValue2 }}
+      </div>
+      <div class="fieldWrapper">
+        <label for="{{ form.subject.RespirationRateEnd }}">Respiration Rate:</label>
+        {{ form.RespirationRateEnd }}
+      </div>
+      <div class="fieldWrapper">
+        <label for="{{ form.subject.O2SaturationEnd }}">Oxygen Saturation:</label>
+        {{ form.O2SaturationEnd }}
+      </div>
+
+      <br>
+      <b>Please check all that apply:</b><br>
+      <br>
+
+      <div class="fieldWrapper">
+        {{ form.RestlessnessEnd }}
+        <label for="{{ form.subject.RestlessnessEnd }}">Restlessness</label>
+      </div>
+      <div class="fieldWrapper">
+        {{ form.DepressionEnd }}
+        <label for="{{ form.subject.DepressionEnd }}">Depression</label> 
+      </div>
+      <div class="fieldWrapper">
+        {{ form.NauseaEnd }}
+        <label for="{{ form.subject.NauseaEnd }}">Nausea</label>
+      </div>
+      <div class="fieldWrapper">
+        {{ form.MobilityEnd }}
+        <label for="{{ form.subject.MobilityEnd }}">Mobility</label>
+      </div>
+      <div class="fieldWrapper">
+        {{ form.AnxietyEnd }}
+        <label for="{{ form.subject.AnxietyEnd }}">Anxiety</label>
+      </div>
+      <div class="fieldWrapper">
+        {{ form.VisiblePainEnd }}
+        <label for="{{ form.subject.VisiblePainEnd }}">Visible Pain</label>        
+      </div>
+      <div class="fieldWrapper">
+        {{ form.TremorsEnd }}
+        <label for="{{ form.subject.TremorsEnd }}">Tremors</label>        
+      </div>
+      <div class="fieldWrapper">
+        {{ form.DelusionsEnd }}
+        <label for="{{ form.subject.DelusionsEnd }}">Delusions</label>        
+      </div>
+
+
+      <!-- <table>
       {{ form.as_table }}
-      </table>
+      </table> -->
+      <!-- <a href="staffLandingPage" id="surveyBtn">Cancel</a> -->
       <input type="submit" value="Submit" class = "SubmitButton">
     </form>
   </div>

@@ -87,9 +87,9 @@ def databaseQuery(field):
         startValues = SurveyInstance.objects.values_list('PainScoreStart')
         endValues = SurveyInstance.objects.values_list('PainScoreEnd')
     
-    elif field == 'resperationRate':
-        startValues = SurveyInstance.objects.values_list('ReperationRateStart')
-        endValues = SurveyInstance.objects.values_list('ReperationRateEnd')
+    elif field == 'respirationRate':
+        startValues = SurveyInstance.objects.values_list('RespirationRateStart')
+        endValues = SurveyInstance.objects.values_list('RespirationRateEnd')
 
     elif field == 'O2Saturation':
         startValues = SurveyInstance.objects.values_list('PainScoreStart')
@@ -423,9 +423,9 @@ class SurveyCreate(CreateView):
     model = SurveyInstance
     fields = ['PainScoreStart','PainScoreEnd', 'HeartRateStart', 
         'HeartRateEnd', 'BPStartValue1', 'BPStartValue2', 
-        'BPEndValue1', 'BPEndValue2', 'O2SaturationStart',
-        'O2SaturationEnd']
-    success_url = reverse_lazy('index')
+        'BPEndValue1', 'BPEndValue2', 'RespirationRateStart', 'RespirationRateEnd', 'O2SaturationStart',
+        'O2SaturationEnd', 'RestlessnessStart', 'RestlessnessEnd', 'DepressionStart', 'DepressionEnd', 'NauseaStart', 'NauseaEnd', 'MobilityStart', 'MobilityEnd', 'AnxietyStart', 'AnxietyEnd', 'VisiblePainStart', 'VisiblePainEnd', 'TremorsStart', 'TremorsEnd', 'DelusionsStart', 'DelusionsEnd']
+    success_url = reverse_lazy('staffLandingPage')
 
 
 
