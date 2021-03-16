@@ -50,29 +50,44 @@ conversations:
   - I see, Have you missed any events such as work, school, or doctor appointments because of your pain today?
 - - body
   - Have you missed any events such as work, school, or doctor appointments because of your pain today?
-- - no
+- - "no"
   - Have you missed any events such as work, school, or doctor appointments because of your pain today?
-- - yes
+- - "yes"
   - Have you taken any medication today?
-- - yes
+- - "yes"
   - What was the dosage?
 - - normal dosage
   - What was the dosage?
 - - breakthrough dose needed
   - Have you experienced loss of mobility due to your pain?
-- - yes
+- - "yes"
   - Have you experienced loss of mobility due to your pain?
-- - no
+- - "no"
   - Has any loss of mobility affected completion of day to day tasks (i.e. doing essential chores, carry for dependents, etc.)
-- - yes
+- - "yes"
   - Has any loss of mobility affected completion of day to day tasks (i.e. doing essential chores, carry for dependents, etc.)
-- - no
+- - "no"
   - Have you been satisfied with the results from virtual reality therapy?
-- - no
+- - "no"
   - Have you been satisfied with the results from virtual reality therapy?
-- - yes
+- - "yes"
   - What has been your favorite virtual reality therapy technique so far?
 - - fishing
+  - Did you sleep well last night?
+- - "no"
+  - I'm sorry to hear that. Was that related to your pain or something else?
+- - "yes"
+  - I'm glad to hear that. Do you credit virtual reality therapy to that good night's sleep?
+- - "yes"
+  - That is great news! I will let your doctor know.
+- - "no"
+  - I will make note of that discrepancy.
   - Is there anything else I can help you with today?
 - - I need help
   - Please call your doctor for any medical advice. If it is a medical emergency call 911 immediately.
+- - I don't understand what you're asking.
+  - I'm sorry. Try asking me something else.
+- - Goodbye
+  - Goodbye, thank you for speaking with me today!
+- - Who are you?
+  - I am Bert, an interactive chatbot.

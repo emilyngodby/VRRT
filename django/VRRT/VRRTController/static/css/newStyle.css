@@ -433,16 +433,17 @@ td #us {
 }
 .chat_history {
     grid-area: chat_history;
+    max-height: 700px;
+    overflow-y: scroll;
     
 }
 .history{
     overflow-y: scroll;
-    scroll-snap-type: y proximity;
-    overscroll-behavior-y: contain;
+    overflow-y: visible;
 }
 .chat_history ul li {
     list-style: none;
-    display: inline-block;
+    /* display: inline-block; */
     margin: 0 0 16px 0;
     padding:0;
     position: relative;
