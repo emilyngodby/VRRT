@@ -1,0 +1,28 @@
+{"intents":
+    [
+        {"tag": "greetings",
+        "patterns": ["hello","hey","hi","good day", "greetings", "what's up?","how is it going"],
+        "responses": ["Hello! How are you feeling today?","Hey! How are you feeling today?","How are you feeling today?"]
+        },
+
+        {"tag": "goodbye",
+            "patterns": ["cya","See you later","goodbye","I am leaving", "Have a good day", "bye","see ya"],
+            "responses": ["Goodbye!","Talk to you later","Have a nice day!"]
+        },
+
+        {"tag": "name",
+            "patterns": ["what is your name", "name", "What should I call you","who are you"],
+            "responses": ["My name is Berrt", "Im Berrt!", "They call me Bert!"]
+        },
+
+        {"tag": "userFeelingsBad",
+                "patterns": ["terrible","bad","not good","im bad", "not great", "very bad"],
+                "responses": ["Im sorry to hear that, if you have any pain can you rank it on a scale of 1-10"]
+        },
+
+        {"tag": "userFeelingsGood",
+            "patterns": ["Good","Great","very good","im doing well", "well", "very well","really good"],
+            "responses": ["Thats great!, if you have any pain can you rank it on a scale of 1-10"]
+        }
+    ]
+}

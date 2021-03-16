@@ -1,0 +1,78 @@
+#Lines denoted by "- - " are users responses
+#Lines denoted by " -" are bot responses
+
+categories:
+- patient conversation
+conversations:
+- - Im fine
+  - I'm glad to hear that. On a scale of 1-10 how would you rate your pain today?
+- - fine
+  - I'm glad to hear that. On a scale of 1-10 how would you rate your pain today?
+- - Im good
+  - I'm glad to hear that. On a scale of 1-10 how would you rate your pain today?
+- - Im doing good
+  - I'm glad to hear that. On a scale of 1-10 how would you rate your pain today?
+- - Im doing well
+  - I'm glad to hear that. On a scale of 1-10 how would you rate your pain today?
+- - bad
+  - I'm sorry to hear that. On a scale of 1-10 how would you rate your pain today?
+- - okay
+  - I'm glad to hear that. On a scale of 1-10 how would you rate your pain today?
+- - not good
+  - I'm sorry to hear that. On a scale of 1-10 how would you rate your pain today?
+- - "1"
+  - I'm glad to hear that. Where is the pain located?
+- - "2"
+  - I'm glad to hear that. Where is the pain located?
+- - "3"
+  - I'm glad to hear that. Where is the pain located?
+- - "4"
+  - I'm glad to hear that. Where is the pain located?
+- - "5"
+  - I'm sorry to hear that. Where is the pain located?
+- - "6"
+  - I'm sorry to hear that. Where is the pain located?
+- - "7"
+  - I'm sorry to hear that. Where is the pain located?
+- - "8"
+  - I'm sorry to hear that. Where is the pain located?
+- - "9"
+  - I'm sorry to hear that. Where is the pain located?
+- - "10"
+  - I'm sorry to hear that. Where is the pain located?
+- - legs
+  - I see, Have you missed any events such as work, school, or doctor appointments because of your pain today?
+- - arms
+  - I see, Have you missed any events such as work, school, or doctor appointments because of your pain today?
+- - head
+  - I see, Have you missed any events such as work, school, or doctor appointments because of your pain today?
+- - stomach
+  - I see, Have you missed any events such as work, school, or doctor appointments because of your pain today?
+- - body
+  - Have you missed any events such as work, school, or doctor appointments because of your pain today?
+- - no
+  - Have you missed any events such as work, school, or doctor appointments because of your pain today?
+- - yes
+  - Have you taken any medication today?
+- - yes
+  - What was the dosage?
+- - normal dosage
+  - What was the dosage?
+- - breakthrough dose needed
+  - Have you experienced loss of mobility due to your pain?
+- - yes
+  - Have you experienced loss of mobility due to your pain?
+- - no
+  - Has any loss of mobility affected completion of day to day tasks (i.e. doing essential chores, carry for dependents, etc.)
+- - yes
+  - Has any loss of mobility affected completion of day to day tasks (i.e. doing essential chores, carry for dependents, etc.)
+- - no
+  - Have you been satisfied with the results from virtual reality therapy?
+- - no
+  - Have you been satisfied with the results from virtual reality therapy?
+- - yes
+  - What has been your favorite virtual reality therapy technique so far?
+- - fishing
+  - Is there anything else I can help you with today?
+- - I need help
+  - Please call your doctor for any medical advice. If it is a medical emergency call 911 immediately.

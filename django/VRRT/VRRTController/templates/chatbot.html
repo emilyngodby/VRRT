@@ -18,7 +18,7 @@
         </div>  
         <div class="chat_history">
             <ul class="history">
-                <li class="bert_answer" id="history_row">Hi, my name is Bert.</li> <br>
+                <li class="bert_answer" id="history_row">Hi, my name is Bert. How are you feeling today?</li> <br>
             </ul>
         </div>
         <div class="predefined_responses">
@@ -58,7 +58,7 @@
       var $sayButton = $('.js-say');
 
       function createRowBot(text) {
-        var $row = $('<li class="patient_answer" style="color: gray;" id="history_row"></li><br>');
+        var $row = $('<li class="patient_answer" style="color: black;" id="history_row"></li><br>');
 
         $row.text(text);
         $chatlog.append($row);
