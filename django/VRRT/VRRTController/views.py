@@ -500,6 +500,9 @@ class ChatterBotApiView(generic.View):
 
         #print(response_data)
 
+        print("*****CHATTERBOTAPIVIEW: POST:*****")
+        print("*****CHATTERBOTAPIVIEW: POST: RESPONSEDATA: " + str(response))
+
         return JsonResponse(response_data, status=200)
 
     def get(self, request, *args, **kwargs):

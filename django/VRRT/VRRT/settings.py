@@ -108,11 +108,22 @@ AUTH_PASSWORD_VALIDATORS = [
 
 CHATTERBOT = {
     'name': 'Bert',
-    'logic_adapters': [
-        'chatterbot.logic.MathematicalEvaluation',
-        'chatterbot.logic.TimeLogicAdapter',
-        'chatterbot.logic.BestMatch'
-    ]
+    'trainer': 'chatterbot.trainers.ChatterBotCorpusTrainer',
+    'storage_adapter' : 'chatterbot.storage.SQLStorageAdapter',
+    'database_uri' : 'sqlite:///database.db',
+    'database': 'chatbot',
+    'preprocessors': [
+    'chatterbot.preprocessors.clean_whitespace',
+    'chatterbot.preprocessors.convert_to_ascii'
+    ],
+    'read_only' : 'TRUE' 
+
+
+
+    # 'trainer': 'chatterbot.trainers.ChatterBotCorpusTrainer',
+    # 'trainer': 'chatterbot.corpus.english.greetings',
+    # 'trainer': 'chatterbot..corpus.english.conversations',
+    
 }
 
 
