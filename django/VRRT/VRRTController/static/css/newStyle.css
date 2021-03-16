@@ -890,15 +890,14 @@ select {
     display: grid;
     grid-template-columns: 
     1fr
-    365px
-    365px
+    1fr
+    1fr
     1fr
     ;
     grid-template-rows: 
     25px
     1fr
-    255px
-    255px
+    1fr
     1fr
     200px
     1fr
@@ -906,9 +905,8 @@ select {
     grid-template-areas: 
     "headspace headspace headspace headspace"
     ". prev_header prev_header ."
-    ". graph graph ."
-    ". graph graph ."
-    ". . . ."
+    ". stats stats ."
+    ". stats stats ."
     "progress_footer progress_footer progress_footer progress_footer"
     ". . . ."
     ;
@@ -918,6 +916,33 @@ select {
     color: white;
     display: inline-block;
     margin-top: 70px;
+}
+.data_stats {
+    grid-area: stats;
+    justify-content: center;
+    color: white;
+    
+}
+.data_stats .data_item {
+    background-color: var(--accent-grey-02);
+    border-radius: 1em;
+    border: 3px solid white;
+    margin-bottom: 20px;
+    margin-top: 0px;
+}
+.data_stats h3 {
+    color: #36454F;
+    padding: 5px 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.data_stats h4 {
+    color: var(--accent-blue-06);
+    text-align: left;
+    margin-top: 0px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
 }
 #data_preview .progress_footer {
     margin-top: 50px;
@@ -1059,6 +1084,14 @@ select {
     .graph {
         grid-area: graph;
         border-radius: 0em;
+    }
+    #data_preview .graph ul {
+        list-style: none;
+        display: inline-block;
+        margin: 0 0 16px 0;
+        padding:0;
+        position: relative;
+        color: var(--accent-blue-01);
     }
     #data_preview .graph {
         border-radius: 3em;
@@ -1284,8 +1317,8 @@ select {
             grid-template-areas: 
             "headspace headspace headspace headspace"
             ". prev_header prev_header ."
-            ". graph graph ."
-            ". graph graph ."
+            ". stats stats ."
+            ". stats stats ."
             ". . . ."
             "progress_footer progress_footer progress_footer progress_footer"
             ". . . ."
@@ -1679,8 +1712,8 @@ select {
         grid-template-areas: 
         "headspace headspace headspace headspace"
         ". prev_header prev_header ."
-        ". graph graph ."
-        ". graph graph ."
+        ". stats stats ."
+        ". stats stats ."
         ". . . ."
         "progress_footer progress_footer progress_footer progress_footer"
         ". . . ."
