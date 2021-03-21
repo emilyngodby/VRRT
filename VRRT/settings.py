@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '0j%i%vbqs8e&f=cg3fnl80w*t0)^+_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['pure-beach-65803.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['stark-island-93332.herokuapp.com', '127.0.0.1']
 
 LOGIN_URL = 'login'
 
