@@ -1,0 +1,39 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div id="data_preview">
+        <div class="headspace">
+
+        </div>
+        <div class="prev_header">
+            <h1>Data Preview:</h1>
+        </div>
+        <div class="data_stats" >
+            <div class="data_item">
+                <h3>Average Change</h3>
+                <h4>{{ averageChange}}</h4>
+            </div>
+            <div class="data_item">
+                <h3>Max Positive Change</h3>
+                <h4>{{ maxPostiveChange }}</h4>
+            </div>
+            <div class="data_item">
+                <h3>Min Change</h3>
+                <h4>{{ minChange }}</h4>
+            </div>
+        </div>
+        <!-- <div class="nav">
+            <ul>
+                <li>Average change {{ averageChange }}</li>
+                <li>Max postive change {{ maxPostiveChange }}</li>
+                <li>Minimum change {{ minChange }}</li>
+            </ul>
+        </div> -->
+        <div class="progress_footer">
+            <ul class="nav">
+                <li><a href="surveyInputPage">Add new data</a></li>
+                <li><a href="adminProgressPage">Back to Progress View</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

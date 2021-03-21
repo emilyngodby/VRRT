@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div id="progress">
+        <div class="my_progress">
+            <h1>My Progress</h1>
+        </div>
+        <div class="data_types">
+            <ul class="nav">
+                <li><a href="#" id="pain_score">Pain Score</a></li>
+                <li><a href="#" id="heart_rate">Heart Rate</a></li>
+                <li><a href="#" id="blood_pressure">Blood Pressure</a></li>
+                <li><a href="#" id="oxygen_saturation">Oxygen Saturation</a></li>
+                <li><a href="#" id="mood">Mood</a></li>
+            </ul>
+        </div>
+        <div class="graph">
+        </div>
+        <div class="logout">
+            <a href="{% url 'logout'%}">Log Out</a>
+        </div>
+        <div class="back">
+            <a href="patientLandingPage">Back</a>
+        </div>
+    </div>
+{% endblock %}

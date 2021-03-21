@@ -1,0 +1,31 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+        <!-- <div class="col-6 col-s-9">
+            <h1>Patient landing page</h1>
+        </div> -->
+        <div id="patient_landing">
+            <div class="p_header">
+                <h1>Welcome, {{ user.get_username }}</h1>
+                <h2>What can I help you with?</h2>
+            </div>
+            <div class="p_buttons">
+                <a href="chatbotPage">Daily Check In</a>
+                <br>
+                <br>
+                <br>
+                <a href="patientProgressPage">Review Progress</a>
+            </div>
+            <div class="p_calendar">
+                <h4>Month</h4>
+            </div>
+            <div class="p_footer">
+                <ul class="nav">
+                    <li><a href="{% url 'logout' %}" id="log_out">Log Out</a></li>
+                    <li><a href="#" id="get_help">Get Help</a></li>
+                    <li><a href="#">Tips</a></li>
+                </ul>
+            </div>
+        </div>
+
+{% endblock %}

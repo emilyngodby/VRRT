@@ -1,0 +1,103 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+    {% else %}
+      <p>Please login to see this page.</p>
+    {% endif %}
+  {% endif %}
+
+<div id="login_wrap">
+  <div class="header">
+      <!-- <img src="images/Official_VA_Seal_embossed_web_9in.png" class = "logo" alt="logo"> -->
+  </div>
+  <div class="title">
+      <h1>Virtual Reality Innovation Project </h1>
+      <h1>Veteran's Association</h1>
+          
+  </div>
+  <div class="login_box">
+      <h2>Please enter username/password</h2>
+      
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <table>
+        <tr>
+            <td>{{ form.username.label_tag }}</td>
+            <td id="us">{{ form.username }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.password.label_tag }}</td>
+            <td id="ps">{{ form.password }}</td>
+        </tr>
+        </table>
+        <ul class="nav">
+          {# Assumes you setup the password_reset view in your URLconf #}
+          <li><a href="{% url 'password_reset' %}">Lost password?</a></li>
+          <li><input type="submit" value="Login" /></li>
+          <li><input type="hidden" name="next" value="{{ next }}" /></li>
+        </ul>
+      </form>
+      
+  </div>
+      
+  <div class="blank_space">
+
+  </div>
+  <div class="footer">
+      <ul class="nav">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Mission</a></li>
+          <li><a href="#">Meet the Team</a></li>
+          <li><a href="#">Documentation</a></li>
+      </ul>
+  </div>
+</div>
+
+  <!-- {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+    {% else %}
+      <p>Please login to see this page.</p>
+    {% endif %}
+  {% endif %}
+      
+  <div class="col-2">
+    {% load static %}
+    <img src="{{ MEDIA_URL }}FullVALogo.png"/>
+  </div>
+  <div class="col-6 col-s-9">
+    <h2>Staff Login</h2>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <table>
+        <tr>
+            <td>{{ form.username.label_tag }}</td>
+            <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.password.label_tag }}</td>
+            <td>{{ form.password }}</td>
+        </tr>
+        </table>
+        <input type="submit" value="login" />
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+
+    {# Assumes you setup the password_reset view in your URLconf #}
+    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+ </div> -->
+{% endblock %}

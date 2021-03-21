@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div id= "container1">
+  <h1>Survey Instance List</h1>
+  {% if object_list %}
+  <ul>
+    {% for SurveyInstance in object_list  %}
+      <li>
+        <a href="{{ SurveyInstance.get_absolute_url }}">{{ SurveyInstance.id }}</a> Pain Score at start: {{SurveyInstance.PainScoreStart}} Pain Score at end: {{SurveyInstance.PainScoreEnd}}
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no surveys in the library.</p>
+  {% endif %} 
+</div>    
+{% endblock %}
+
+<!-- {{ SurveyInstance.get_absolute_url }} -->

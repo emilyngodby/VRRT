@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>{% block title%}<title>Virtual Reality Research Tool</title>{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/newStyle.css' %}"/>
+
+    </head>
+    <body>
+    <div id="bert">
+        <div class="chatbot_online">
+            <ul class="is_bert_online">
+                <li>  Bert from VRRT</li>
+            </ul>
+        </div>
+        <div class="open_menu">
+            <a href="patientLandingPage">Leave conversation</a>
+        </div>  
+        <div class="chat_history" style="display: flex; flex-direction: column-reverse; overflow: auto;">
+            <ul class="history" >
+                <li class="bert_answer" id="history_row">Hi, my name is Bert. How are you feeling today?</li> <br>
+            </ul>
+        </div>
+        <div class="predefined_responses">
+            <!-- <ul class="nav">
+                <li><a href="#">Choice 1</a></li>
+                <li><a href="#">Choice 2</a></li>
+                <li><a href="#">Choice 3</a></li>
+            </ul> -->
+        </div>
+        <div class="text_area">
+            <input type="text" name="Response" class = "patient_response" id="p_response" placeholder="Type response here..."> <br>
+            <button class="btn btn-primary js-say" >Send</button>
+        </div>
+    </div>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/js.cookie.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script>
+      var chatterbotUrl = '{% url "ChatterBotApiView" %}';
+      var csrftoken = Cookies.get('csrftoken');
+
+      function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+
+      $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+        }
+      });
+
+      var $chathistory = $('chat_history');
+      var $chatlog = $('.history');
+      var $input = $('.patient_response');
+      var $sayButton = $('.js-say');
+
+      function createRowBot(text) {
+        var $row = $('<li class="patient_answer" style="color: black;" id="history_row"></li><br>');
+
+        $row.text(text);
+        $chatlog.append($row);
+      }
+
+      function createRowUser(text) {
+        var $row = $('<li class="patient_answer" style="color: white;" id="history_row"></li><br>');
+
+        $row.text(text);
+        $chatlog.append($row);
+      }
+
+      function submitInput() {
+        var inputData = {
+          'text': $input.val()
+        }
+
+        // Display the user's input on the web page
+        createRowUser(inputData.text);
+        $input.val('');
+
+        var $submit = $.ajax({
+          type: 'POST',
+          url: chatterbotUrl,
+          data: JSON.stringify(inputData),
+          contentType: 'application/json'
+        });
+
+        $submit.done(function(statement) {
+          createRowBot(statement.text);
+
+            // Clear the input field
+            $input.val(''); 
+
+            // Scroll to the bottom of the chat interface
+            $chathistory.scrollTop($chathistory[0].scrollHeight);
+        });
+
+        $submit.fail(function() {
+          // TODO: Handle errors
+        });
+      }
+
+      $sayButton.click(function() {
+        submitInput();
+      });
+
+      $input.keydown(function(event) {
+        // Submit the input when the enter button is pressed
+        if (event.keyCode == 13) {
+          submitInput(); 
+        }
+      });
+    </script>
+    </body>
+</html>
