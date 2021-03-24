@@ -68,6 +68,10 @@ urlpatterns += [
     path('adminO2SaturationProgressView', views.adminO2SaturationProgressView.as_view(), name='adminO2SaturationProgressView')
 ]
 
+urlpatterns += [
+    path('export', views.export, name='export')
+]
+
 
 
 

@@ -412,6 +412,30 @@ class surveyVerifyPage(LoginRequiredMixin, generic.View):
         return render(request, "survey_verify.html")
 
 
+import csv 
+
+from django.shortcuts import render
+from django.http import HttpResponse
+from .models import SurveyInstance
+
+def export(request):
+    response = HttpResponse(content_type='text/csv')
+
+    writer = csv.writer(response)
+    writer.writerow(['Survey ID','Patient ID','Pain Score Start','Pain Score End'
+                ,'Heart Rate Start','Heart Rate End', 'Starting Systolic', 'Starting Diastolic'
+                ,'End Systolic', 'End Diastolic','O2 Saturation Start','O2 Saturation End'
+                ,'Resperation Start','Resperation End'])
+
+    for row in SurveyInstance.objects.all().values_list('id','PatientID','PainScoreStart','PainScoreEnd','HeartRateStart','HeartRateEnd','BPStartValue1','BPStartValue2',
+                                                        'BPEndValue1','BPEndValue2','O2SaturationStart','O2SaturationEnd','RespirationRateStart','RespirationRateEnd'):
+        writer.writerow(row)
+
+    response['Content-Disposition'] = 'attachment; filename="SurveyResponses.csv'
+
+    return response
+
+
 """
     These two functions are from before and need to be updated
 """
