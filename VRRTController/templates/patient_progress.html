@@ -5,22 +5,87 @@
         <div class="my_progress">
             <h1>My Progress</h1>
         </div>
-        <div class="data_types">
-            <ul class="nav">
-                <li><a href="#" id="pain_score">Pain Score</a></li>
-                <li><a href="#" id="heart_rate">Heart Rate</a></li>
-                <li><a href="#" id="blood_pressure">Blood Pressure</a></li>
-                <li><a href="#" id="oxygen_saturation">Oxygen Saturation</a></li>
-                <li><a href="#" id="mood">Mood</a></li>
+        <div class="data_types" style="text-align: center;">
+            <ul style="list-style: none; display: block;">
+                <li style="justify-content: center;">
+                    <form class="myForm">
+                        <label>Discover your progress:</label>
+                        <select name = "dropdown" id="select_dataType">
+                            <option value = "Pain Score" class="dropdown" selected>Pain Score</option>
+                            <option value = "Heart Rate" class="dropdown" selected>Heart Rate</option>
+                            <option value = "Blood Pressure" class="dropdown">Blood Pressure</option>
+                            <option value = "Respiration Rate" class="dropdown">Respiration Rate</option>
+                            <option value = "Oxygen Saturation" class="dropdown">Oxygen Saturation</option>
+                            <option value = "Mood" class="dropdown">Mood</option>
+                            <option value = "All Data" class="dropdown">All Data</option>
+                        </select>
+                        <br>
+                        <button type="submit" style="border-radius: 50em; background-color: #767F84; color: white; padding: 10px 10px; border: 3px solid #767F84; margin-top: 10px; ">See Progress</button>
+                    </form>
+                </li>
             </ul>
         </div>
         <div class="graph">
-        </div>
-        <div class="logout">
-            <a href="{% url 'logout'%}">Log Out</a>
+            <ul class="preview_analysis">
+
+            </ul>
         </div>
         <div class="back">
-            <a href="patientLandingPage">Back</a>
+            <input type="button" value="Back" onclick="location.href=`patientLandingPage`"/>
         </div>
+        <div class="logout">
+            <input type="button" value="Logout" onclick="location.href=`{% url 'logout'%}`"/>
+        </div>
+        <script>
+            const dataTypes = document.querySelector('.data_types');
+            const selectDataType = document.querySelector('#select_dataType');
+            const dataVal = selectDataType.value;
+
+            const previewAnalysis = document.querySelector('.preview_analysis');
+            
+            myForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                switch (dataVal) {
+                        case "Pain Score":
+                            const li = document.createElement("li");
+                            li.appendChild(document.createTextNode(`The analysis of ${dataVal} is still in progress. Check back soon!`));
+                            previewAnalysis.appendChild(li);
+                            break;
+                        case "Heart Rate":
+                            const li = document.createElement("li");
+                            li.appendChild(document.createTextNode(`The analysis of ${dataVal} is still in progress. Check back soon!`));
+                            previewAnalysis.appendChild(li);
+                            break;
+                        case "Blood Pressure":
+                            const li = document.createElement("li");
+                            li.appendChild(document.createTextNode(`The analysis of ${dataVal} is still in progress. Check back soon!`));
+                            previewAnalysis.appendChild(li);
+                            break;
+                        case "Oxygen Saturation":
+                            const li = document.createElement("li");
+                            li.appendChild(document.createTextNode(`The analysis of ${dataVal} is still in progress. Check back soon!`));
+                            previewAnalysis.appendChild(li);
+                            break;
+                        case "Respiration Rate":
+                            const li = document.createElement("li");
+                            li.appendChild(document.createTextNode(`The analysis of ${dataVal} is still in progress. Check back soon!`));
+                            previewAnalysis.appendChild(li);
+                            break;
+                        case "Mood":
+                            const li = document.createElement("li");
+                            li.appendChild(document.createTextNode(`The analysis of ${dataVal} is still in progress. Check back soon!`));
+                            previewAnalysis.appendChild(li);
+                            break;
+                        case "All Data":
+                            const li = document.createElement("li");
+                            li.appendChild(document.createTextNode(`The analysis of ${dataVal} is still in progress. Check back soon!`));
+                            previewAnalysis.appendChild(li);
+                            break;
+                        default:
+                            
+                            break;
+                    }
+            })
+        </script>
     </div>
 {% endblock %}

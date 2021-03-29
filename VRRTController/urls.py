@@ -37,6 +37,9 @@ urlpatterns += [
     path('surveyInputPage', views.surveyInputPage.as_view(), name='surveyInputPage')
 ]
 urlpatterns += [
+    path('adminProgressResultsPage', views.adminProgressResultsPage.as_view(), name='adminProgressResultsPage')
+]
+urlpatterns += [
     path('adminProgressPage', views.adminProgressPage.as_view(), name='adminProgressPage')
 ]
 urlpatterns += [

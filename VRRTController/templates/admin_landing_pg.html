@@ -10,12 +10,15 @@
         </div>
         <div class="a_buttons">
             <ul class="nav">
-                <li><a href="SurveyInstance/create">Input data</a></li>
-                <li><a href="adminProgressPage">Review Progress</a></li>
+                <li><input type="button" value="Input Data" onclick="location.href=`SurveyInstance/create`" /></li>
+                <li><input type="button" value="Review Progress" onclick="location.href=`adminProgressPage`" /></li>
+                <!-- <li><a href="SurveyInstance/create">Input data</a></li>
+                <li><a href="adminProgressPage">Review Progress</a></li> -->
             </ul>
         </div>
         <div class="a_footer">
-            <a class="logout" href="{% url 'logout'%}">LogOut</a>
+            <input type="button" value="Logout" onclick="location.href=`{% url 'logout'%}`" />
+            <!-- <a class="logout" href="{% url 'logout'%}">LogOut</a> -->
         </div>
     </div>
 {% endblock %}

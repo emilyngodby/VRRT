@@ -9,23 +9,51 @@
                 <h1>Welcome, {{ user.get_username }}</h1>
                 <h2>What can I help you with?</h2>
             </div>
-            <div class="p_buttons">
-                <a href="chatbotPage">Daily Check In</a>
+            <ul class="p_buttons">
+                <li><input type="button" value="Daily Check In" onclick="location.href='chatbotPage'"/></li>
+                <li><input type="button" value="Review Progress" onclick="location.href='patientProgressPage'"/></li>
+                <!-- <a href="chatbotPage">Daily Check In</a> -->
+                <!-- <br>
                 <br>
                 <br>
-                <br>
-                <a href="patientProgressPage">Review Progress</a>
-            </div>
+                <a href="patientProgressPage">Review Progress</a> -->
+            </ul>
             <div class="p_calendar">
-                <h4>Month</h4>
+                <h4>Announcements</h4>
+                <ul class="announcements">
+                        <li>You have successfully completed {{ num_Surveys_Submitted }} virtual reality sessions!</li>
+                </ul>
             </div>
             <div class="p_footer">
                 <ul class="nav">
                     <li><a href="{% url 'logout' %}" id="log_out">Log Out</a></li>
-                    <li><a href="#" id="get_help">Get Help</a></li>
-                    <li><a href="#">Tips</a></li>
+                    <!-- <li><input type="button" value="Log out" onclick="location.href='logout'"/></li> -->
+                    <!-- <li><a href="#" id="get_help">Get Help</a></li>
+                    <li><a href="#">Tips</a></li> -->
                 </ul>
             </div>
+            <script>
+                const announcements = document.querySelector('.announcements');
+                const patientSurveyCount = {num_Surveys};
+
+                // in the future, we will change this to a forEach loop that checks for surveys that match the patient's ID.
+                // Since we only have one patient right now, it will just check for the number of surveys
+                if(patientSurveyCount > 1) {
+                    const statement = document.createElement("li");
+                    statement.appendChild(document.createTextNode(`Congratulations, You have successfully completed ${patientSurveyCount} virtual reality sessions!` ));
+                    announcements.appendChild(statement);
+                }
+                else if(patientSurveyCount == 1) {
+                    const statement = document.createElement("li");
+                    statement.appendChild(document.createTextNode(`Congratulations, You have successfully first virtual reality session!`));
+                    announcements.appendChild(statement);
+                }
+                else {
+                    const statement = document.createElement("li");
+                    statement.appendChild(document.createTextNode(`It looks like there are no virtual reality sessions recorded under your username. Get started by clicking Daily Check in to tell us how your are doing!` ));
+                    announcements.appendChild(statement);
+                }
+            </script>
         </div>
 
 {% endblock %}

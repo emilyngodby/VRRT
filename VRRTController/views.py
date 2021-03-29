@@ -220,7 +220,7 @@ def index(request):
         'num_Surveys_Submitted':num_Surveys_Submitted,
     }
 
-    return render(request,'index.html',context=context)
+    return render(request,"patient_landing_page.html",context=context)
 
 
 @login_required
@@ -264,7 +264,16 @@ class staffLandingPage(LoginRequiredMixin, generic.View):
 
         return pageUserAuth(request,'Staff',"admin_landing_pg.html")
 
+class adminProgressResultsPage(LoginRequiredMixin, generic.View):
+    login_url = 'login'
+    redirect_field_name = 'login'
 
+    def get(self, request):
+
+        userGRoup = request.user.groups.filter(user=request.user)[0]
+
+        return pageUserAuth(request,'Staff',"admin_progress_results.html")
+        
 class adminProgressPage(LoginRequiredMixin, generic.View):
 
     login_url = 'login'
@@ -430,7 +439,14 @@ class SurveyCreate(CreateView):
         'DelusionsEnd','TherapyDuration', 'PatientID']
     success_url = reverse_lazy('staffLandingPage')
 
+def showthis(request):
+    
+    count= SurveyInstance.objects.all().count()
+    
+    context= {'count': count}
 
+    def get(self, request):
+        return render(request, 'patient_landing_page.html', context)
 
 """ 
 
