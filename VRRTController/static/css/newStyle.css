@@ -87,8 +87,8 @@ td #us {
     ;
     grid-template-rows: 
     1fr
-    100px
-    100px
+    120px
+    120px
     1fr
     ;
     grid-template-areas: 
@@ -110,11 +110,36 @@ td #us {
     border:3px solid var(white);
     border-radius:50em;
     color: white;
-    padding: 18px 10px;
+    padding: 28px 10px;
     margin: 10px 4px;
     font-weight: none;
     font-size: 20px;
     background-color: var(--accent-blue-06);
+}
+
+@media screen and (max-width: 500px) {
+    #loggedOut {
+        background-color: var(--accent-grey-02);
+        height: 100vh;
+        display: grid;
+        grid-template-columns: 
+        1fr
+        2fr
+        1fr
+        ;
+        grid-template-rows: 
+        1fr
+        120px
+        120px
+        1fr
+        ;
+        grid-template-areas: 
+        ". . ."
+        "heading heading heading"
+        ". logInAgain ."
+        ". . ."
+        ;
+    }
 }
 
 
