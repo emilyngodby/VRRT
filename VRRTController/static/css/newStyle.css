@@ -634,11 +634,11 @@ td #us {
     font-weight: none;
     background-color: var(--accent-green);
     padding: 8px 10px;
-    font-size: 3.5vw;
+    font-size: 1vw;
     margin-left: 16px;
 }
 
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 1200px) {
     #bert {
         grid-template-columns:
             1fr
