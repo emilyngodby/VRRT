@@ -1,6 +1,13 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+    <head>
+        <link href="http://cdn.pydata.org/bokeh/release/bokeh-2.3.0.min.css" rel="stylesheet" type="text/css">
+        <link href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-2.3.0.min.css" rel="stylesheet" type="text/css">
+        <script src="http://cdn.pydata.org/bokeh/release/bokeh-2.3.0.min.js"></script>
+        <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-2.3.0.min.js"></script>
+        {{ script | safe }}
+    </head>
     <div id="progress">
         <div class="my_progress">
             <h1>My Progress</h1>
@@ -27,8 +34,10 @@
         </div>
         <div class="graph">
             <ul class="preview_analysis">
+                {{ div | safe}}
 
             </ul>
+
         </div>
         <div class="back">
             <input type="button" value="Back" onclick="location.href=`patientLandingPage`"/>
@@ -36,6 +45,7 @@
         <div class="logout">
             <input type="button" value="Logout" onclick="location.href=`{% url 'logout'%}`"/>
         </div>
+        
         <script>
             const dataTypes = document.querySelector('.data_types');
             const selectDataType = document.querySelector('#select_dataType');

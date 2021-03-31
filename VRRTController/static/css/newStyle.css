@@ -770,7 +770,7 @@ td #us {
 }
 .graph {
     grid-area: graph;
-    background-color: var(--accent-grey-02);
+    background-color: white;
     border: 3px solid var(--accent-blue-01);
     border-radius: 5em;
     display: inline-block;

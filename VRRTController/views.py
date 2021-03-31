@@ -10,6 +10,8 @@ from django.urls import reverse_lazy
 from django.http import JsonResponse
 from chatterbot import ChatBot
 from chatterbot.ext.django_chatterbot import settings
+from bokeh.plotting import figure, output_file, show
+from bokeh.embed import components
 import json
 
 
@@ -483,7 +485,7 @@ class patientLandingPage(LoginRequiredMixin, generic.View):
         return pageUserAuth(request,'Patient',"patient_landing_page.html",context)
        
         return render(request, "patient_landing_page.html")
-
+   
 
 class patientProgressPage(LoginRequiredMixin, generic.View):
 
@@ -491,10 +493,23 @@ class patientProgressPage(LoginRequiredMixin, generic.View):
     redirect_field_name = 'login'
 
     def get(self, request):
+        # graph x, y coordinates
+        x = [ 1, 2, 3, 4, 5 ]
+        y = [ 1, 2, 3, 4, 5 ]
 
-        return pageUserAuth(request,'Patient',"patient_progress.html")
+        #setup graph plot
+        plot = figure(title= 'Line Graph', x_axis_label= 'X-Axis', y_axis_label= 'Y-Axis', plot_width = 400, plot_height = 400)
 
-        return render(request, "patient_progress.html")
+        #plot line
+        plot.line( x, y, line_width=2 )
+        plot.background_fill_color = None
+        plot.border_fill_color = None
+        #store components
+        script, div = components(plot)
+        return pageUserAuth(request,'Patient',"patient_progress.html", {'script' : script , 'div': div} )
+
+    
+
 
 class chatbotPage(LoginRequiredMixin, generic.View):
 
