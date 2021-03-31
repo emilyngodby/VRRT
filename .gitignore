@@ -115,5 +115,11 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 .history
 
-#OSx and Windows 
+# OSx and Windows 
 .DS_Store
+
+# Exclude everythin
+sent_emails/*
+
+# Exception to previous rule
+!sent_emails/.gitkeep
