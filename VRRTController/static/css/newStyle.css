@@ -713,10 +713,10 @@ td #us {
     ;
     grid-gap: 0px;
     grid-template-rows:
-        116px
-        184px
         1fr
-        173px
+        1fr
+        1fr
+        1fr
     ;
     grid-template-areas: 
         ". my_progress my_progress ."
@@ -798,6 +798,10 @@ td #us {
 }
 .logout input[type=button]:hover, .back input[type=button]:hover, .data_types .nav input[type=button]:hover, .data_types .nav .active {
     background-color: var(--accent-grey-02);
+}
+.preview_analysis {
+    align-self: center;
+    margin: 0 auto;
 }
 @media screen and (max-width: 890px) {
     #progress {
