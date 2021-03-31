@@ -71,6 +71,9 @@ urlpatterns += [
     path('adminO2SaturationProgressView', views.adminO2SaturationProgressView.as_view(), name='adminO2SaturationProgressView')
 ]
 
+urlpatterns += [
+    path('patientProgressPagePainScore', views.patientProgressPagePainScore.as_view(), name='patientProgressPagePainScore')
+]
 
 
 

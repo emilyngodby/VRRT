@@ -774,6 +774,7 @@ td #us {
     border: 3px solid var(--accent-blue-01);
     border-radius: 5em;
     display: inline-block;
+    justify-content: center;
 }
 .logout {
     grid-area: logout;

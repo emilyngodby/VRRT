@@ -12,6 +12,7 @@ from chatterbot import ChatBot
 from chatterbot.ext.django_chatterbot import settings
 from bokeh.plotting import figure, output_file, show
 from bokeh.embed import components
+from bokeh.models import ColumnDataSource
 import json
 
 
@@ -558,7 +559,50 @@ class patientProgressPage(LoginRequiredMixin, generic.View):
         script, div = components(plot)
         return pageUserAuth(request,'Patient',"patient_progress.html", {'script' : script , 'div': div} )
 
-    
+class patientProgressPagePainScore(LoginRequiredMixin, generic.View):
+
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        fieldValue = "painScore"
+
+        userName = ""
+        #Checks if the current uesr has been authed
+        if request.user.is_authenticated:
+            #Getting the current users username
+            userName = request.user.username
+
+        results = databaseUserQuery(fieldValue, userName)
+
+        results = databaseQuerryParser(results,fieldValue)
+
+        print("\t\tRESULTS: " + str(results))
+
+        startValues = results[0]
+        endValues = results[1]
+
+        xVals = []
+
+        for i in range(1,len(startValues)+1):
+            xVals.append(i)
+
+        #xVals = range(len(startValues))
+
+        source = ColumnDataSource(data=dict(
+            x = xVals,
+            y1 = startValues,
+            y2 = endValues
+        ))
+
+        p = figure(plot_width=400, plot_height=400)
+
+        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+
+        script, div = components(p)
+
+        return pageUserAuth(request,'Patient',"patient_progress.html", {'script' : script , 'div': div} )
 
 
 class chatbotPage(LoginRequiredMixin, generic.View):
