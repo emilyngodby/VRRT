@@ -461,8 +461,27 @@ class patientLandingPage(LoginRequiredMixin, generic.View):
 
     def get(self, request):
 
-        return pageUserAuth(request,'Patient',"patient_landing_page.html")
+        userName = ""
+        #Checks if the current uesr has been authed
+        if request.user.is_authenticated:
+            #Getting the current users username
+            userName = request.user.username
 
+        #Getting all of the survey instances where the patient ID matches 
+        # the current users username
+        SurveyInstances = SurveyInstance.objects.filter(PatientID = userName)
+
+        #Getting the count of them
+        numSurveys = len(SurveyInstances)
+
+        print("\t\tUSER: " + str(userName) + " has submited " + str(numSurveys) + " surveys" )
+
+        #Creating the variable that will be passed to the webpage
+        context = {'num_Surveys' : numSurveys}
+
+        #Passing the context dictionary to the return function
+        return pageUserAuth(request,'Patient',"patient_landing_page.html",context)
+       
         return render(request, "patient_landing_page.html")
 
 
