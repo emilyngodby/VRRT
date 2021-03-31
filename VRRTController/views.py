@@ -34,7 +34,7 @@ def pageUserAuth(request,neededGroup,pageTemplate,context=None):
 
     userGroup = request.user.groups.filter(user=request.user)[0]
     userGroup = str(userGroup)
-    print("PageUserAuth: context: " + str(context))
+    #print("PageUserAuth: context: " + str(context))
     print("PageUserAuth: userGroup: " + str(userGroup))
     print("PageUserAuth: pageTemplate: " + str(pageTemplate))
 
@@ -112,6 +112,8 @@ def databaseQuery(field):
     results.append(endValues)
     return results
 
+
+
 """
 This function takes in the array produced by databaseQuery and parses the data
 returning it cleaned
@@ -140,6 +142,45 @@ def databaseQuerryParser(values,field):
     results.append(startValues)
     results.append(endValues)
 
+    return results
+
+#Takes in the field (heart rate, pain score, etc) and userName is the current users name
+def databaseUserQuery(field, userName):
+    print("DATABASEQUERY CALLED")
+    print("RETREAVING: " + str(field) + " FOR USER: " + str(userName))
+    if field == 'painScore':
+        startValues = SurveyInstance.objects.values_list('PainScoreStart').filter(PatientID = userName)
+        #startValues = SurveyInstance.objects.filter(PatientID = userName,'PainScoreStart')
+        endValues = SurveyInstance.objects.values_list('PainScoreEnd').filter(PatientID = userName)
+    elif field == 'heartRate':
+        startValues = SurveyInstance.objects.values_list('HeartRateStart').filter(PatientID = userName)
+        endValues = SurveyInstance.objects.values_list('HeartRateEnd').filter(PatientID = userName)
+    
+    elif field == 'bloodPressure':
+        startValues = SurveyInstance.objects.values_list('PainScoreStart').filter(PatientID = userName)
+        endValues = SurveyInstance.objects.values_list('PainScoreEnd').filter(PatientID = userName)
+    
+    elif field == 'respirationRate':
+        startValues = SurveyInstance.objects.values_list('RespirationRateStart').filter(PatientID = userName)
+        endValues = SurveyInstance.objects.values_list('RespirationRateEnd').filter(PatientID = userName)
+
+    elif field == 'O2Saturation':
+        startValues = SurveyInstance.objects.values_list('PainScoreStart').filter(PatientID = userName)
+        endValues = SurveyInstance.objects.values_list('PainScoreEnd').filter(PatientID = userName)
+
+    startValues = list(startValues)
+    endValues = list(endValues)
+
+    print(field + " start: " + str(startValues))
+    #print(field + " start: type: " + str(type(startValues)))
+    #print(field + " end: type: " + str(type(endValues)))
+    print(field + " end: " + str(endValues))
+
+    print("DATABASEQUERY: start list size: " + str(len(startValues)) + " end list size: " + str(len(endValues)))  
+
+    results = []
+    results.append(startValues)
+    results.append(endValues)
     return results
 
 """
@@ -493,6 +534,15 @@ class patientProgressPage(LoginRequiredMixin, generic.View):
     redirect_field_name = 'login'
 
     def get(self, request):
+
+        userName = ""
+        #Checks if the current uesr has been authed
+        if request.user.is_authenticated:
+            #Getting the current users username
+            userName = request.user.username
+
+        databaseUserQuery("painScore", userName)
+
         # graph x, y coordinates
         x = [ 1, 2, 3, 4, 5 ]
         y = [ 1, 2, 3, 4, 5 ]
