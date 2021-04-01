@@ -75,6 +75,13 @@ urlpatterns += [
     path('patientProgressPagePainScore', views.patientProgressPagePainScore.as_view(), name='patientProgressPagePainScore')
 ]
 
+urlpatterns += [
+    path('patientProgressPageHeartRate', views.patientProgressPageHeartRate.as_view(), name='patientProgressPageHeartRate')
+]
+
+urlpatterns += [
+    path('export', views.export, name='export')
+]
 
 
 

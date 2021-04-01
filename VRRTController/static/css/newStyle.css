@@ -848,6 +848,10 @@ td #us {
     .graph h2 {
         font-size: 4vw;
     }
+    .graph {
+        border: none;
+        border-radius: 0em;
+    }
 }
 
 /***********************/

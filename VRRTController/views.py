@@ -465,6 +465,29 @@ class surveyVerifyPage(LoginRequiredMixin, generic.View):
         return render(request, "survey_verify.html")
 
 
+import csv 
+
+from django.shortcuts import render
+from django.http import HttpResponse
+from .models import SurveyInstance
+
+def export(request):
+    response = HttpResponse(content_type='text/csv')
+
+    writer = csv.writer(response)
+    writer.writerow(['Survey ID','Patient ID','Pain Score Start','Pain Score End'
+                ,'Heart Rate Start','Heart Rate End', 'Starting Systolic', 'Starting Diastolic'
+                ,'End Systolic', 'End Diastolic','O2 Saturation Start','O2 Saturation End'
+                ,'Resperation Start','Resperation End'])
+
+    for row in SurveyInstance.objects.all().values_list('id','PatientID','PainScoreStart','PainScoreEnd','HeartRateStart','HeartRateEnd','BPStartValue1','BPStartValue2',
+                                                        'BPEndValue1','BPEndValue2','O2SaturationStart','O2SaturationEnd','RespirationRateStart','RespirationRateEnd'):
+        writer.writerow(row)
+
+    response['Content-Disposition'] = 'attachment; filename="SurveyResponses.csv'
+
+    return response
+
 """
     These two functions are from before and need to be updated
 """
@@ -596,14 +619,65 @@ class patientProgressPagePainScore(LoginRequiredMixin, generic.View):
             y2 = endValues
         ))
 
-        p = figure(plot_width=400, plot_height=400)
+        p = figure( sizing_mode = "stretch_width", plot_height = 350)
 
         p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+
+        p.background_fill_color = None
+        p.border_fill_color = None
 
         script, div = components(p)
 
         return pageUserAuth(request,'Patient',"patient_progress.html", {'script' : script , 'div': div} )
 
+
+class patientProgressPageHeartRate(LoginRequiredMixin, generic.View):
+
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        fieldValue = "heartRate"
+
+        userName = ""
+        #Checks if the current uesr has been authed
+        if request.user.is_authenticated:
+            #Getting the current users username
+            userName = request.user.username
+
+        results = databaseUserQuery(fieldValue, userName)
+
+        results = databaseQuerryParser(results,fieldValue)
+
+        print("\t\tRESULTS: " + str(results))
+
+        startValues = results[0]
+        endValues = results[1]
+
+        xVals = []
+
+        for i in range(1,len(startValues)+1):
+            xVals.append(i)
+
+        #xVals = range(len(startValues))
+
+        source = ColumnDataSource(data=dict(
+            x = xVals,
+            y1 = startValues,
+            y2 = endValues
+        ))
+
+        p = figure( sizing_mode = "stretch_width", plot_height = 350)
+
+        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+
+        p.background_fill_color = None
+        p.border_fill_color = None
+
+        script, div = components(p)
+
+        return pageUserAuth(request,'Patient',"patient_progress.html", {'script' : script , 'div': div} )
 
 class chatbotPage(LoginRequiredMixin, generic.View):
 

@@ -18,8 +18,8 @@
                     <form class="myForm">
                         <label>Discover your progress:</label>
                         <select name = "dropdown" id="select_dataType" onchange="updateDataType(this)">
-                            <option value = "Pain Score" class="dropdown" href = "{%url 'patientProgressPagePainScore' %}" selected>Pain Score</option>
-                            <option value = "Heart Rate" class="dropdown" selected>Heart Rate</option>
+                            <option value = "Pain Score" class="dropdown" >Pain Score</option>
+                            <option value = "Heart Rate" class="dropdown" >Heart Rate</option>
                             <option value = "Blood Pressure" class="dropdown">Blood Pressure</option>
                             <option value = "Respiration Rate" class="dropdown">Respiration Rate</option>
                             <option value = "Oxygen Saturation" class="dropdown">Oxygen Saturation</option>
@@ -32,9 +32,8 @@
         </div>
         <div class="graph">
             <h2 style="margin-top: 10px; margin-left: 40px; text-align: center; color: #396378;" id="title_datatype">Change in Heart Rate</h2>
+            {{ div | safe}}
             <div class="preview_analysis">
-                {{ div | safe}}
-
             </div>
 
         </div>
@@ -59,10 +58,11 @@
                 console.log(type.value);
                 switch (type.value) {
                         case "Pain Score":
-                            
+                            localStorage.setItem("key", type.value);
+                            window.location.href="{%url 'patientProgressPagePainScore' %}";
                             break;
                         case "Heart Rate":
-                            
+                            window.location.href="{%url 'patientProgressPageHeartRate' %}";
                             break;
                         case "Blood Pressure":
                             
