@@ -589,6 +589,7 @@ td #us {
     padding:0;
     position: relative;
     font-size: 20px;
+    padding-left: 15px;
 }
 .chat_history ul li:last-child {
     scroll-snap-align: end;
