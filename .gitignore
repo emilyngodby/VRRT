@@ -123,3 +123,7 @@ sent_emails/*
 
 # Exception to previous rule
 !sent_emails/.gitkeep
+
+# the database stuff
+db.sqlite3-shm
+db.sqlite3-wal

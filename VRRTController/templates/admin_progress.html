@@ -12,20 +12,20 @@
                         {% csrf_token %}
                         <h4>Select site:</h4>
                             <select name = "dropdown" id="select_site">
-                                <option value = "Site 1" class="dropdown" selected>Site 1 - Reno, NV</option>
+                                <option value = "Site 1" class="dropdown" >Site 1 - Reno, NV</option>
                                 <option value = "Site 2" class="dropdown">Site 2 - Las Vegas, NV</option>
                                 <option value = "Site 3" class="dropdown">Site 3 - Carson City, NV</option>
                                 <option value = "All Sites" class="dropdown">All Sites</option>
                         </select>
                         <h4>Select patient group:</h4>
                             <select name = "dropdown" id="select_patient">
-                                <option value = "Patient 1" class="dropdown" selected>Patient 1 - TEST_PATIENT</option>
+                                <option value = "Patient 1" class="dropdown" >Patient 1 - TEST_PATIENT</option>
                                 <option value = "All Patients" class="dropdown">All Patients</option>
                             </select>
                         <h4>Select data type:</h4>
-                            <select name = "dropdown" id="select_dataType">
-                                <option value = "Pain Score" class="dropdown" selected>Pain Score</option>
-                                <option value = "Heart Rate" class="dropdown" selected>Heart Rate</option>
+                            <select name = "dropdown" id="select_dataType" >
+                                <option value = "Pain Score" class="dropdown" >Pain Score</option>
+                                <option value = "Heart Rate" class="dropdown" >Heart Rate</option>
                                 <option value = "Blood Pressure" class="dropdown">Blood Pressure</option>
                                 <option value = "Respiration Rate" class="dropdown">Respiration Rate</option>
                                 <option value = "Oxygen Saturation" class="dropdown">Oxygen Saturation</option>
@@ -53,13 +53,16 @@
             const myForm = document.querySelector(".myForm");
             const selectSite = document.querySelector("#select_site");
             const selectPatient = document.querySelector("#select_patient");
-            const selectDataType = document.querySelector("#select_dataType");
+            
 
             const siteVal = selectSite.value;
             const patientVal = selectPatient.value;
-            const dataVal = selectDataType.value;
+            
 
             myForm.addEventListener('submit', function(event) {
+                const selectDataType = document.getElementById("select_dataType");
+                const dataVal = selectDataType.value;
+
                 event.preventDefault();
                 // find site num + patient type + data type combination
 
@@ -68,6 +71,7 @@
                     (siteVal == "Site 1" || siteVal == "Site 2" || siteVal == "Site3") &&
                     (patientVal == "Patient 1" || patientVal == "All Patients") 
                 ){
+                    console.log(dataVal)
                     switch (dataVal) {
                         case "Pain Score":
                             window.location.href="adminPainScoreProgressView";
