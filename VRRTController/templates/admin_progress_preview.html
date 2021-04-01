@@ -31,8 +31,8 @@
         </div> -->
         <div class="progress_footer">
             <ul class="nav">
-                <li><a href="surveyInputPage">Add new data</a></li>
-                <li><a href="adminProgressPage">Back to Progress View</a></li>
+                <input type="button" value="Add new data" onclick="location.href = `{% url 'Survey_Instance_Create' %}`"/>
+                <input type="button" value="Back to Progress View" onclick="location.href=`adminProgressPage`"/>
             </ul>
         </div>
     </div>

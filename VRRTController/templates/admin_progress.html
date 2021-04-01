@@ -45,9 +45,9 @@
         </div>
         <div class="progress_footer">
             <ul class="nav">
-                <li><a href="{% url 'Survey_Instance_Create' %}">Add new data</a></li>
-                <li><a href="{% url 'export' %}">Export data</a></li>
-                <li><a href="staffLandingPage">Back to main</a></li>
+                <input type="button" value = "Add new data" onclick="location.href=`{% url 'Survey_Instance_Create' %}`"/>
+                <input type="button" value = "Export data" onclick="location.href=`{% url 'export' %}`"/>
+                <input type="button" value = "Back to main" onclick="location.href=`staffLandingPage`"/>
             </ul>
         </div>
         <script>

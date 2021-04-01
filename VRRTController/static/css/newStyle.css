@@ -1223,7 +1223,13 @@ select {
     margin-top: 30px;
     grid-area: progress_footer;
 }
-.progress_footer .nav a {
+.progress_footer .nav input[type=button] {
+    text-decoration: none;
+    border:3px solid var(white);
+    border-radius:50em;
+    color: white;
+    padding: 10px 10px;
+    margin: 4px 4px;
     background-color: black;
 }
 
@@ -1333,6 +1339,34 @@ select {
 }
 #data_preview .progress_footer {
     margin-top: 50px;
+}
+@media screen and (max-width: 600px ) {
+    #data_preview {
+        background-color: var(--accent-grey-01);
+        display: grid;
+        grid-template-columns: 
+        1fr
+        1fr
+        1fr
+        1fr
+        ;
+        grid-template-rows: 
+        25px
+        1fr
+        1fr
+        1fr
+        200px
+        1fr
+        ;
+        grid-template-areas: 
+        "headspace headspace headspace headspace"
+        "prev_header prev_header prev_header prev_header"
+        "stats stats stats stats"
+        "stats stats stats stats"
+        "progress_footer progress_footer progress_footer progress_footer"
+        ". . . ."
+        ;
+    }
 }
 
 
