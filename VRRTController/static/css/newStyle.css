@@ -765,7 +765,7 @@ td #us {
 }
 .data_types label, .data_types select {
     font-size: 2vw;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
     margin-top: 40px;
 }
 .graph {
@@ -774,7 +774,9 @@ td #us {
     border: 3px solid var(--accent-blue-01);
     border-radius: 5em;
     display: inline-block;
-    justify-content: center;
+}
+.graph h2 {
+    font-size: 2vw;
 }
 .logout {
     grid-area: logout;
@@ -803,6 +805,7 @@ td #us {
 .preview_analysis {
     align-self: center;
     margin: 0 auto;
+    display: inline-block;
 }
 @media screen and (max-width: 890px) {
     #progress {
@@ -841,6 +844,9 @@ td #us {
     }
     .data_types label, .data_types select {
         font-size: 3.5vw;
+    }
+    .graph h2 {
+        font-size: 4vw;
     }
 }
 

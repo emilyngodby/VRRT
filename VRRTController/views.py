@@ -549,7 +549,7 @@ class patientProgressPage(LoginRequiredMixin, generic.View):
         y = [ 1, 2, 3, 4, 5 ]
 
         #setup graph plot
-        plot = figure(title= 'Line Graph', x_axis_label= 'X-Axis', y_axis_label= 'Y-Axis', plot_width = 400, plot_height = 400)
+        plot = figure(title= 'Line Graph', x_axis_label= 'X-Axis', y_axis_label= 'Y-Axis', sizing_mode = "stretch_width", plot_height = 350)
 
         #plot line
         plot.line( x, y, line_width=2 )

@@ -17,8 +17,8 @@
                 <li style="justify-content: center;">
                     <form class="myForm">
                         <label>Discover your progress:</label>
-                        <select name = "dropdown" id="select_dataType">
-                            <option value = "Pain Score" class="dropdown" href="{% url 'patientProgressPagePainScore'%}" selected>Pain Score</option>
+                        <select name = "dropdown" id="select_dataType" onchange="updateDataType(this)">
+                            <option value = "Pain Score" class="dropdown" selected>Pain Score</option>
                             <option value = "Heart Rate" class="dropdown" selected>Heart Rate</option>
                             <option value = "Blood Pressure" class="dropdown">Blood Pressure</option>
                             <option value = "Respiration Rate" class="dropdown">Respiration Rate</option>
@@ -26,17 +26,16 @@
                             <option value = "Mood" class="dropdown">Mood</option>
                             <option value = "All Data" class="dropdown">All Data</option>
                         </select>
-                        <br>
-                        <button type="submit" style="border-radius: 50em; background-color: #767F84; color: white; padding: 10px 10px; border: 3px solid #767F84; margin-top: 10px; margin-bottom: 10px;">See Progress</button>
                     </form>
                 </li>
             </ul>
         </div>
         <div class="graph">
-            <ul class="preview_analysis">
+            <h2 style="margin-top: 10px; margin-left: 40px; text-align: center; color: #396378;" id="title_datatype">Change in Heart Rate</h2>
+            <div class="preview_analysis">
                 {{ div | safe}}
 
-            </ul>
+            </div>
 
         </div>
         <div class="back">
@@ -47,55 +46,48 @@
         </div>
         
         <script>
+            const myForm = document.querySelector(".myForm");
             const dataTypes = document.querySelector('.data_types');
             const selectDataType = document.querySelector('#select_dataType');
             const dataVal = selectDataType.value;
+            const titleDataType = document.querySelector('#title_datatype');
 
             const previewAnalysis = document.querySelector('.preview_analysis');
             
-            myForm.addEventListener('click', function(event) {
-                event.preventDefault();
-                switch (dataVal) {
+            function updateDataType(type) {
+                titleDataType.innerHTML = `Change in ${type.value}`;
+                console.log(type.value);
+                switch (type.value) {
                         case "Pain Score":
-                            const li = document.createElement("li");
-                            li.appendChild(document.createTextNode(`The analysis of ${dataVal} is still in progress. Check back soon!`));
-                            previewAnalysis.appendChild(li);
+                        
                             break;
                         case "Heart Rate":
-                            const li = document.createElement("li");
-                            li.appendChild(document.createTextNode(`The analysis of ${dataVal} is still in progress. Check back soon!`));
-                            previewAnalysis.appendChild(li);
+                            
                             break;
                         case "Blood Pressure":
-                            const li = document.createElement("li");
-                            li.appendChild(document.createTextNode(`The analysis of ${dataVal} is still in progress. Check back soon!`));
-                            previewAnalysis.appendChild(li);
+                            
                             break;
                         case "Oxygen Saturation":
-                            const li = document.createElement("li");
-                            li.appendChild(document.createTextNode(`The analysis of ${dataVal} is still in progress. Check back soon!`));
-                            previewAnalysis.appendChild(li);
+                            
                             break;
                         case "Respiration Rate":
-                            const li = document.createElement("li");
-                            li.appendChild(document.createTextNode(`The analysis of ${dataVal} is still in progress. Check back soon!`));
-                            previewAnalysis.appendChild(li);
+                            
                             break;
                         case "Mood":
-                            const li = document.createElement("li");
-                            li.appendChild(document.createTextNode(`The analysis of ${dataVal} is still in progress. Check back soon!`));
-                            previewAnalysis.appendChild(li);
+                            
                             break;
                         case "All Data":
-                            const li = document.createElement("li");
-                            li.appendChild(document.createTextNode(`The analysis of ${dataVal} is still in progress. Check back soon!`));
-                            previewAnalysis.appendChild(li);
+                            
                             break;
                         default:
                             
                             break;
                     }
-            })
+            }
+
+            // myForm.addEventListener('submit', function(event) {
+            //     event.preventDefault();
+            // })
         </script>
     </div>
 {% endblock %}
