@@ -201,7 +201,10 @@ def averageChageCalculation(values):
     for value in differinces:
         sum += value
     
-    averageChange = sum/len(differinces)
+    if len(differinces) != 0:
+        averageChange = sum/len(differinces)
+    else:
+        averageChange = 0
 
     if averageChange == 0:
         return "The average change is 0"
