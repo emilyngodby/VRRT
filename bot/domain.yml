@@ -1,0 +1,107 @@
+version: '2.0'
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- mood_good
+- affirm
+- inform
+- greet
+- goodbye
+- deny
+- mood_great
+- mood_unhappy
+- bot_challenge
+- out_of_scope
+entities:
+- pain
+- pain_location
+- sleep
+slots:
+  pain:
+    type: any
+    influence_conversation: false
+  pain_location:
+    type: any
+    influence_conversation: false
+  missed_events:
+    type: any
+    influence_conversation: false
+  mobility_loss:
+    type: any
+    influence_conversation: false
+  sleep:
+    type: any
+    influence_conversation: false
+  feedback:
+    type: any
+    influence_conversation: false
+responses:
+  utter_greet:
+  - text: Hi, my name is Bert. How are you feeling today?
+  - text: Hello, I'm Bert. How are you today?
+  utter_cheer_up:
+  - text: I'm sorry to hear that.
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_goodbye:
+  - text: Goodbye
+  utter_iamabot:
+  - text: I am a bot, created by Team 10 of the Computer Science Senior Projects Class.
+  utter_ask_pain:
+  - text: On a scale of 1-10, how would you rate your pain today?
+  utter_ask_pain_location:
+  - text: Where is the pain located primarily?
+  utter_ask_missed_events:
+  - text: Have you missed any events such as work, school, or doctor appointments because of your pain today?
+  utter_ask_sleep:
+  - text: How much did you sleep did you get last night?
+  utter_ask_mobility_loss:
+  - text: Have you experienced any loss of mobility?
+  utter_ask_continue:
+  - text: Sorry, I do not quite understand. Do you want to continue?
+  utter_ask_feedback:
+  - text: What comments or feedback do you have in regards to the VR therapy?
+  utter_submit:
+  - text: Thank you for speaking with me today! Goodbye!
+actions:
+- utter_ask_continue
+- utter_goodbye
+- utter_greet
+- utter_submit
+forms:
+  chat_form:
+    pain:
+    - type: from_entity
+      entity: pain
+    pain_location:
+    - type: from_entity
+      entity: pain_location
+    missed_events:
+    - type: from_intent
+      intent: affirm
+      value: true
+    - type: from_intent
+      intent: deny
+      value: false
+    - type: from_intent
+      intent: deny
+      value: None
+    mobility_loss:
+    - type: from_intent
+      intent: affirm
+      value: true
+    - type: from_intent
+      intent: deny
+      value: false
+    sleep:
+    - type: from_entity
+      entity: sleep
+    - type: from_intent
+      intent: deny
+      value: None
+    feedback:
+    - type: from_text
+      intent: inform

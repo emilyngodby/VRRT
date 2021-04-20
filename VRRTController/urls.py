@@ -51,9 +51,7 @@ urlpatterns += [
 urlpatterns += [
     path('chatbotPage', views.chatbotPage.as_view(), name='chatbotPage')
 ]
-urlpatterns += [
-    path('chatbotPage/ChatterBotApiView', views.ChatterBotApiView.as_view(), name='ChatterBotApiView')
-]
+
 
 urlpatterns += [
     path('adminPainScoreProgressView', views.adminPainScoreProgressView.as_view(), name='adminPainScoreProgressView')

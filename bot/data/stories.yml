@@ -1,0 +1,81 @@
+version: "2.0"
+
+stories:
+- story: survey happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: chat_form
+  - active_loop: chat_form
+
+- story: survey stop
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: chat_form
+  - active_loop: chat_form
+  - intent: out_of_scope
+  - action: utter_ask_continue
+  - intent: deny
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_goodbye
+
+- story: survey continue
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: chat_form
+  - active_loop: chat_form
+  - intent: out_of_scope
+  - action: utter_ask_continue
+  - intent: affirm
+  - action: chat_form
+
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_good
+  - action: chat_form
+  - active_loop: chat_form
+  - slot_was_set:
+    - requested_slot: pain
+  - slot_was_set:
+    - pain: '5'
+  - slot_was_set:
+    - pain: '5'
+  - slot_was_set:
+    - requested_slot: pain_location
+  - slot_was_set:
+    - pain_location: legs
+  - slot_was_set:
+    - pain_location: legs
+  - slot_was_set:
+    - requested_slot: missed_events
+  - slot_was_set:
+    - missed_events: false
+  - slot_was_set:
+    - requested_slot: mobility_loss
+  - slot_was_set:
+    - mobility_loss: true
+  - slot_was_set:
+    - requested_slot: sleep
+  - slot_was_set:
+    - sleep: 6 hours
+  - slot_was_set:
+    - sleep: 6 hours
+  - slot_was_set:
+    - requested_slot: feedback
+  - intent: deny
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_goodbye
+  - intent: goodbye
