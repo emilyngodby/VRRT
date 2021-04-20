@@ -58,10 +58,8 @@ table {
 }
 td {
     border: none;
-    font-size: 22px;
 }
 td #us {
-    font-size: 22px;
     padding: 4px 4px;
 }
 
@@ -101,20 +99,20 @@ td #us {
 #loggedOut h1{
     grid-area: heading;
     text-align: center;
-    color: var(--accent-blue-01);
+    color:#1a6692;
 }
 #loggedOut a {
     grid-area: logInAgain;
     text-align: center;
     display: inline-block;
-    border:3px solid var(white);
+    border: none;
     border-radius:50em;
     color: white;
     padding: 28px 10px;
     margin: 10px 4px;
     font-weight: none;
     font-size: 20px;
-    background-color: var(--accent-grey-01);
+    background-color:#1a6692;
 }
 
 @media screen and (max-width: 500px) {
@@ -152,15 +150,16 @@ td #us {
     width: 100vw;
     display:grid;
     grid-template-columns:
-        1fr 
-        357px
-        357px
-        1fr
+        5vw 
+        45vw
+        45vw
+        5vw
     ;
     grid-gap: 0px;
     grid-template-rows:
-        160px
+        100px
         170px
+        40px
         253px
         1fr
         100px
@@ -168,6 +167,7 @@ td #us {
     grid-template-areas: 
         ". . header ."
         ". title title ."
+        ". . . ."
         ". login_box login_box ."
         "blank_space blank_space blank_space blank_space"
         "footer footer footer footer"
@@ -190,16 +190,16 @@ td #us {
     font-weight: normal;
 }
 .title h1 {
-    font-weight: normal;
+    font-weight: bold;
     font-size: 40px;
     line-height: 1em;
 }
 .login_box {
     grid-area: login_box;
-    background-color: var(--accent-grey-02);
-    border:3px solid white;
-    border-radius: 3em;
-    color: black;
+    background-color: var(--accent-grey-01);
+    border:none;
+    border-radius: 0em;
+    color: white;
     margin: 0px 0px;
     padding: 10px 10px;
     align-items: center;
@@ -220,7 +220,7 @@ td #us {
 }
 .login_box .nav a, .login_box input[type=submit], .login_box input[type=button] {
     text-decoration: none;
-    border:3px solid white;
+    border: none;
     border-radius:50em;
     color: white;
     background-color: black;
@@ -232,8 +232,7 @@ td #us {
     cursor: pointer;
 }
 .login_box input[type=submit], .login_box input[type=button] {
-    padding-top: 6px;
-    padding-bottom: 6px;
+    padding: 15px 25px;
 }
 #login_fail a {
     text-decoration: none;
@@ -264,62 +263,87 @@ td #us {
 }
 .footer input[type="button"] {
     text-decoration: none;
-    border:3px solid black;
+    border: none;
     border-radius:50em;
     color: black;
-    padding: 10px 10px;
-    margin: 0 4px;
+    padding: 15px 20px;
+    margin: 0 10px;
     font-weight: none;
     font-size: 20px;
     background-color: var(--accent-grey-02);
 }
 .footer .nav input[type="button"]:hover, .footer .nav .active {
-    background-color: var(--accent-blue-04);
+    background-color: white;
 }
-@media screen and (max-width:720px) {
+.login_box input[type=submit]:hover, .login_box input[type=button]:hover {
+    background-color: white;
+    color: black;
+}
+@media screen and (max-width:800px) {
     #login_wrap {
         grid-template-columns:
-            100vw
+            5vw
+            90vw
+            5vw
         ;
         grid-gap: 0px;
         grid-template-rows:
-            1fr
-            170px
-            253px
-            1fr
-            100px
+            10vh
+            20vh
+            40vh
+            7vh
+            2vh
         ;
         grid-template-areas: 
-            "."
-            "title"
-            "login_box"
-            "blank_space"
-            "footer"
+            ". . ."
+            "title title title"
+            ". login_box ."
+            ". . ."
+            ". footer ."
     
         ;
     }
     .login_box {
         border-radius: 0em;
-    }
-    .login_box form td{
-        font-size: 15px;
+        border: none;
+        background-color: var(--accent-grey-01);
+        padding: 10px 10px;
+        color: white;
     }
     .login_box input[type=submit], .login_box input[type=button] {
-        font-size: 15px;
+        font-size: 2.5vw;
     }
     #login_wrap .title h1 {
-        font-size: 30px;
+        font-size: 5vw;
     }
     #login_wrap h2 {
-        font-size: 20px;
+        font-size: 4.5vw;
+        margin-left: 5px;
+        margin-right: 5px;
     }
     .footer input[type="button"]{
-        font-size: 15px;
+        font-size: 3vw;
+    }
+    td {
+        font-size: 4vw;
     }
 }
 @media screen and (max-width:490px) {
     #login_wrap .title h1 {
-        font-size: 22px;
+        font-size: 5vw;
+    }
+    #login_wrap h2 {
+        font-size: 4.8vw;
+    }
+    td {
+        font-size: 3.8vw;
+        margin: 15px 15px;
+    }
+    .login_box input[type=submit], .login_box input[type=button] {
+        font-size: 4vw;
+    }
+    .footer input[type="button"]{
+        font-size: 4vw;
     }
 }
 
@@ -356,6 +380,7 @@ td #us {
     color: #102b3d;
     justify-content: center;
     text-align: center;
+    margin-top: 30px;
 }
 .p_header h1 {
     margin-top: 134px;
@@ -378,7 +403,7 @@ td #us {
 }
 .p_buttons input[type=button] {
     text-decoration: none;
-    border:3px solid white;
+    border: none;
     border-radius:50em;
     color: white;
     background-color: #102b3d;
@@ -397,7 +422,7 @@ td #us {
     margin-bottom: 20px;
     margin-top: 20px;
     background-color: white;
-    border:3px solid #102b3d;
+    border: none;
     border-radius: 3em;
     color: #102b3d;
     padding: 15px 15px;
@@ -430,7 +455,7 @@ td #us {
 }
 .p_footer .nav a, .logout a, .back a {
     text-decoration: none;
-    border:3px solid #102b3d;
+    border: none;
     border-radius:130em;
     color: #102b3d;
     padding: 15px 15px;
@@ -448,8 +473,9 @@ td #us {
 .p_footer #get_help .nav a {
     padding: 10px 10px;
 }
-.p_footer .nav a:hover, .p_footer .nav .active {
-    background-color: var(--accent-grey-01);
+.p_footer .nav a:hover, .p_footer .nav .active, .p_buttons input[type=button]:hover {
+    background-color:#1a6692;
+    color: white;
 }
 @media screen and (max-width: 1200px) {
     #patient_landing {
@@ -558,12 +584,12 @@ td #us {
 }
 .open_menu input[type=button] {
     text-decoration: none;
-    border:3px solid white;
+    border: none;
     border-radius:130em;
     color: white;
     font-weight: none;
     background-color: var(--accent-red);
-    padding: 10px 15px;
+    padding: 15px 20px;
     font-size: 20px;
     margin-bottom: 0px;
     margin-top: 40px;
@@ -652,12 +678,12 @@ td #us {
     margin-left: 16px;
 }
 #bert button {
-    border:3px solid white;
+    border: none;
     border-radius:130em;
-    color: var(--accent-grey-01);
+    color: white;
     font-weight: none;
-    background-color: var(--accent-green);
-    padding: 8px 10px;
+    background-color:#00ce1b;
+    padding: 15px 20px;
     font-size: 1vw;
     margin-left: 16px;
 }
@@ -701,7 +727,7 @@ td #us {
 /* Patient Progress*/
 /*******************/
 #progress {
-    background-color: var(--accent-grey-02);
+    background-color: #dcf4ff;
     height:100vh;
     display:grid;
     grid-template-columns:
@@ -769,8 +795,8 @@ td #us {
 }
 .graph {
     grid-area: graph;
-    background-color: white;
-    border: 3px solid var(--accent-blue-01);
+    background-color:#dcf4ff;
+    border: none;
     border-radius: 5em;
     display: inline-block;
 }
@@ -784,11 +810,11 @@ td #us {
     margin-left: 5px;
 }
 .logout input[type=button], .back input[type=button] {
-    border:3px solid black;
+    border: none;
     border-radius:130em;
-    color: black;
-    background-color: white;
-    padding: 15px 10px;
+    color: white;
+    background-color:#102b3d;
+    padding: 15px 20px;
     font-size: 1.5vw;
     margin-top: 10px;
 }
@@ -799,7 +825,7 @@ td #us {
     margin-right: 5px;
 }
 .logout input[type=button]:hover, .back input[type=button]:hover, .data_types .nav input[type=button]:hover, .data_types .nav .active {
-    background-color: var(--accent-grey-01);
+    background-color: #1a6692;
 }
 .preview_analysis {
     align-self: center;
@@ -808,7 +834,7 @@ td #us {
 }
 @media screen and (max-width: 890px) {
     #progress {
-        background-color: var(--accent-blue-02);
+        background-color: #dcf4ff;
         height:100vh;
         display:grid;
         grid-template-columns:
@@ -912,7 +938,7 @@ td #us {
     font-size: 2vw;
     background-color: black;
     padding: 20px 20px;
-    border: 3px solid white;
+    border: none;
     color: white;
     border-radius: 50em;
 }
@@ -927,12 +953,17 @@ td #us {
 }
 .a_footer input[type=button] {
     margin-top: 0px;
-    background-color: white;
-    color: black;
-    border: 3px solid black;
+    background-color: black;
+    color: white;
+    border: none;
     font-size: 2vw;
     border-radius: 50em;
-    padding: 10px 10px;
+    padding: 15px 20px;
+}
+
+.a_buttons .nav input[type=button]:hover, .a_footer input[type=button]:hover {
+    color: black;
+    background-color: white;
 }
 
 @media screen and (max-width: 1100px) {
@@ -980,18 +1011,18 @@ td #us {
 /*********/
 
 #survey {
-    background-color: var(--accent-blue-06);
+    background-color: var(--accent-blue-05);
     display: grid;
 
     grid-template-columns:
-        1fr 
-        2fr
-        2fr
-        1fr 
+        5vw 
+        45vw
+        45vw
+        5vw
     ;
     grid-template-rows: 
         0px
-        100px
+        8vw
         1fr
         1fr
         1fr
@@ -1012,7 +1043,7 @@ td #us {
     grid-area: s_header;
 }
 .survey_header h1 {
-    font-size: 21px;
+    font-size: 2vw;
     color: white;
     margin-left: 5px;
 }
@@ -1020,54 +1051,60 @@ td #us {
     font-style: italic;
     margin-left: 5px;
     color: white;
-    font-size: 16px;
+    font-size: 1.5vw;
 }
 .pre_session h4, .post_session h4 {
-    font-size: 16px;
+    font-size: 1.2vw;
     color: white;
     margin-left: 20px;
     margin-bottom: 10px;
 }
 .pre_session {
     grid-area: pre_s;
-    background-color: var(--accent-blue-05);
-    border-radius: 3em;
-    border: 3px solid white;
+    border-radius: 0em;
+    border: none;
     color: white;
 }
 .post_session {
     grid-area: post_s;
-    background-color: var(--accent-blue-05);
     border-radius: 3em;
     border: 3px solid white;
     color: white;
 }
 .pre_session form, .post_session form {
     margin-left: 20px;
+    font-size: 1vw;
 }
-.pre_session input, .post_session input {
+.pre_session form .fieldWrapper {
+    font-size: 1vw;
+    line-height: 1.5em;
+    margin-bottom: 5px;
+}
+.pre_session input[type=checkbox], .pre_session input[type=number], .pre_session input[type=text], .post_session input {
     border-radius: 50em;
     border: 3px solid var(--accent-blue-04);
     background-color: var(--accent-blue-04);
     color: black;
-    font-size: 12px;
+    font-size: 1vw;
     margin-bottom: 10px;
 }
 .checkbox {
     margin-bottom: 5px;
     margin-right: 20px;
 }
-#surveyBtn {
+.SubmitButton {
     margin-top: 50px;
-    background-color: var(--accent-blue-04);
-    color: black;
+    background-color: black;
+    color: white;
     border: none;
-    font-size: 20px;
-    padding: 10px 20px;
+    font-size: 1vw;
+    padding: 15px 20px;
     text-align: center;
+    border-radius: 50em;
 }
-#surveyBtn :hover {
-    background-color: var(--accent-blue-03);
+.SubmitButton:hover {
+    background-color: white;
+    color: black;
 }
 .survey_cancel {
     grid-area: s_cancel;
@@ -1083,7 +1120,7 @@ td #us {
     margin-top: 20px;
 }
 
-@media screen and (max-width: 1030px) {
+@media screen and (max-width: 1260px) {
     #survey {
         grid-template-columns:
             1fr 
@@ -1091,7 +1128,7 @@ td #us {
         ;
         grid-template-rows: 
             0px
-            120px
+            12vw
             1fr
             1fr
             1fr
@@ -1113,6 +1150,98 @@ td #us {
         border-radius: 0em;
 
     }
+    .pre_session form .fieldWrapper, .pre_session input, .post_session input, .SubmitButton {
+        font-size: 1.5vw;
+    }
+    .survey_header h1 {
+        font-size: 3vw;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+    .survey_header h4 {
+        font-size: 2vw;
+        margin-left: 20px;
+    }
+    #form_title {
+        font-size: 1.8vw;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    #survey {
+        grid-template-columns:
+            1fr 
+            1fr
+        ;
+        grid-template-rows: 
+            0px
+            15vw
+            1fr
+            1fr
+            1fr
+            1fr
+            100px
+        ;
+    }
+    .pre_session {
+        border: none;
+        border-radius: 0em;
+
+    }
+    .pre_session form .fieldWrapper, .pre_session input, .post_session input, .SubmitButton {
+        font-size: 2.2vw;
+    }
+    .survey_header h1 {
+        font-size: 3vw;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+    .survey_header h4 {
+        font-size: 2.5vw;
+        margin-left: 20px;
+    }
+    #form_title {
+        font-size: 2.2vw;
+        line-height: 2em;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    #survey {
+        grid-template-columns:
+            1fr 
+            1fr
+        ;
+        grid-template-rows: 
+            0px
+            37vw
+            1fr
+            1fr
+            1fr
+            1fr
+            100px
+        ;
+    }
+    .pre_session {
+        border: none;
+        border-radius: 0em;
+
+    }
+    .pre_session form .fieldWrapper, .pre_session input, .post_session input, .SubmitButton {
+        font-size: 3vw;
+    }
+    .survey_header h1 {
+        font-size: 4vw;
+        line-height: 1.8em;
+    }
+    .survey_header h4 {
+        font-size: 3.5vw;
+        line-height: 1.2em;
+    }
+    #form_title {
+        font-size: 3.2vw;
+        line-height: 2.2em;
+    }
 }
 
 
@@ -1122,6 +1251,7 @@ td #us {
 #admin_progress {
     display: grid;
     background-color: var(--accent-grey-01);
+    color: white;
     text-align: center;
     padding: 0;
     grid-template-columns: 
@@ -1130,7 +1260,7 @@ td #us {
         1fr
     ;
     grid-template-rows: 
-        120px
+        170px
         1fr
         0px
         0px
@@ -1149,21 +1279,24 @@ td #us {
 .progress_header {
     grid-area: progress_header;
     text-align: center;
-    color: black;
-    text-transform: uppercase;
+    color: white;
+    font-size: 2vw;
 }
 .choose_site {
     grid-area: choose_site;
-    font-size: 25px;
-    background-color: var(--accent-grey-02);
+    font-size: 1.8vw;
     border-radius: 3em;
-    border: 3px solid white;
+    border: none;
+    background-color: #102b3d;
+    text-align: center;
+    margin: 0 auto;
+    width: 600px;
 }
 select {
     background-color: #5a7f92;
-    border: 3px solid white;
+    border: none;
     color: white;
-    font-size: 25px;
+    font-size: 1.8vw;
 }
 .graph_links {
     grid-area: graph_links;
@@ -1187,18 +1320,23 @@ select {
     padding-top: 50px;
     color: white;
 }
-.choose_site input[type=button] {
+.choose_site input[type=button], .see-results {
     justify-content: center;
     border-radius: 50em;
-    border: 3px solid var(--accent-blue-05);
+    border: none;
     background-color: white;
-    color: var(--accent-blue-05);
-    padding: 10px 10px;
-    margin: 4px 4px;
+    color: black;
+    padding: 20px 20px;
+    margin-top: 30px;
     font-weight: none;
-    font-size: 20px;
-    margin-bottom: 20px;
+    font-size: 1.5vw;
+    margin-bottom: 10px;
 }
+.see-results:hover {
+    background-color: var(--accent-grey-01);
+    color:white;
+}
+
 #admin_progress a{
     color: white;
 }
@@ -1220,39 +1358,81 @@ select {
 .progress_footer {
     margin-top: 30px;
     grid-area: progress_footer;
+    background-color: var(--accent-grey-01);
 }
 .progress_footer .nav input[type=button] {
     text-decoration: none;
-    border:3px solid var(white);
+    border: none;
     border-radius:50em;
     color: white;
     padding: 10px 10px;
     margin: 4px 4px;
     background-color: black;
+    padding: 20px 20px;
+    font-size: 1.5vw;
+}
+.progress_footer .nav input[type=button]:hover {
+    color: black;
+    background-color: white;
 }
 
-@media screen and (max-width: 1056px) {
+@media screen and (max-width: 1123px) {
     #admin_progress {
         grid-template-columns: 
             1fr
         ;
         grid-template-rows: 
             120px
+            30px
             1fr
+            140px
             1fr
         ;
         grid-template-areas: 
             "progress_header"
+            "."
             "choose_site"
             "progress_footer"
+            "."
         ;
+    }
+    .progress_header {
+        font-size: 3.5vw;
     }
     .choose_site {
         text-align: center;
         align-content: center;
+        font-size: 3vw;
+    }
+    .see-results, .progress_footer .nav input[type=button] {
+        padding: 15px, 15px;
+        font-size: 2.5vw;
+    }
+    select {
+        font-size: 2.5vw;
     }
 }
 @media screen and (max-width: 720px) {
+    #admin_progress {
+        grid-template-columns: 
+            1fr
+        ;
+        grid-template-rows: 
+            100px
+            20px
+            1fr
+            140px
+            1fr
+        ;
+        grid-template-areas: 
+            "progress_header"
+            "."
+            "choose_site"
+            "progress_footer"
+            "."
+        ;
+    }
+    
     .graph_links {
         margin: 0px;
         display: inline-block;
@@ -1269,6 +1449,21 @@ select {
     .choose_site {
         border-radius: 0em;
         border: none;
+        background-color: var(--accent-grey-01);
+        width:350px;
+        font-size: 6vw;
+    }
+    .progress_header {
+        font-size: 5.5vw;
+        margin-top: 20px;
+    }
+    .see-results, .progress_footer .nav input[type=button] {
+        padding: 15px 15px;
+        font-size: 3.5vw;
+    }
+    select {
+        font-size: 4vw;
+        background-color: #102b3d;
     }
 }
 
@@ -1306,38 +1501,89 @@ select {
     grid-area: prev_header;
     color: white;
     display: inline-block;
-    margin-top: 70px;
+    margin-top: 20px;
+    font-size: 1.8vw;
 }
 .data_stats {
     grid-area: stats;
     justify-content: center;
     color: white;
+    background-color:#bfebff;
+    border-radius: 2em;
     
 }
 .data_stats .data_item {
-    background-color: var(--accent-grey-02);
-    border-radius: 1em;
-    border: 3px solid white;
     margin-bottom: 20px;
     margin-top: 0px;
 }
 .data_stats h3 {
-    color: #36454F;
+    color:#1a6692;
     padding: 5px 5px;
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin: 20px 20px;
+    font-size: 1.8vw;
 }
 .data_stats h4 {
-    color: #516877;
+    color:black;
     text-align: left;
-    margin-top: 0px;
-    margin-left: 10px;
-    margin-bottom: 20px;
-    padding-bottom: 5px;
+    margin: 30px 30px;
+    font-size: 1.3vw;
 }
 #data_preview .progress_footer {
     margin-top: 50px;
 }
+
+@media screen and (max-width: 1240px ) {
+    #data_preview {
+        background-color: var(--accent-grey-01);
+        display: grid;
+        grid-template-columns: 
+        30px
+        1fr
+        1fr
+        30px
+        ;
+        grid-template-rows: 
+        25px
+        12vw
+        20px
+        1fr
+        1fr
+        200px
+        1fr
+        ;
+        grid-template-areas: 
+        "headspace headspace headspace headspace"
+        "prev_header prev_header prev_header prev_header"
+        ". . . ."
+        ". stats stats ."
+        ". stats stats ."
+        "progress_footer progress_footer progress_footer progress_footer"
+        ". . . ."
+        ;
+    }
+    .prev_header {
+        margin-bottom: 20px;
+        margin-left: 70px;
+        margin-top: 10px;
+        font-size: 3vw;
+    }
+    .data_stats {
+        background-color: var(--accent-grey-01);
+        margin-top: 0;
+    }
+    .data_stats h3 {
+        margin-top: 10px;
+        margin-left: 40px;
+        color: white;
+        font-size: 3vw;
+    }
+    .data_stats h4 {
+        color:#dcf4ff;
+        font-size: 2vw;
+        margin-left: 70px;
+    }
+}
+
 @media screen and (max-width: 600px ) {
     #data_preview {
         background-color: var(--accent-grey-01);
@@ -1365,8 +1611,21 @@ select {
         ". . . ."
         ;
     }
+    .prev_header {
+        font-size: 5.5vw;
+        margin-left: 10px;
+    }
+    .data_stats {
+        background-color: var(--accent-grey-01);
+    }
+    .data_stats h3 {
+        color: white;
+        font-size: 5vw;
+        margin-left: 30px;
+    }
+    .data_stats h4 {
+        color:#dcf4ff;
+        font-size: 4vw;
+        margin-left: 45px;
+    }
 }
-
-
-
-
