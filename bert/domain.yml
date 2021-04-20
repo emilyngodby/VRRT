@@ -1,0 +1,98 @@
+version: "2.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - bot_challenge
+  - mood_good
+  - mood_unhappy
+  - inform
+  - thankyou
+  - out_of_scope
+
+entities:
+  - pain
+  - pain_location
+  - missed_events
+  - sleep
+  - stress
+  - feedback
+
+responses:
+  utter_greet:
+  - text: "I am Bert. How are you today?"
+  utter_cheer_up:
+  - text: "I am sorry to hear that."
+
+  utter_ask_pain:
+  - text: "On a scale of 1-10 how would you rate your pain today"
+  utter_ask_pain_location:
+  - text: "Where is the pain located?"
+  utter_ask_missed_events:
+  - text: "Have you missed any events such as work, school, or doctor appointments because of your pain today?"
+  utter_ask_sleep:
+  - text: "How much sleep did you get last night?"
+  utter_ask_stress:
+  - text: "Is your stress level low, medium, or high?"
+  utter_ask_feedback:
+  - text: "What are some thoughts or feedback you have with the VR therapy?"
+  utter_goodbye:
+  - text: "Goodbye"
+  utter_submit:
+  - text: "Thank you for speaking with me today."
+  utter_ask_continue:
+  - text: "Sorry, I don't quite understand. Do you want to continue?"
+
+
+  utter_iamabot:
+  - text: "I am a bot, created by a group of computer science students at the University of Nevada, Reno"
+
+slots:
+  pain:
+    type: any
+  pain_location:
+    type: any
+  missed_events:
+    type: any
+  sleep:
+    type: any
+  stress:
+    type: any
+  feedback:
+    type: any 
+
+forms:
+  chat_form:
+    pain:
+      - type: from_entity
+        entity: pain
+    pain_location:
+      - type: from_entity
+        entity: pain_location
+    missed_events:
+      - type: from_intent
+        intent: deny
+        value: False
+      - type: from_intent
+        intent: affirm
+        value: True
+    sleep:
+      - type: from_entity
+        entity: sleep
+      - type: from_intent
+        intent: deny
+        value: None
+    stress:
+      - type: from_entity
+        entity: stress
+    feedback:
+      - type: from_text
+        intent:
+          - inform
+          - affirm
+          - deny 
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
