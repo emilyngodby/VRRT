@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'VRRTController',
+    'chatterbot.ext.django_chatterbot',
 ]
 
 MIDDLEWARE = [
@@ -105,7 +106,25 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CHATTERBOT = {
+    'name': 'Bert',
+    'trainer': 'chatterbot.trainers.ChatterBotCorpusTrainer',
+    'storage_adapter' : 'chatterbot.storage.SQLStorageAdapter',
+    'database_uri' : 'sqlite:///database.db',
+    'database': 'chatbot',
+    'preprocessors': [
+    'chatterbot.preprocessors.clean_whitespace',
+    'chatterbot.preprocessors.convert_to_ascii'
+    ],
+    'read_only' : 'TRUE' 
 
+
+
+    # 'trainer': 'chatterbot.trainers.ChatterBotCorpusTrainer',
+    # 'trainer': 'chatterbot.corpus.english.greetings',
+    # 'trainer': 'chatterbot..corpus.english.conversations',
+    
+}
 
 
 # Internationalization
