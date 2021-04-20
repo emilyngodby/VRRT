@@ -1,14 +1,14 @@
 :root {
     /* Colors */
-    --accent-grey-01: #969595;
-    --accent-grey-02: #CDCCCC;
-    --accent-blue-01: #396378;
+    --accent-grey-01: #5F93AE;
+    --accent-grey-02: #c0e9f8;
+    --accent-blue-01: #5F93AE;
     --accent-blue-02: #C5DEEB;
-    --accent-blue-03: #DAE9F0;
+    --accent-blue-03: #bfebff;
     --accent-blue-04: #859BA7;
-    --accent-blue-05: #5C6D76;
-    --accent-blue-06: #678391;
-    --accent-green: #9CFFAA;
+    --accent-blue-05: #456E84;
+    --accent-blue-06: #5F93AE;
+    --accent-green: #80ff91;
     --accent-red: #FF5757;
 }
 * {
@@ -114,7 +114,7 @@ td #us {
     margin: 10px 4px;
     font-weight: none;
     font-size: 20px;
-    background-color: var(--accent-blue-06);
+    background-color: var(--accent-grey-01);
 }
 
 @media screen and (max-width: 500px) {
@@ -329,7 +329,7 @@ td #us {
 /************************/
 
 #patient_landing {
-    background-color: var(--accent-blue-02);
+    background-color: var(--accent-grey-02);
     height:100vh;
     display:grid;
     text-align: center;
@@ -353,8 +353,7 @@ td #us {
 }
 .p_header {
     grid-area: p_header;
-    background-color: #C5DEEB;
-    color: black;
+    color: #102b3d;
     justify-content: center;
     text-align: center;
 }
@@ -371,7 +370,6 @@ td #us {
 .p_buttons {
     margin: 0 auto;
     grid-area: p_buttons;
-    background-color: var(--accent-blue-02);
     text-align: center;
     padding: 0px;
 }
@@ -383,8 +381,8 @@ td #us {
     border:3px solid white;
     border-radius:50em;
     color: white;
-    background-color: var(--accent-blue-01);
-    padding: 10px 10px;
+    background-color: #102b3d;
+    padding: 15px 15px;
     margin-top: 0px;
     margin-bottom: 30px;
     font-weight: none;
@@ -397,10 +395,12 @@ td #us {
     position: inherit;
     margin: 0 auto;
     margin-bottom: 20px;
+    margin-top: 20px;
     background-color: white;
-    border:3px solid var(--accent-blue-01);
+    border:3px solid #102b3d;
     border-radius: 3em;
-    color: black;
+    color: #102b3d;
+    padding: 15px 15px;
 }
 .p_calendar ul {
     list-style: none;
@@ -410,7 +410,7 @@ td #us {
     
 }
 .p_calendar li {
-    color: var(--accent-blue-04);
+    color: #2874a7;
     font-weight: bold;
     display: inline-block;
     align-content: center;
@@ -420,7 +420,6 @@ td #us {
 
 .p_footer {
     grid-area: p_footer;
-    background-color: var(--accent-blue-02);
 }
 .p_footer .nav {
     list-style:none;
@@ -431,10 +430,10 @@ td #us {
 }
 .p_footer .nav a, .logout a, .back a {
     text-decoration: none;
-    border:3px solid var(--accent-blue-01);
+    border:3px solid #102b3d;
     border-radius:130em;
-    color: var(--accent-blue-01);
-    padding: 15px 10px;
+    color: #102b3d;
+    padding: 15px 15px;
     margin: 0px 0px;
     font-weight: none;
     background-color: white;
@@ -450,7 +449,7 @@ td #us {
     padding: 10px 10px;
 }
 .p_footer .nav a:hover, .p_footer .nav .active {
-    background-color: var(--accent-grey-02);
+    background-color: var(--accent-grey-01);
 }
 @media screen and (max-width: 1200px) {
     #patient_landing {
@@ -505,7 +504,7 @@ td #us {
 /***** Chatbot *****/
 /******************/
 #bert {
-    background-color: var(--accent-blue-02);
+    background-color: var(--accent-grey-02);
     height:100vh;
     overflow-x: hidden;
     display:grid;
@@ -529,7 +528,7 @@ td #us {
 }
 .chatbot_online {
     grid-area: chatbot_online;
-    background-color: var(--accent-blue-03);
+    background-color: #dcf4ff;
     font-size: 30px;
     text-align: left;
 }
@@ -553,7 +552,7 @@ td #us {
 }
 .open_menu {
     grid-area: open_menu;
-    background-color: var(--accent-blue-03);
+    background-color: #dcf4ff;
     text-align: center;
     position: relative;
 }
@@ -642,10 +641,9 @@ td #us {
 }
 .text_area {
     grid-area: text_area;
-    background-color: var(--accent-blue-02);
 }
 .text_area input {
-    background-color: var(--accent-blue-02);
+    background-color: var(--accent-grey-02);
     border:none;
     padding: 10px 10px;
     font-size: 20px;
@@ -703,7 +701,7 @@ td #us {
 /* Patient Progress*/
 /*******************/
 #progress {
-    background-color: var(--accent-blue-02);
+    background-color: var(--accent-grey-02);
     height:100vh;
     display:grid;
     grid-template-columns:
@@ -752,9 +750,9 @@ td #us {
     list-style-type: none;
     padding-left: 0px;
     text-decoration: none;
-    border:3px solid var(--accent-blue-01);
+    border:3px solid var(--accent-grey-01);
     border-radius:130em;
-    color: var(--accent-blue-01);
+    color: var(--accent-grey-01);
     padding: 15px 10px;
     margin-top: 49px;
     margin-right: 10px;
@@ -786,9 +784,9 @@ td #us {
     margin-left: 5px;
 }
 .logout input[type=button], .back input[type=button] {
-    border:3px solid var(--accent-blue-01);
+    border:3px solid black;
     border-radius:130em;
-    color: var(--accent-blue-01);
+    color: black;
     background-color: white;
     padding: 15px 10px;
     font-size: 1.5vw;
@@ -801,7 +799,7 @@ td #us {
     margin-right: 5px;
 }
 .logout input[type=button]:hover, .back input[type=button]:hover, .data_types .nav input[type=button]:hover, .data_types .nav .active {
-    background-color: var(--accent-grey-02);
+    background-color: var(--accent-grey-01);
 }
 .preview_analysis {
     align-self: center;
@@ -1162,7 +1160,7 @@ td #us {
     border: 3px solid white;
 }
 select {
-    background-color: #767F84;
+    background-color: #5a7f92;
     border: 3px solid white;
     color: white;
     font-size: 25px;
@@ -1330,7 +1328,7 @@ select {
     margin-top: 10px;
 }
 .data_stats h4 {
-    color: var(--accent-blue-06);
+    color: #516877;
     text-align: left;
     margin-top: 0px;
     margin-left: 10px;
