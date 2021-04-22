@@ -21,6 +21,14 @@
                 <h3>Min Change</h3>
                 <h4>{{ minChange }}</h4>
             </div>
+
+            {% if significantChanges %}
+            <div class="data_item">
+                <h3>Number of painscore decreases by 2 or more</h3>
+                <h4>{{ significantChanges }}</h4>
+            </div>
+            {% endif %}
+
         </div>
         <!-- <div class="nav">
             <ul>

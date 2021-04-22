@@ -208,6 +208,8 @@ def averageChageCalculation(values):
     else:
         averageChange = 0
 
+    averageChange = round(averageChange,2)
+
     if averageChange == 0:
         return "The average change is 0"
     elif averageChange > 0:
@@ -241,6 +243,21 @@ def minChange(values):
             currentMin = buffer
     
     return currentMin
+
+"""
+Returns a int that is a count of painscore changes > 2
+"""
+def significantPainScoreChange(values):
+
+    numSignificantChanges = 0
+
+    for i in range(len(values[0])):
+        if(values[0][i]-values[1][i]) >= 2:
+            numSignificantChanges += 1
+
+    return numSignificantChanges
+
+
 
 
 
@@ -390,8 +407,11 @@ class adminPainScoreProgressView(LoginRequiredMixin, generic.View):
 
         minChangeVal = minChange(results)
 
+        numOfSignificantChange = significantPainScoreChange(results)
 
-        context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal, 'minChange' : minChangeVal}
+
+        context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
+                     'minChange' : minChangeVal, 'significantChanges' : numOfSignificantChange}
 
         return pageUserAuth(request,'Staff',"admin_progress_preview.html",context)
         
