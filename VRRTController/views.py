@@ -15,7 +15,7 @@ from bokeh.embed import components
 from bokeh.models import ColumnDataSource
 import json
 
-
+from django.contrib.auth.models import Group
 """
 ************************ METHODS ************************
 """
@@ -154,11 +154,11 @@ def databaseQuerryParser(values,field):
         endValues2 = []
 
         for i in range(len(values[0][0])):
-            startValues1.append(values[0][0][i])
-            endValues1.append(values[0][1][i])
+            startValues1.append(values[0][0][i][0])
+            endValues1.append(values[0][1][i][0])
         for i in range(len(values[1][0])):
-            startValues2.append(values[1][0][i])
-            endValues2.append(values[1][1][i])
+            startValues2.append(values[1][0][i][0])
+            endValues2.append(values[1][1][i][0])
         
         BP1Vals  = []
         BP2Vals = []
@@ -370,13 +370,24 @@ def home_view(request):
 
 def create_patient(request):
     form = UserCreationForm(request.POST)
-    if form.is_valid():
+    if form.is_valid(): 
+
         form.save()
-        username = form.cleaned_data.get('patient_id')
-        password = form.cleaned_data.get('group')
+        username = form.cleaned_data.get('username')
+
+        password = form.cleaned_data.get('password1')
+
         user = authenticate(username=username, password=password)
-        login(request, user)
-        return redirect('admin_landing_pg')
+
+        user.save()
+
+        user_group = Group.objects.get(name='Patient') 
+
+        user.groups.add(user_group)
+
+        
+        
+        return redirect('staffLandingPage')
     return render(request, 'admin_create_new_patient.html', {'form':form})
 
 
@@ -449,22 +460,52 @@ class adminPainScoreProgressView(LoginRequiredMixin, generic.View):
 
     def get(self, request):
 
+        #Setting a variable for the current field name
         fieldValue = 'painScore'
+        #Using databaseQuery to get the database instances off this object
         results = databaseQuery(fieldValue)
-
+        #Turning the results into a list
         results = databaseQuerryParser(results, fieldValue)
 
+
+        #Calculations
         averageChange = averageChageCalculation(results)
-
         maxPostiveChangeVal = maxPostiveChange(results)
-
         minChangeVal = minChange(results)
-
         numOfSignificantChange = significantPainScoreChange(results)
 
 
+        #Graph Stuff
+        startValues = results[0]
+        endValues = results[1]
+
+        xVals = []
+
+        for i in range(1,len(startValues)+1):
+            xVals.append(i)
+
+        #xVals = range(len(startValues))
+
+        source = ColumnDataSource(data=dict(
+            x = xVals,
+            y1 = startValues,
+            y2 = endValues
+        ))
+
+        p = figure( sizing_mode = "stretch_width", plot_height = 350)
+
+        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+
+        p.background_fill_color = None
+        p.border_fill_color = None
+
+        script, div = components(p)
+
+
+        #Dictionary of the variables to be passed to the webpage
         context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
-                     'minChange' : minChangeVal, 'significantChanges' : numOfSignificantChange}
+                     'minChange' : minChangeVal, 'significantChanges' : numOfSignificantChange,
+                     'script' : script , 'div': div}
 
         return pageUserAuth(request,'Staff',"admin_progress_preview.html",context)
 
@@ -475,14 +516,27 @@ class adminBloodPressureProgressView(LoginRequiredMixin, generic.View):
     def get(self, request):
 
         fieldValue = 'bloodPressure'
+        bloodPressure = True
 
         results = databaseQuery(fieldValue)
 
         results = databaseQuerryParser(results, fieldValue)
 
-        print(results)
+        print(results[0])
 
-        return pageUserAuth(request,'Staff',"admin_progress_preview.html")
+        systolicStartAvgChange = averageChageCalculation(list(results[0]))
+
+        diastolicStartAvgChange = averageChageCalculation(list(results[1]))
+
+
+
+
+        context = { 'bloodPressure' : bloodPressure, 'systolicStartAvgChange' : systolicStartAvgChange,
+                    'diastolicStartAvgChange' : diastolicStartAvgChange}
+
+        
+
+        return pageUserAuth(request,'Staff',"admin_progress_preview.html", context)
         
 
 class adminHearRateProgressView(LoginRequiredMixin, generic.View):

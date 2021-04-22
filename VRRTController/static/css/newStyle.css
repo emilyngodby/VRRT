@@ -1528,6 +1528,9 @@ select {
     margin: 30px 30px;
     font-size: 1.3vw;
 }
+.data_stats .graph {
+    justify-content: center;
+}
 #data_preview .progress_footer {
     margin-top: 50px;
 }

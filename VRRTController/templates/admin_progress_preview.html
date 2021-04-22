@@ -1,42 +1,76 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <div id="data_preview">
-        <div class="headspace">
 
-        </div>
+    <head>
+        <link href="http://cdn.pydata.org/bokeh/release/bokeh-2.3.0.min.css" rel="stylesheet" type="text/css">
+        <link href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-2.3.0.min.css" rel="stylesheet" type="text/css">
+        <script src="http://cdn.pydata.org/bokeh/release/bokeh-2.3.0.min.js"></script>
+        <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-2.3.0.min.js"></script>
+        {{ script | safe }}
+    </head>        
+
+    <div id="data_preview">
+        {% if bloodPressure %}
+
+
+            <h1>Data Preview:</h1>
+        
+
+            <div class="data_stats">
+
+
+                        <h2 style="margin-top: 10px; margin-left: 40px; text-align: center; color: #396378;" id="title_datatype">Change in Heart Rate</h2>
+                        {{ div | safe}}
+
+
+
+                <div class="data_item">
+                    <h3>Average Change of systolic Pressure</h3>
+                    <h4>{{ systolicStartAvgChange }}</h4>
+                </div>
+                <div class="data_item">
+                    <h3>Average Change of diastolic Pressure</h3>
+                    <h4>{{ diastolicStartAvgChange }}</h4>
+                </div>
+            </div>
+
+        {% else %}
+
         <div class="prev_header">
             <h1>Data Preview:</h1>
         </div>
-        <div class="data_stats" >
-            <div class="data_item">
-                <h3>Average Change</h3>
-                <h4>{{ averageChange}}</h4>
-            </div>
-            <div class="data_item">
-                <h3>Max Positive Change</h3>
-                <h4>{{ maxPostiveChange }}</h4>
-            </div>
-            <div class="data_item">
-                <h3>Min Change</h3>
-                <h4>{{ minChange }}</h4>
-            </div>
 
-            {% if significantChanges %}
-            <div class="data_item">
-                <h3>Number of painscore decreases by 2 or more</h3>
-                <h4>{{ significantChanges }}</h4>
+            <div class="data_stats" >
+                    <div class="graph">
+                        {{ div | safe}}
+                        <div class="preview_analysis">
+                        </div>
+            
+                    </div>
+                <div class="data_item">
+                    <h3>Average Change</h3>
+                    <h4>{{ averageChange}}</h4>
+                </div>
+                <div class="data_item">
+                    <h3>Max Positive Change</h3>
+                    <h4>{{ maxPostiveChange }}</h4>
+                </div>
+                <div class="data_item">
+                    <h3>Min Change</h3>
+                    <h4>{{ minChange }}</h4>
+                </div>
+
+                {% if significantChanges %}
+                <div class="data_item">
+                    <h3>Number of painscore decreases by 2 or more</h3>
+                    <h4>{{ significantChanges }}</h4>
+                </div>
+                {% endif %}
             </div>
+                
             {% endif %}
 
-        </div>
-        <!-- <div class="nav">
-            <ul>
-                <li>Average change {{ averageChange }}</li>
-                <li>Max postive change {{ maxPostiveChange }}</li>
-                <li>Minimum change {{ minChange }}</li>
-            </ul>
-        </div> -->
         <div class="progress_footer">
             <ul class="nav">
                 <input type="button" value="Add new data" onclick="location.href = `{% url 'Survey_Instance_Create' %}`"/>
