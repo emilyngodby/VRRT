@@ -6,35 +6,103 @@
             <h1>Data Analytics</h1>
         </div>
         <div class="choose_site">
-            <h4>Choose your site</h4>
-            <form>
-                <select name = "dropdown">
-                   <option value = "Site 1" class="dropdown" selected>Site 1 - Reno, NV</option>
-                   <option value = "Site 2" class="dropdown">Site 2 - Las Vegas, NV</option>
-                   <option value = "Site 3" class="dropdown">Site 3 - Carson City, NV</option>
-                </select>
-             </form>
+            <ul style="list-style: none; display: block;">
+                <li style="justify-content: center;">
+                    <form action="" method="post" class="myForm">
+                        {% csrf_token %}
+                        <h4>Select site:</h4>
+                            <select name = "dropdown" id="select_site">
+                                <option value = "Site 1" class="dropdown" >Site 1 - Reno, NV</option>
+                                <option value = "Site 2" class="dropdown">Site 2 - Las Vegas, NV</option>
+                                <option value = "Site 3" class="dropdown">Site 3 - Carson City, NV</option>
+                                <option value = "All Sites" class="dropdown">All Sites</option>
+                        </select>
+                        <h4>Select patient group:</h4>
+                            <select name = "dropdown" id="select_patient">
+                                <option value = "Patient 1" class="dropdown" >Patient 1 - TEST_PATIENT</option>
+                                <option value = "All Patients" class="dropdown">All Patients</option>
+                            </select>
+                        <h4>Select data type:</h4>
+                            <select name = "dropdown" id="select_dataType" >
+                                <option value = "Pain Score" class="dropdown" >Pain Score</option>
+                                <option value = "Heart Rate" class="dropdown" >Heart Rate</option>
+                                <option value = "Blood Pressure" class="dropdown">Blood Pressure</option>
+                                <option value = "Respiration Rate" class="dropdown">Respiration Rate</option>
+                                <option value = "Oxygen Saturation" class="dropdown">Oxygen Saturation</option>
+                                <option value = "Mood" class="dropdown">Mood</option>
+                                <option value = "All Data" class="dropdown">All Data</option>
+                            </select>
+                            <br>
+                            <button type="submit" class="see-results">See Results</button>
+                    </form>
+                </li>
+            </ul>
+            
         </div>
         <div class="graph_links">
-            <ul class="nav">
-                <li><a href="{% url 'adminPainScoreProgressView' %}">Pain Score</a></li>
-                <li><a href="{% url 'adminHearRateProgressView' %}">Heart Rate</a></li>
-                <li><a href="adminProgressPreviewPage">Blood Pressure</a></li>
-            </ul>
-            <ul class="nav">
-                <li><a href="{% url 'adminResperationRateProgressView' %}">Respiration Rate</a></li>
-                <li><a href="{% url 'adminO2SaturationProgressView' %}">Oxygen Saturation</a></li>
-                <li><a href="adminProgressPreviewPage">Mood</a></li>
-            </ul>
         </div>
         <div class="combined_data_link">
-            <a href="adminProgressPreviewPage">Combined data</a>
         </div>
         <div class="progress_footer">
             <ul class="nav">
-                <li><a href="surveyInputPage">Add new data</a></li>
-                <li><a href="staffLandingPage">Back to main</a></li>
+                <input type="button" value = "Add new data" onclick="location.href=`{% url 'Survey_Instance_Create' %}`"/>
+                <input type="button" value = "Export data" onclick="location.href=`{% url 'export' %}`"/>
+                <input type="button" value = "Back to main" onclick="location.href=`staffLandingPage`"/>
             </ul>
         </div>
+        <script>
+            const myForm = document.querySelector(".myForm");
+            const selectSite = document.querySelector("#select_site");
+            const selectPatient = document.querySelector("#select_patient");
+            
+
+            const siteVal = selectSite.value;
+            const patientVal = selectPatient.value;
+            
+
+            myForm.addEventListener('submit', function(event) {
+                const selectDataType = document.getElementById("select_dataType");
+                const dataVal = selectDataType.value;
+
+                event.preventDefault();
+                // find site num + patient type + data type combination
+
+                //when we add other site support this will need to be updated
+                if(
+                    (siteVal == "Site 1" || siteVal == "Site 2" || siteVal == "Site3") &&
+                    (patientVal == "Patient 1" || patientVal == "All Patients") 
+                ){
+                    console.log(dataVal)
+                    switch (dataVal) {
+                        case "Pain Score":
+                            window.location.href="adminPainScoreProgressView";
+                            break;
+                        case "Heart Rate":
+                            window.location.href="adminHearRateProgressView";
+                            break;
+                        case "Blood Pressure":
+                            window.location.href="adminBloodPressureProgressView";
+                            break;
+                        case "Oxygen Saturation":
+                            window.location.href="adminO2SaturationProgressView";
+                            break;
+                        case "Respiration Rate":
+                            window.location.href="adminResperationRateProgressView";
+                            break;
+                        case "Mood":
+                            window.location.href="adminProgressPreviewPage";
+                            break;
+                        case "All Data":
+                            window.location.href="adminProgressPreviewPage";
+                            break;
+                        default:
+                            window.location.href="adminProgressPreviewPage";
+                            break;
+                    }
+                    
+                }
+            })
+
+        </script>
     </div>
 {% endblock %}

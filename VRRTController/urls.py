@@ -37,6 +37,9 @@ urlpatterns += [
     path('surveyInputPage', views.surveyInputPage.as_view(), name='surveyInputPage')
 ]
 urlpatterns += [
+    path('adminProgressResultsPage', views.adminProgressResultsPage.as_view(), name='adminProgressResultsPage')
+]
+urlpatterns += [
     path('adminProgressPage', views.adminProgressPage.as_view(), name='adminProgressPage')
 ]
 urlpatterns += [
@@ -57,6 +60,10 @@ urlpatterns += [
 ]
 
 urlpatterns += [
+    path('adminBloodPressureProgressView', views.adminBloodPressureProgressView.as_view(), name='adminBloodPressureProgressView')
+]
+
+urlpatterns += [
     path('adminHearRateProgressView', views.adminHearRateProgressView.as_view(), name='adminHearRateProgressView')
 ]
 
@@ -68,12 +75,19 @@ urlpatterns += [
     path('adminO2SaturationProgressView', views.adminO2SaturationProgressView.as_view(), name='adminO2SaturationProgressView')
 ]
 
+urlpatterns += [
+    path('patientProgressPagePainScore', views.patientProgressPagePainScore.as_view(), name='patientProgressPagePainScore')
+]
 
+urlpatterns += [
+    path('patientProgressPageHeartRate', views.patientProgressPageHeartRate.as_view(), name='patientProgressPageHeartRate')
+]
 
+urlpatterns += [
+    path('export', views.export, name='export')
+]
 
+urlpatterns += [
+    path('createpatient', views.create_patient, name="createpatient")
+]
 
-
-# urlpatterns += [
-#     path('SurveyInstance/', views.SurveyInstanceListView.as_view(), name='SurveyInstanceList')
-#     #path('SurveyInstance/<int:pk>', views.SurveyInstanceDetailView.as_view(), name='Survey-Instance-detail'),
-# ]

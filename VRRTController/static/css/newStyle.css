@@ -1,15 +1,18 @@
 :root {
     /* Colors */
-    --accent-grey-01: #969595;
-    --accent-grey-02: #CDCCCC;
-    --accent-blue-01: #396378;
+    --accent-grey-01: #5F93AE;
+    --accent-grey-02: #c0e9f8;
+    --accent-blue-01: #5F93AE;
     --accent-blue-02: #C5DEEB;
-    --accent-blue-03: #DAE9F0;
+    --accent-blue-03: #bfebff;
     --accent-blue-04: #859BA7;
-    --accent-blue-05: #5C6D76;
-    --accent-blue-06: #678391;
-    --accent-green: #9CFFAA;
+    --accent-blue-05: #456E84;
+    --accent-blue-06: #5F93AE;
+    --accent-green: #80ff91;
     --accent-red: #FF5757;
+}
+* {
+    line-height: 1em;
 }
 
 
@@ -18,6 +21,10 @@ body{
     padding:0;
     font-family: Tahoma, 'Segoe UI', Geneva, Verdana, sans-serif;
     line-height: 1.5em;
+}
+
+ul {
+    padding-left: 0px;
 }
 
 ul li a {
@@ -51,10 +58,8 @@ table {
 }
 td {
     border: none;
-    font-size: 22px;
 }
 td #us {
-    font-size: 22px;
     padding: 4px 4px;
 }
 
@@ -80,8 +85,8 @@ td #us {
     ;
     grid-template-rows: 
     1fr
-    100px
-    100px
+    120px
+    120px
     1fr
     ;
     grid-template-areas: 
@@ -94,20 +99,45 @@ td #us {
 #loggedOut h1{
     grid-area: heading;
     text-align: center;
-    color: var(--accent-blue-01);
+    color:#1a6692;
 }
 #loggedOut a {
     grid-area: logInAgain;
     text-align: center;
     display: inline-block;
-    border:3px solid var(white);
+    border: none;
     border-radius:50em;
     color: white;
-    padding: 18px 10px;
+    padding: 28px 10px;
     margin: 10px 4px;
     font-weight: none;
     font-size: 20px;
-    background-color: var(--accent-blue-06);
+    background-color:#1a6692;
+}
+
+@media screen and (max-width: 500px) {
+    #loggedOut {
+        background-color: var(--accent-grey-02);
+        height: 100vh;
+        display: grid;
+        grid-template-columns: 
+        1fr
+        2fr
+        1fr
+        ;
+        grid-template-rows: 
+        1fr
+        120px
+        120px
+        1fr
+        ;
+        grid-template-areas: 
+        ". . ."
+        "heading heading heading"
+        ". logInAgain ."
+        ". . ."
+        ;
+    }
 }
 
 
@@ -117,17 +147,19 @@ td #us {
 #login_wrap {
     background-color: var(--accent-grey-01);
     height:100vh;
+    width: 100vw;
     display:grid;
     grid-template-columns:
-        1fr 
-        357px
-        357px
-        1fr
+        5vw 
+        45vw
+        45vw
+        5vw
     ;
     grid-gap: 0px;
     grid-template-rows:
-        160px
+        100px
         170px
+        40px
         253px
         1fr
         100px
@@ -135,6 +167,7 @@ td #us {
     grid-template-areas: 
         ". . header ."
         ". title title ."
+        ". . . ."
         ". login_box login_box ."
         "blank_space blank_space blank_space blank_space"
         "footer footer footer footer"
@@ -157,29 +190,21 @@ td #us {
     font-weight: normal;
 }
 .title h1 {
-    font-weight: normal;
+    font-weight: bold;
     font-size: 40px;
+    line-height: 1em;
 }
 .login_box {
     grid-area: login_box;
-    background-color: var(--accent-grey-02);
-    border:3px solid white;
-    border-radius: 3em;
-    color: black;
+    background-color: var(--accent-grey-01);
+    border:none;
+    border-radius: 0em;
+    color: white;
     margin: 0px 0px;
     padding: 10px 10px;
     align-items: center;
     text-align: center;
 }
-/* .login_box form {
-    height: 47px;
-    align-items: center;
-    color: black;
-    background-color: var(--accent-blue-03);
-    border:none;
-    margin-bottom: 23px;
-    font-size: 20px;
-} */
 
 .login_box h2 {
     margin-top: 0px;
@@ -193,9 +218,9 @@ td #us {
     display:flex;
     justify-content: center;
 }
-.login_box .nav a, .login_box input[type=submit] {
+.login_box .nav a, .login_box input[type=submit], .login_box input[type=button] {
     text-decoration: none;
-    border:3px solid white;
+    border: none;
     border-radius:50em;
     color: white;
     background-color: black;
@@ -206,9 +231,8 @@ td #us {
     display: inline-block;
     cursor: pointer;
 }
-.login_box input[type=submit] {
-    padding-top: 6px;
-    padding-bottom: 6px;
+.login_box input[type=submit], .login_box input[type=button] {
+    padding: 15px 25px;
 }
 #login_fail a {
     text-decoration: none;
@@ -226,7 +250,6 @@ td #us {
 }
 .footer {
     grid-area: footer;
-    background-color: var(--accent-blue-02);
     display:flex;
     margin-top:30px;
     justify-content: center;
@@ -238,21 +261,91 @@ td #us {
     display:flex;
     justify-content: center;
 }
-.footer .nav a {
+.footer input[type="button"] {
     text-decoration: none;
-    border:3px solid var(--accent-blue-01);
+    border: none;
     border-radius:50em;
-    color: var(--accent-blue-01);
-    padding: 10px 10px;
-    margin: 0 4px;
+    color: black;
+    padding: 15px 20px;
+    margin: 0 10px;
     font-weight: none;
     font-size: 20px;
-    background-color: var(--accent-blue-02);
+    background-color: var(--accent-grey-02);
 }
-.footer .nav a:hover, .footer .nav .active {
+.footer .nav input[type="button"]:hover, .footer .nav .active {
     background-color: white;
 }
-
+.login_box input[type=submit]:hover, .login_box input[type=button]:hover {
+    background-color: white;
+    color: black;
+}
+@media screen and (max-width:800px) {
+    #login_wrap {
+        grid-template-columns:
+            5vw
+            90vw
+            5vw
+        ;
+        grid-gap: 0px;
+        grid-template-rows:
+            10vh
+            20vh
+            40vh
+            7vh
+            2vh
+        ;
+        grid-template-areas: 
+            ". . ."
+            "title title title"
+            ". login_box ."
+            ". . ."
+            ". footer ."
+    
+        ;
+    }
+    .login_box {
+        border-radius: 0em;
+        border: none;
+        background-color: var(--accent-grey-01);
+        padding: 10px 10px;
+        color: white;
+    }
+    .login_box input[type=submit], .login_box input[type=button] {
+        font-size: 2.5vw;
+    }
+    #login_wrap .title h1 {
+        font-size: 5vw;
+    }
+    #login_wrap h2 {
+        font-size: 4.5vw;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .footer input[type="button"]{
+        font-size: 3vw;
+    }
+    td {
+        font-size: 4vw;
+    }
+}
+@media screen and (max-width:490px) {
+    #login_wrap .title h1 {
+        font-size: 5vw;
+    }
+    #login_wrap h2 {
+        font-size: 4.8vw;
+    }
+    td {
+        font-size: 3.8vw;
+        margin: 15px 15px;
+    }
+    .login_box input[type=submit], .login_box input[type=button] {
+        font-size: 4vw;
+    }
+    .footer input[type="button"]{
+        font-size: 4vw;
+    }
+}
 
 
 /*************************/
@@ -260,34 +353,34 @@ td #us {
 /************************/
 
 #patient_landing {
-    background-color: var(--accent-blue-02);
+    background-color: var(--accent-grey-02);
     height:100vh;
     display:grid;
     text-align: center;
+    align-content: center;
     grid-template-columns:
-        1fr
-        816px
         1fr
     ;
     grid-gap: 0px;
     grid-template-rows:
         303px
-        280px
+        200px
         1fr
         1fr
     ;
     grid-template-areas: 
-        ". p_header ."
-        ". p_buttons ."
-        ". . p_calendar"
-        "p_footer . p_calendar"
+        "p_header"
+        "p_buttons"
+        "p_calendar"
+        "p_footer"
     ;
 }
 .p_header {
     grid-area: p_header;
-    background-color: #C5DEEB;
-    color: black;
+    color: #102b3d;
     justify-content: center;
+    text-align: center;
+    margin-top: 30px;
 }
 .p_header h1 {
     margin-top: 134px;
@@ -300,53 +393,73 @@ td #us {
     font-size: 25px;
 }
 .p_buttons {
-    margin-top: 0px;
+    margin: 0 auto;
     grid-area: p_buttons;
-    background-color: var(--accent-blue-02);
+    text-align: center;
+    padding: 0px;
 }
-.p_buttons a {
+.p_buttons li {
+    list-style: none;
+}
+.p_buttons input[type=button] {
     text-decoration: none;
-    border:3px solid white;
+    border: none;
     border-radius:50em;
     color: white;
-    background-color: var(--accent-blue-01);
-    padding: 10px 10px;
+    background-color: #102b3d;
+    padding: 15px 15px;
     margin-top: 0px;
-    margin-bottom: 64px;
+    margin-bottom: 30px;
     font-weight: none;
-    font-size: 25px;
+    font-size: 22px;
 }
 .p_calendar {
     grid-area: p_calendar;
+    width: 600px;
+    display: inline-block;
+    position: inherit;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
     background-color: white;
-    border:3px solid var(--accent-blue-01);
+    border: none;
     border-radius: 3em;
-    color: black;
-    padding: 10px 10px;
-    align-items: center;
-    text-align: center;
-    margin-right: 26px;
-    margin-bottom: 24px;
+    color: #102b3d;
+    padding: 15px 15px;
 }
+.p_calendar ul {
+    list-style: none;
+    text-align: center;
+    margin: 0 auto;
+    padding: 5px 5px;
+    
+}
+.p_calendar li {
+    color: #2874a7;
+    font-weight: bold;
+    display: inline-block;
+    align-content: center;
+    margin: 0px 0px;
+    height: 1ch;
+}
+
 .p_footer {
     grid-area: p_footer;
-    background-color: var(--accent-blue-02);
 }
 .p_footer .nav {
     list-style:none;
     padding: 0;
     display:flex;
-    justify-content: left;
-    margin-left: 14px;
+    justify-content: right;
     margin-bottom: 14px;
 }
 .p_footer .nav a, .logout a, .back a {
     text-decoration: none;
-    border:3px solid var(--accent-blue-01);
+    border: none;
     border-radius:130em;
-    color: var(--accent-blue-01);
-    padding: 15px 10px;
-    margin: 0px 4px;
+    color: #102b3d;
+    padding: 15px 15px;
+    margin: 0px 0px;
     font-weight: none;
     background-color: white;
     font-size: 20px;
@@ -354,13 +467,62 @@ td #us {
 .p_footer .nav a {
     display: inline-block;
     margin-bottom: 10px;
+    margin-right: 14px;
     margin-top: 100px;
 }
 .p_footer #get_help .nav a {
     padding: 10px 10px;
 }
-.p_footer .nav a:hover, .p_footer .nav .active {
-    background-color: var(--accent-grey-02);
+.p_footer .nav a:hover, .p_footer .nav .active, .p_buttons input[type=button]:hover {
+    background-color:#1a6692;
+    color: white;
+}
+@media screen and (max-width: 1200px) {
+    #patient_landing {
+        grid-template-columns:
+            1fr
+        ;
+        grid-gap: 0px;
+        grid-template-rows:
+            200px
+            150px
+            1fr
+            1fr
+        ;
+        grid-template-areas: 
+            "p_header"
+            "p_buttons"
+            "p_calendar"
+            "p_footer"
+        ;
+    }
+    .p_header h1 {
+        margin-top: 50px;
+    }
+    .p_calendar {
+        width: 500px;
+        align-content: center;
+    }
+    .p_calendar h4 {
+        margin-top: 10px;
+    }
+}
+@media screen and (max-width: 544px) {
+    .p_calendar {
+        width: 90vw;
+    }
+    #patient_landing h1 {
+        font-size: 7vw;
+    }
+    #patient_landing h2 {
+        font-size: 5vw;
+    }
+    .p_buttons input[type=button] {
+        font-size: 6vw;
+    }
+    .p_footer .nav a {
+        font-size: 5vw;
+    }
 }
 
 
@@ -368,8 +530,9 @@ td #us {
 /***** Chatbot *****/
 /******************/
 #bert {
-    background-color: var(--accent-blue-02);
+    background-color: var(--accent-grey-02);
     height:100vh;
+    overflow-x: hidden;
     display:grid;
     grid-template-columns:
         1fr
@@ -378,8 +541,8 @@ td #us {
     grid-gap: 0px;
     grid-template-rows:
         119px
-        1fr
-        1fr
+        2.5fr
+        0px
         1fr
     ;
     grid-template-areas: 
@@ -391,14 +554,14 @@ td #us {
 }
 .chatbot_online {
     grid-area: chatbot_online;
-    background-color: var(--accent-blue-03);
+    background-color: #dcf4ff;
     font-size: 30px;
     text-align: left;
 }
 .chatbot_online ul li {
     list-style: none;
     display: inline-block;
-    margin: 0 0 16px 0;
+    margin: 0 0 0px 0;
     padding:0;
     position: relative;
 }
@@ -415,39 +578,43 @@ td #us {
 }
 .open_menu {
     grid-area: open_menu;
-    background-color: var(--accent-blue-03);
-    text-align: center;;
+    background-color: #dcf4ff;
+    text-align: center;
+    position: relative;
 }
-.open_menu a {
+.open_menu input[type=button] {
     text-decoration: none;
-    border:3px solid white;
+    border: none;
     border-radius:130em;
     color: white;
     font-weight: none;
     background-color: var(--accent-red);
-    padding: 10px 15px;
+    padding: 15px 20px;
     font-size: 20px;
     margin-bottom: 0px;
-    margin-top: 50px;
+    margin-top: 40px;
     display: inline-block;
 }
 .chat_history {
     grid-area: chat_history;
     max-height: 700px;
-    overflow-y: scroll;
+    overflow: scroll;
+    text-align: left;
     
 }
 .history{
-    overflow-y: scroll;
-    overflow-y: visible;
+    overflow: scroll;
+    scroll-snap-align: end;
 }
 .chat_history ul li {
     list-style: none;
+    list-style-type: none;
     /* display: inline-block; */
     margin: 0 0 16px 0;
     padding:0;
     position: relative;
     font-size: 20px;
+    padding-left: 15px;
 }
 .chat_history ul li:last-child {
     scroll-snap-align: end;
@@ -500,44 +667,87 @@ td #us {
 }
 .text_area {
     grid-area: text_area;
-    background-color: var(--accent-blue-02);
 }
 .text_area input {
-    background-color: var(--accent-blue-02);
+    background-color: var(--accent-grey-02);
     border:none;
     padding: 10px 10px;
     font-size: 20px;
     color: black;
     width: 100%;
+    margin-left: 16px;
+}
+#bert button {
+    border: none;
+    border-radius:130em;
+    color: white;
+    font-weight: none;
+    background-color:#00ce1b;
+    padding: 15px 20px;
+    font-size: 1vw;
+    margin-left: 16px;
+}
+
+@media screen and (max-width: 1200px) {
+    #bert {
+        grid-template-columns:
+            1fr
+            1fr
+        ;
+        grid-gap: 0px;
+        grid-template-rows:
+            119px
+            2.5fr
+            0px
+            1fr
+        ;
+        grid-template-areas: 
+            "chatbot_online open_menu"
+            "chat_history chat_history"
+            "predefined_responses predefined_responses"
+            "text_area text_area"
+        ;
+    }
+    .chatbot_online ul{
+        margin-top: 30px;
+        font-size: 3.5vw;
+    }
+    #bert input {
+        font-size: 3vw;
+    }
+    #history_row {
+        font-size: 3.5vw;
+    }
+    #bert button {
+        font-size: 3.5vw;
+    }
 }
 
 /********************/
 /* Patient Progress*/
 /*******************/
 #progress {
-    background-color: var(--accent-blue-02);
+    background-color: #dcf4ff;
     height:100vh;
     display:grid;
     grid-template-columns:
-        320px
-        320px
-        320px
-        320px
-        320px
-        320px
+        1fr
+        2fr
+        2fr
+        1fr
     ;
     grid-gap: 0px;
     grid-template-rows:
-        116px
-        184px
         1fr
-        173px
+        1fr
+        1fr
+        1fr
     ;
     grid-template-areas: 
-        ". . my_progress my_progress . . "
-        ". data_types data_types data_types data_types ."
-        ". graph graph graph graph ."
-        "logout . . . . back"
+        ". my_progress my_progress ."
+        ". data_types data_types ."
+        ". graph graph ."
+        ". back logout ."
     ;
 }
 .my_progress {
@@ -549,58 +759,124 @@ td #us {
     text-align: center;
     margin-top: 41px;
     margin-bottom: 0px;
-    font-size: 62px;
+    font-size: 3.5vw;
     font-weight: lighter; 
 }
 .data_types {
     grid-area: data_types;
-    text-align: center;
 }
-.data_types .nav {
+.data_types ul {
     list-style:none;
-    padding: 0;
-    display:flex;
-    justify-content: center;
-    margin-left: 70px;
-    margin-bottom: 14px;
-    margin-top: 0px;
+    list-style-type: none;
+    padding-left: 0;
     text-align: center;
+    margin: 0 auto;
 }
-.data_types .nav a {
+.data_types ul li input[type=button] {
+    list-style-type: none;
+    padding-left: 0px;
     text-decoration: none;
-    border:3px solid var(--accent-blue-01);
+    border:3px solid var(--accent-grey-01);
     border-radius:130em;
-    color: var(--accent-blue-01);
+    color: var(--accent-grey-01);
     padding: 15px 10px;
     margin-top: 49px;
-    margin-right: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
     font-weight: none;
     background-color: white;
-    font-size: 30px;
+    font-size: 1.8vw;
     display: inline-block;
+}
+.data_types label, .data_types select {
+    font-size: 2vw;
+    margin-bottom: 10px;
+    margin-top: 40px;
 }
 .graph {
     grid-area: graph;
-    background-color: var(--accent-grey-02);
-    border: 3px solid var(--accent-blue-01);
+    background-color:#dcf4ff;
+    border: none;
     border-radius: 5em;
+    display: inline-block;
+}
+.graph h2 {
+    font-size: 2vw;
 }
 .logout {
     grid-area: logout;
     display: inline-block;
-    text-align: right;
-
+    text-align: left;
+    margin-left: 5px;
 }
-.logout a, .back a {
-    font-size:35px;
-    padding: 20px 20px;
+.logout input[type=button], .back input[type=button] {
+    border: none;
+    border-radius:130em;
+    color: white;
+    background-color:#102b3d;
+    padding: 15px 20px;
+    font-size: 1.5vw;
+    margin-top: 10px;
 }
 .back {
     grid-area: back;
-    text-align: left;
+    text-align: right;
+    display: inline-block;
+    margin-right: 5px;
 }
-.logout a:hover, .back a:hover, .data_types .nav a:hover, .data_types .nav .active {
-    background-color: var(--accent-grey-02);
+.logout input[type=button]:hover, .back input[type=button]:hover, .data_types .nav input[type=button]:hover, .data_types .nav .active {
+    background-color: #1a6692;
+}
+.preview_analysis {
+    align-self: center;
+    margin: 0 auto;
+    display: inline-block;
+}
+@media screen and (max-width: 890px) {
+    #progress {
+        background-color: #dcf4ff;
+        height:100vh;
+        display:grid;
+        grid-template-columns:
+            1fr
+            1fr
+        ;
+        grid-gap: 0px;
+        grid-template-rows:
+            1fr
+            1fr
+            2fr
+            1fr
+        ;
+        grid-template-areas: 
+            "my_progress my_progress"
+            "data_types data_types"
+            "graph graph"
+            "back logout"
+        ;
+    }
+    .my_progress h1 {
+        font-size: 6vw;
+        margin-top: 80px;
+    }
+    .data_types ul li input[type=button]{
+        margin: 4px;
+        padding: 4px 4px;
+        font-size: 2.8vw;
+    }
+    .back input[type=button], .logout input[type=button] {
+        font-size: 4vw;
+    }
+    .data_types label, .data_types select {
+        font-size: 3.5vw;
+    }
+    .graph h2 {
+        font-size: 4vw;
+    }
+    .graph {
+        border: none;
+        border-radius: 0em;
+    }
 }
 
 /***********************/
@@ -612,23 +888,23 @@ td #us {
     display: grid;
     grid-template-columns: 
         1fr
-        650px
+        3fr
         1fr
     ;
     grid-gap:0px;
     grid-template-rows: 
-        225px
-        145px
+        1fr
+        1fr
         317px
         1fr
         100px
     ;
     grid-template-areas: 
-    "headspace headspace headspace"
-    "a_header a_header a_header"
+    ". . ."
+    ". a_header ."
     ". a_buttons ."
-    "blank_space blank_space blank_space"
-    ". . a_footer"
+    ". . ."
+    ". a_footer ."
     ;
 }
 .headspace {
@@ -640,13 +916,13 @@ td #us {
     text-align: center;
 }
 .a_header h1 {
-    font-size: 45px;
+    font-size: 3vw;
 }
 #logout_confirm h1 {
     font-size: 30px;
 }
 .a_header h3 {
-    font-size: 35px;
+    font-size: 2vw;
 }
 .a_buttons {
     grid-area: a_buttons;
@@ -656,12 +932,15 @@ td #us {
     display: block;
     margin-bottom: 20px;
 }
-.a_buttons .nav a {
+.a_buttons .nav input[type=button] {
     margin-bottom: 50px;
     display: inline-block;
-    font-size: 30px;
+    font-size: 2vw;
     background-color: black;
     padding: 20px 20px;
+    border: none;
+    color: white;
+    border-radius: 50em;
 }
 #logout_confirm .nav a {
     background-color: var(--accent-blue-04);
@@ -669,15 +948,62 @@ td #us {
 }
 .a_footer {
     grid-area: a_footer;
-    text-align: center;
+    text-align: right;
     display: inline-block;
 }
-.a_footer a {
-    margin-top: 50px;
-    background-color: white;
+.a_footer input[type=button] {
+    margin-top: 0px;
+    background-color: black;
+    color: white;
+    border: none;
+    font-size: 2vw;
+    border-radius: 50em;
+    padding: 15px 20px;
+}
+
+.a_buttons .nav input[type=button]:hover, .a_footer input[type=button]:hover {
     color: black;
-    border: 3px solid black;
-    font-size: 28px;
+    background-color: white;
+}
+
+@media screen and (max-width: 1100px) {
+    #admin {
+        background-color: var(--accent-blue-01);
+        height: 100vh;
+        display: grid;
+        grid-template-columns: 
+            1fr
+        ;
+        grid-gap:0px;
+        grid-template-rows: 
+            1fr
+            1fr
+            317px
+            1fr
+            100px
+        ;
+        grid-template-areas: 
+        "."
+        "a_header"
+        "a_buttons"
+        "."
+        "a_footer"
+        ;
+    }
+    #admin h1 {
+        font-size: 7vw;
+    }
+    #admin h3 {
+        font-size: 6vw;
+    }
+    #admin .a_buttons input[type=button] {
+        font-size: 4vw;
+    }
+    .a_footer input[type=button] {
+        margin-right: 16px;
+        font-size: 4vw;
+    }
+
 }
 
 /***********/
@@ -685,18 +1011,18 @@ td #us {
 /*********/
 
 #survey {
-    background-color: var(--accent-blue-06);
+    background-color: var(--accent-blue-05);
     display: grid;
 
     grid-template-columns:
-        1fr 
-        378.5px 
-        378.5px
-        1fr 
+        5vw 
+        45vw
+        45vw
+        5vw
     ;
     grid-template-rows: 
         0px
-        100px
+        8vw
         1fr
         1fr
         1fr
@@ -717,7 +1043,7 @@ td #us {
     grid-area: s_header;
 }
 .survey_header h1 {
-    font-size: 21px;
+    font-size: 2vw;
     color: white;
     margin-left: 5px;
 }
@@ -725,54 +1051,60 @@ td #us {
     font-style: italic;
     margin-left: 5px;
     color: white;
-    font-size: 16px;
+    font-size: 1.5vw;
 }
 .pre_session h4, .post_session h4 {
-    font-size: 16px;
+    font-size: 1.2vw;
     color: white;
     margin-left: 20px;
     margin-bottom: 10px;
 }
 .pre_session {
     grid-area: pre_s;
-    background-color: var(--accent-blue-05);
-    border-radius: 3em;
-    border: 3px solid white;
+    border-radius: 0em;
+    border: none;
     color: white;
 }
 .post_session {
     grid-area: post_s;
-    background-color: var(--accent-blue-05);
     border-radius: 3em;
     border: 3px solid white;
     color: white;
 }
 .pre_session form, .post_session form {
     margin-left: 20px;
+    font-size: 1vw;
 }
-.pre_session input, .post_session input {
+.pre_session form .fieldWrapper {
+    font-size: 1vw;
+    line-height: 1.5em;
+    margin-bottom: 5px;
+}
+.pre_session input[type=checkbox], .pre_session input[type=number], .pre_session input[type=text], .post_session input {
     border-radius: 50em;
     border: 3px solid var(--accent-blue-04);
     background-color: var(--accent-blue-04);
     color: black;
-    font-size: 12px;
+    font-size: 1vw;
     margin-bottom: 10px;
 }
 .checkbox {
     margin-bottom: 5px;
     margin-right: 20px;
 }
-#surveyBtn {
+.SubmitButton {
     margin-top: 50px;
-    background-color: var(--accent-blue-04);
-    color: black;
+    background-color: black;
+    color: white;
     border: none;
-    font-size: 20px;
-    padding: 10px 20px;
+    font-size: 1vw;
+    padding: 15px 20px;
     text-align: center;
+    border-radius: 50em;
 }
-#surveyBtn :hover {
-    background-color: var(--accent-blue-03);
+.SubmitButton:hover {
+    background-color: white;
+    color: black;
 }
 .survey_cancel {
     grid-area: s_cancel;
@@ -788,6 +1120,130 @@ td #us {
     margin-top: 20px;
 }
 
+@media screen and (max-width: 1260px) {
+    #survey {
+        grid-template-columns:
+            1fr 
+            1fr
+        ;
+        grid-template-rows: 
+            0px
+            12vw
+            1fr
+            1fr
+            1fr
+            1fr
+            100px
+        ;
+        grid-template-areas: 
+        "headspace headspace"
+        "s_header s_header"
+        "pre_s pre_s"
+        "pre_s pre_s"
+        "pre_s pre_s"
+        "pre_s pre_s"
+        "s_cancel s_submit"
+        ;
+    }
+    .pre_session {
+        border: none;
+        border-radius: 0em;
+
+    }
+    .pre_session form .fieldWrapper, .pre_session input, .post_session input, .SubmitButton {
+        font-size: 1.5vw;
+    }
+    .survey_header h1 {
+        font-size: 3vw;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+    .survey_header h4 {
+        font-size: 2vw;
+        margin-left: 20px;
+    }
+    #form_title {
+        font-size: 1.8vw;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    #survey {
+        grid-template-columns:
+            1fr 
+            1fr
+        ;
+        grid-template-rows: 
+            0px
+            15vw
+            1fr
+            1fr
+            1fr
+            1fr
+            100px
+        ;
+    }
+    .pre_session {
+        border: none;
+        border-radius: 0em;
+
+    }
+    .pre_session form .fieldWrapper, .pre_session input, .post_session input, .SubmitButton {
+        font-size: 2.2vw;
+    }
+    .survey_header h1 {
+        font-size: 3vw;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+    .survey_header h4 {
+        font-size: 2.5vw;
+        margin-left: 20px;
+    }
+    #form_title {
+        font-size: 2.2vw;
+        line-height: 2em;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    #survey {
+        grid-template-columns:
+            1fr 
+            1fr
+        ;
+        grid-template-rows: 
+            0px
+            37vw
+            1fr
+            1fr
+            1fr
+            1fr
+            100px
+        ;
+    }
+    .pre_session {
+        border: none;
+        border-radius: 0em;
+
+    }
+    .pre_session form .fieldWrapper, .pre_session input, .post_session input, .SubmitButton {
+        font-size: 3vw;
+    }
+    .survey_header h1 {
+        font-size: 4vw;
+        line-height: 1.8em;
+    }
+    .survey_header h4 {
+        font-size: 3.5vw;
+        line-height: 1.2em;
+    }
+    #form_title {
+        font-size: 3.2vw;
+        line-height: 2.2em;
+    }
+}
+
 
 /******************/
 /* Data Analysis */
@@ -795,45 +1251,52 @@ td #us {
 #admin_progress {
     display: grid;
     background-color: var(--accent-grey-01);
+    color: white;
+    text-align: center;
+    padding: 0;
     grid-template-columns: 
         1fr
-        300px
-        424px
-        300px
+        2fr
         1fr
     ;
     grid-template-rows: 
-        120px
+        170px
         1fr
-        1fr
-        1fr
-        1fr
+        0px
+        0px
+        0px
         1fr
     ;
     grid-template-areas: 
-        ". progress_header progress_header progress_header ."
-        ". choose_site choose_site . ."
-        ". graph_links graph_links graph_links ."
-        ". graph_links graph_links graph_links ."
-        ". combined combined combined ."
-        "progress_footer progress_footer progress_footer progress_footer progress_footer"
+        ". progress_header ."
+        ". choose_site ."
+        ". graph_links ."
+        ". graph_links ."
+        ". combined ."
+        "progress_footer progress_footer progress_footer"
     ;
 }
 .progress_header {
     grid-area: progress_header;
     text-align: center;
-    color: black;
-    text-transform: uppercase;
+    color: white;
+    font-size: 2vw;
 }
 .choose_site {
     grid-area: choose_site;
-    font-size: 25px;
+    font-size: 1.8vw;
+    border-radius: 3em;
+    border: none;
+    text-align: center;
+    margin: 0 auto;
+    width: 600px;
 }
 select {
-    background-color: #767F84;
-    border: 3px solid white;
+    background-color:#102b3d;
+    border: none;
     color: white;
-    font-size: 25px;
+    font-size: 1.8vw;
+    padding: 10px 10px;
 }
 .graph_links {
     grid-area: graph_links;
@@ -857,6 +1320,23 @@ select {
     padding-top: 50px;
     color: white;
 }
+.choose_site input[type=button], .see-results {
+    justify-content: center;
+    border-radius: 50em;
+    border: none;
+    background-color: white;
+    color: black;
+    padding: 20px 20px;
+    margin-top: 30px;
+    font-weight: none;
+    font-size: 1.5vw;
+    margin-bottom: 10px;
+}
+.see-results:hover {
+    background-color: var(--accent-grey-01);
+    color:white;
+}
+
 #admin_progress a{
     color: white;
 }
@@ -876,10 +1356,115 @@ select {
     padding-top: 50px;
 }
 .progress_footer {
+    margin-top: 30px;
     grid-area: progress_footer;
+    background-color: var(--accent-grey-01);
 }
-.progress_footer .nav a {
+.progress_footer .nav input[type=button] {
+    text-decoration: none;
+    border: none;
+    border-radius:50em;
+    color: white;
+    padding: 10px 10px;
+    margin: 4px 4px;
     background-color: black;
+    padding: 20px 20px;
+    font-size: 1.5vw;
+}
+.progress_footer .nav input[type=button]:hover {
+    color: black;
+    background-color: white;
+}
+
+@media screen and (max-width: 1123px) {
+    #admin_progress {
+        grid-template-columns: 
+            1fr
+        ;
+        grid-template-rows: 
+            120px
+            30px
+            1fr
+            140px
+            1fr
+        ;
+        grid-template-areas: 
+            "progress_header"
+            "."
+            "choose_site"
+            "progress_footer"
+            "."
+        ;
+    }
+    .progress_header {
+        font-size: 3.5vw;
+    }
+    .choose_site {
+        text-align: center;
+        align-content: center;
+        font-size: 3vw;
+    }
+    .see-results, .progress_footer .nav input[type=button] {
+        padding: 15px, 15px;
+        font-size: 2.5vw;
+    }
+    select {
+        font-size: 2.5vw;
+    }
+}
+@media screen and (max-width: 514px) {
+    #admin_progress {
+        grid-template-columns: 
+            1fr
+        ;
+        grid-template-rows: 
+            100px
+            20px
+            1fr
+            140px
+            1fr
+        ;
+        grid-template-areas: 
+            "progress_header"
+            "."
+            "choose_site"
+            "progress_footer"
+            "."
+        ;
+    }
+    
+    .graph_links {
+        margin: 0px;
+        display: inline-block;
+    }
+    .graph_links .nav {
+        margin: 0;
+        display: block;
+    }
+    .graph_links .nav a {
+        padding: 10px 10px;
+        margin: 0;
+        margin-bottom: 0px;
+    }
+    .choose_site {
+        border-radius: 0em;
+        border: none;
+        background-color: var(--accent-grey-01);
+        width:350px;
+        font-size: 6vw;
+    }
+    .progress_header {
+        font-size: 5.5vw;
+        margin-top: 20px;
+    }
+    .see-results, .progress_footer .nav input[type=button] {
+        padding: 15px 15px;
+        font-size: 3.5vw;
+    }
+    select {
+        font-size: 4vw;
+        background-color: #102b3d;
+    }
 }
 
 
@@ -916,824 +1501,131 @@ select {
     grid-area: prev_header;
     color: white;
     display: inline-block;
-    margin-top: 70px;
+    margin-top: 20px;
+    font-size: 1.8vw;
 }
 .data_stats {
     grid-area: stats;
     justify-content: center;
     color: white;
+    background-color:#bfebff;
+    border-radius: 2em;
     
 }
 .data_stats .data_item {
-    background-color: var(--accent-grey-02);
-    border-radius: 1em;
-    border: 3px solid white;
     margin-bottom: 20px;
     margin-top: 0px;
 }
 .data_stats h3 {
-    color: #36454F;
+    color:#1a6692;
     padding: 5px 5px;
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin: 20px 20px;
+    font-size: 1.8vw;
 }
 .data_stats h4 {
-    color: var(--accent-blue-06);
+    color:black;
     text-align: left;
-    margin-top: 0px;
-    margin-left: 10px;
-    margin-bottom: 20px;
-    padding-bottom: 5px;
+    margin: 30px 30px;
+    font-size: 1.3vw;
 }
 #data_preview .progress_footer {
     margin-top: 50px;
 }
 
-
-
-
-/*********************/
-/* Smaller displays */
-/*******************/
-
-@media screen and (max-width:1354px) {
-    #login_wrap{
-        grid-template-areas: 
-        "header header header header"
-        "title title title title"
-        ". login_box login_box ."
-        "blank_space blank_space blank_space blank_space"
-        "footer footer footer footer"
-    
-        ;
-        grid-template-columns:
-        1fr 
-        357px
-        357px
-        1fr
-        ;   
-        grid-template-rows:
-        0px
-        170px
-        1fr
-        1fr
-        100px
-        ;
-    }
-    .header{
-        display: none;
-    }
-    .title h1 {
-        font-weight: normal;
-        font-size: 35px;
-    }
-    .login_box h2 {
-        margin-top: 0px;
-        margin-bottom: 23px;
-        text-align: center;
-        font-weight: lighter;
-        font-size: 23px;
-    }
-    .login_box .login_box_input {
-        width:380px;
-        height: 47px;
-        align-items: center;
-        color: black;
-        background-color: var(--accent-blue-03);
-        border:none;
-        margin-bottom: 23px;
-        font-size: 18px;
-    }
-    .footer .nav a {
-        text-decoration: none;
-        border:3px solid var(--accent-blue-01);
-        border-radius:50em;
-        color: var(--accent-blue-01);
-        padding: 10px 10px;
-        margin: 0 4px;
-        font-weight: none;
-        font-size: 18px;
-    }
-
-    #patient_landing {
-        background-color: var(--accent-blue-02);
-        height:100vh;
-        display:grid;
-        grid-template-columns:
-            502px 
-            1fr
-            1fr
-        ;
-        grid-gap: 0px;
-        grid-template-rows:
-            303px
-            280px
-            1fr
-            1fr
-        ;
-        grid-template-areas: 
-            "p_header p_header p_header"
-            "p_buttons p_buttons p_buttons"
-            ". . ."
-            "p_footer p_footer p_footer"
-        ;
-    }
-    .p_calendar {
-        display:none;
-    }
-    .p_footer .nav {
-        justify-content: center;
-    }
-    #progress {
-        background-color: var(--accent-blue-02);
-        height:100vh;
-        display:grid;
-        grid-template-columns:
-            1fr
-            1fr
-            1fr
-            1fr
-            1fr
-            1fr
-        ;
-        grid-gap: 0px;
-        grid-template-rows:
-            116px
-            184px
-            1fr
-            200px
-        ;
-        grid-template-areas: 
-            "my_progress my_progress my_progress my_progress my_progress my_progress "
-            "data_types data_types data_types data_types data_types data_types"
-            "graph graph graph graph graph graph"
-            "logout logout . . back back"
-        ;
-    }
-    .my_progress {
-        grid-area: my_progress;
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-    .my_progress h1 {
-        margin-top: 41px;
-        font-size: 40px;
-    }
-    .data_types .nav a {
-        font-size: 25px;
-    }
-    .graph {
-        grid-area: graph;
-        border-radius: 0em;
-    }
-    #data_preview .graph ul {
-        list-style: none;
-        display: inline-block;
-        margin: 0 0 16px 0;
-        padding:0;
-        position: relative;
-        color: var(--accent-blue-01);
-    }
-    #data_preview .graph {
-        border-radius: 3em;
-    }
-    .logout {
-        grid-area: logout;
-        text-align: right;
-    
-    }
-    .logout a, .back a {
-        font-size:25px;
-        padding: 20px 20px;
-        margin-top: 50px;
-        display: inline-block;
-    }
-    .back {
-        grid-area: back;
-        text-align: left;
-    }
-    .logout a:hover, .back a:hover, .data_types .nav a:hover, .data_types .nav .active {
-        background-color: var(--accent-grey-02);
-    }
-    #admin {
-        background-color: var(--accent-blue-01);
-        height: 100vh;
-        display: grid;
-        grid-template-columns: 
-            1fr
-            550px
-            1fr
-        ;
-        grid-gap:0px;
-        grid-template-rows: 
-            1fr
-            145px
-            317px
-            1fr
-            100px
-        ;
-        grid-template-areas: 
-        "headspace headspace headspace"
-        "a_header a_header a_header"
-        "a_buttons a_buttons a_buttons"
-        "blank_space blank_space blank_space"
-        "a_footer a_footer a_footer"
-        ;
-    }
-    #survey {
-        background-color: var(--accent-blue-06);
-        display: grid;
-    
-        grid-template-columns:
-            1fr 
-            150px 
-            150px
-            1fr 
-        ;
-        grid-template-rows: 
-            0px
-            91px
-            1fr
-            1fr
-            1fr
-            1fr
-            100px
-            1fr
-        ;
-        grid-template-areas: 
-        "headspace headspace headspace headspace"
-        "s_header s_header s_header s_header"
-        "pre_s pre_s pre_s pre_s"
-        "pre_s pre_s pre_s pre_s"
-        "pre_s pre_s pre_s pre_s"
-        "pre_s pre_s pre_s pre_s"
-        "s_cancel s_cancel s_submit s_submit"
-        ". . . ."
-        ;
-    }
-}
-
-
-@media screen and (max-width:730px) {
-        #login_wrap{
-            grid-template-areas: 
-            "header header header header"
-            "title title title title"
-            "login_box login_box login_box login_box"
-            "blank_space blank_space blank_space blank_space"
-            "footer footer footer footer"
-        
-            ;
-            grid-template-columns:
-            1fr 
-            1fr
-            1fr
-            1fr
-            ;   
-            grid-template-rows:
-            0px
-            170px
-            1fr
-            1fr
-            100px
-            ;
-        }
-        .header{
-            display: none;
-        }
-        .title h1 {
-            font-weight: normal;
-            font-size: 30px;
-        }
-        .login_box {
-            border-radius: 0em;
-        }
-        .login_box h2 {
-            margin-top: 0px;
-            margin-bottom: 23px;
-            text-align: center;
-            font-weight: lighter;
-            font-size: 20px;
-        }
-        .login_box .login_box_input {
-            width:380px;
-            height: 47px;
-            align-items: center;
-            color: black;
-            background-color: var(--accent-blue-03);
-            border:none;
-            margin-bottom: 23px;
-            font-size: 15px;
-            width: 15em;
-        }
-        .footer .nav a {
-            text-decoration: none;
-            border:3px solid var(--accent-blue-01);
-            border-radius:50em;
-            color: var(--accent-blue-01);
-            padding: 10px 10px;
-            margin: 0 4px;
-            font-weight: none;
-            font-size: 15px;
-        }
-        #bert {
-            background-color: var(--accent-blue-02);
-            height:100vh;
-            display:grid;
-            grid-template-columns:
-                1fr
-                200px
-            ;
-            grid-gap: 0px;
-            grid-template-rows:
-                119px
-                1fr
-                1fr
-                1fr
-            ;
-            grid-template-areas: 
-                "chatbot_online open_menu"
-                "chat_history chat_history"
-                "predefined_responses predefined_responses"
-                "text_area text_area"
-            ;
-        }
-        .chatbot_online ul li {
-            font-size: 20px;
-        }
-        .open_menu a {
-            font-size: 18px;
-            margin-top: 40px;
-        }
-        #survey {
-            background-color: var(--accent-blue-06);
-            display: grid;
-        
-            grid-template-columns:
-                1fr 
-                150px 
-                150px
-                1fr 
-            ;
-            grid-template-rows: 
-                0px
-                91px
-                1fr
-                1fr
-                1fr
-                1fr
-                100px
-            ;
-            grid-template-areas: 
-            "headspace headspace headspace headspace"
-            "s_header s_header s_header s_header"
-            "pre_s pre_s pre_s pre_s"
-            "pre_s pre_s pre_s pre_s"
-            "pre_s pre_s pre_s pre_s"
-            "pre_s pre_s pre_s pre_s"
-            "s_cancel s_cancel s_submit s_submit"
-            ;
-        }
-        .pre_session, .post_session {
-            border-radius: 0em;
-            border: none;
-        }
-        #data_preview {
-            background-color: var(--accent-grey-01);
-            display: grid;
-            grid-template-columns: 
-            0px
-            1fr
-            0px
-            ;
-            grid-template-rows: 
-            1fr
-            1fr
-            200px
-            200px
-            1fr
-            200px
-            3fr
-            ;
-            grid-template-areas: 
-            "headspace headspace headspace headspace"
-            ". prev_header prev_header ."
-            ". stats stats ."
-            ". stats stats ."
-            ". . . ."
-            "progress_footer progress_footer progress_footer progress_footer"
-            ". . . ."
-            ;
-        }
-        .prev_header {
-            margin-top: 0px;
-        }
-        #data_preview .graph {
-            border-radius: 0em;
-        }
-        #data_preview .progress_footer {
-            text-align: center;
-            margin-top: 0px;
-        }
-        #data_preview .progress_footer .nav {
-            display: block;
-        }
-        #data_preview .progress_footer .nav a {
-            display: inline-block;
-        }
-}
-
-@media screen and (max-width:480px) {
-    #login_wrap{
-        background-color: var(--accent-grey-01);
-        grid-template-areas: 
-        "header header header header"
-        "title title title title"
-        "login_box login_box login_box login_box"
-        "blank_space blank_space blank_space blank_space"
-        "footer footer footer footer"
-    
-        ;
-        grid-template-columns:
-        1fr 
-        1fr
-        1fr
-        1fr
-        ;   
-        grid-template-rows:
-        0px
-        200px
-        1fr
-        1fr
-        100px
-        ;
-    }
-    .header{
-        display: none;
-        background-color: var(--accent-grey-02);
-    }
-    .title h1 {
-        font-weight: normal;
-        font-size: 23px;
-        color: white;
-    }
-    .login_box {
-        border-radius: 0em;
-    }
-    .login_box h2 {
-        margin-top: 0px;
-        margin-bottom: 23px;
-        text-align: center;
-        font-weight: lighter;
-        font-size: 18px;
-    }
-    .login_box .login_box_input {
-        width:380px;
-        height: 47px;
-        align-items: center;
-        color: black;
-        background-color: var(--accent-blue-03);
-        border:none;
-        margin-bottom: 23px;
-        font-size: 15px;
-        width: 17em;
-    }
-    .login_box .nav a {
-        font-size: 15px;
-    }
-    .footer .nav a {
-        background-color: white;
-        font-size: 12px;
-    }
-    #patient_landing {
-        background-color: var(--accent-blue-02);
-        height:100vh;
-        display:grid;
-        text-align: center;
-        grid-template-columns:
-            1fr
-            300px
-            1fr
-        ;
-        grid-gap: 0px;
-        grid-template-rows:
-            303px
-            280px
-            1fr
-            1fr
-        ;
-        grid-template-areas: 
-            "p_header p_header p_header"
-            "p_buttons p_buttons p_buttons"
-            ". . ."
-            "p_footer p_footer p_footer"
-        ;
-    }
-    .p_header {
-        grid-area: p_header;
-        background-color: #C5DEEB;
-        color: black;
-        justify-content: center;
-    }
-    .p_header h1 {
-        margin-top: 134px;
-        margin-bottom: 0px;
-    }
-    .p_header h2 {
-        margin-top: 32px;
-        margin-bottom: 63px;
-    }
-    .p_buttons {
-        margin-top: 0px;
-        grid-area: p_buttons;
-        background-color: var(--accent-blue-02);
-    }
-    .p_buttons a {
-        text-decoration: none;
-        border:3px solid white;
-        border-radius:50em;
-        color: white;
-        background-color: var(--accent-blue-01);
-        padding: 10px 10px;
-        margin-top: 0px;
-        margin-bottom: 64px;
-        font-weight: none;
-        font-size: 20px;
-    }
-    .p_footer {
-        grid-area: p_footer;
-        background-color: var(--accent-blue-02);
-        text-align: center;
-    }
-    .p_footer .nav {
-        list-style:none;
-        padding: 0;
-        display:flex;
-        justify-content: center;
-        margin-left: 14px;
-        margin-bottom: 14px;
-    }
-    .p_footer .nav a {
-        text-decoration: none;
-        border:3px solid var(--accent-blue-01);
-        border-radius:130em;
-        color: var(--accent-blue-01);
-        padding: 15px 10px;
-        margin: 0px 4px;
-        font-weight: none;
-        background-color: white;
-    }
-    .p_footer #get_help .nav a {
-        padding: 10px 10px;
-    }
-    .p_footer .nav a:hover, .footer .nav .active {
-        background-color: var(--accent-grey-02);
-    }
-    #bert {
-        background-color: var(--accent-blue-02);
-        height:100vh;
-        display:grid;
-        grid-template-columns:
-            1fr
-            150px
-        ;
-        grid-gap: 0px;
-        grid-template-rows:
-            119px
-            1fr
-            1fr
-            1fr
-        ;
-        grid-template-areas: 
-            "chatbot_online open_menu"
-            "chat_history chat_history"
-            "predefined_responses predefined_responses"
-            "text_area text_area"
-        ;
-    }
-    .chatbot_online ul li {
-        font-size: 18px;
-    }
-    .open_menu a {
-        font-size: 15px;
-        margin-top: 40px;
-    }
-    .chat_history ul li {
-        font-size: 15px;
-    }
-    .predefined_responses .nav {
-        margin-left: 10px;
-    }
-    .predefined_responses .nav a {
-        font-size: 15px;
-    }
-    .text_area input {
-        font-size: 15px;
-    }
-
-    #progress {
-        background-color: var(--accent-blue-02);
-        height:100vh;
-        display:grid;
-        grid-template-columns:
-            1fr
-            1fr
-            1fr
-            1fr
-            1fr
-            1fr
-        ;
-        grid-gap: 0px;
-        grid-template-rows:
-            100px
-            100px
-            1fr
-            200px
-        ;
-        grid-template-areas: 
-            "my_progress my_progress my_progress my_progress my_progress my_progress "
-            "data_types data_types data_types data_types data_types data_types"
-            "graph graph graph graph graph graph"
-            "logout logout logout back back back"
-        ;
-    }
-    .my_progress {
-        grid-area: my_progress;
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-    .my_progress h1 {
-        margin-top: 41px;
-        font-size: 40px;
-    }
-    .data_types {
-        text-align: left;
-    }
-    .data_types .nav {
-        list-style:none;
-        padding: 0;
-        display:flex;
-        justify-content: left;
-        margin-left: 5px;
-        margin-bottom: 14px;
-        margin-top: 0px;
-        text-align: center;
-    }
-    .data_types .nav a {
-        text-decoration: none;
-        border:3px solid var(--accent-blue-02);
-        border-radius: 5em;
-        color: var(--accent-blue-01);
-        padding: 4px 4px;
-        margin-top: 20px;
-        margin-right: 5px;
-        font-weight: none;
-        background-color: var(--accent-blue-02);
-        font-size: 15px;
-        display: inline-block;
-    }
-    .data_types .nav a:hover {
-        color: white;
-        border:3px solid white;
-    }
-    .data_types .nav .active {
-        border:3px solid white;
-    }
-    .graph {
-        grid-area: graph;
-        border-radius: 0em;
-    }
-    .logout {
-        grid-area: logout;
-        text-align: right;
-    
-    }
-    .logout a, .back a {
-        font-size:25px;
-        padding: 20px 20px;
-        margin-top: 50px;
-        display: inline-block;
-    }
-    .back {
-        grid-area: back;
-        text-align: left;
-    }
-    .logout a:hover, .back a:hover, .data_types .nav a:hover, .data_types .nav .active {
-        background-color: var(--accent-grey-02);
-    }
-    #admin {
-        background-color: var(--accent-blue-01);
-        height: 100vh;
-        display: grid;
-        grid-template-columns: 
-            1fr
-            300px
-            1fr
-        ;
-        grid-gap:0px;
-        grid-template-rows: 
-            1fr
-            145px
-            350px
-            1fr
-            100px
-        ;
-        grid-template-areas: 
-        "headspace headspace headspace"
-        "a_header a_header a_header"
-        "a_buttons a_buttons a_buttons"
-        "blank_space blank_space blank_space"
-        "a_footer a_footer a_footer"
-        ;
-    }
-    .a_header h1 {
-        font-size: 35px;
-    }
-    .a_header h3 {
-        font-size: 30px;
-    }
-    .a_buttons .nav a {
-        font-size: 25px;
-    }
-
-    .pre_session input, .post_session input {
-        font-size: 12px;
-    }
-    #survey {
-        background-color: var(--accent-blue-06);
-        display: grid;
-    
-        grid-template-columns:
-            1fr 
-            140px 
-            140px
-            1fr 
-        ;
-        grid-template-rows: 
-            0px
-            160px
-            1fr
-            1fr
-            0px
-            1fr
-            1fr
-            100px
-        ;
-        grid-template-areas: 
-        "headspace headspace headspace headspace"
-        "s_header s_header s_header s_header"
-        "pre_s pre_s pre_s pre_s"
-        "pre_s pre_s pre_s pre_s"
-        "blank_space blank_space blank_space blank_space"
-        "post_s post_s post_s post_s"
-        "post_s post_s post_s post_s"
-        "s_cancel s_cancel s_submit s_submit"
-        ;
-    }
-    .pre_session, .post_session {
-        border: none;
-    }
+@media screen and (max-width: 1240px ) {
     #data_preview {
         background-color: var(--accent-grey-01);
         display: grid;
         grid-template-columns: 
-        0px
+        30px
         1fr
-        0px
+        1fr
+        30px
         ;
         grid-template-rows: 
+        25px
+        12vw
+        20px
         1fr
-        1fr
-        200px
-        200px
         1fr
         200px
         1fr
         ;
         grid-template-areas: 
         "headspace headspace headspace headspace"
-        ". prev_header prev_header ."
-        ". stats stats ."
-        ". stats stats ."
+        "prev_header prev_header prev_header prev_header"
         ". . . ."
+        ". stats stats ."
+        ". stats stats ."
         "progress_footer progress_footer progress_footer progress_footer"
         ". . . ."
         ;
     }
     .prev_header {
-        margin-top: 0px;
+        margin-bottom: 20px;
+        margin-left: 70px;
+        margin-top: 10px;
+        font-size: 3vw;
     }
-    #data_preview .graph {
-        border-radius: 0em;
+    .data_stats {
+        background-color: var(--accent-grey-01);
+        margin-top: 0;
     }
-    #data_preview .progress_footer {
-        text-align: center;
-        margin-top: 0px;
+    .data_stats h3 {
+        margin-top: 10px;
+        margin-left: 40px;
+        color: white;
+        font-size: 3vw;
     }
-    #data_preview .progress_footer .nav {
-        display: block;
+    .data_stats h4 {
+        color:#dcf4ff;
+        font-size: 2vw;
+        margin-left: 70px;
     }
-    #data_preview .progress_footer .nav a {
-        display: inline-block;
+}
+
+@media screen and (max-width: 600px ) {
+    #data_preview {
+        background-color: var(--accent-grey-01);
+        display: grid;
+        grid-template-columns: 
+        1fr
+        1fr
+        1fr
+        1fr
+        ;
+        grid-template-rows: 
+        25px
+        1fr
+        1fr
+        1fr
+        200px
+        1fr
+        ;
+        grid-template-areas: 
+        "headspace headspace headspace headspace"
+        "prev_header prev_header prev_header prev_header"
+        "stats stats stats stats"
+        "stats stats stats stats"
+        "progress_footer progress_footer progress_footer progress_footer"
+        ". . . ."
+        ;
+    }
+    .prev_header {
+        font-size: 5.5vw;
+        margin-left: 10px;
+    }
+    .data_stats {
+        background-color: var(--accent-grey-01);
+    }
+    .data_stats h3 {
+        color: white;
+        font-size: 5vw;
+        margin-left: 30px;
+    }
+    .data_stats h4 {
+        color:#dcf4ff;
+        font-size: 4vw;
+        margin-left: 45px;
     }
 }

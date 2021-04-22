@@ -1,0 +1,785 @@
+/*********************/
+/* Smaller displays */
+/*******************/
+/*
+@media screen and (max-width:1354px) {
+    #login_wrap{
+        grid-template-areas: 
+        "header header header header"
+        "title title title title"
+        ". login_box login_box ."
+        "blank_space blank_space blank_space blank_space"
+        "footer footer footer footer"
+    
+        ;
+        grid-template-columns:
+        1fr 
+        357px
+        357px
+        1fr
+        ;   
+        grid-template-rows:
+        0px
+        170px
+        1fr
+        1fr
+        100px
+        ;
+    }
+    .header{
+        display: none;
+    }
+    .title h1 {
+        font-weight: normal;
+        font-size: 35px;
+    }
+    .login_box h2 {
+        margin-top: 0px;
+        margin-bottom: 23px;
+        text-align: center;
+        font-weight: lighter;
+        font-size: 23px;
+    }
+    .login_box .login_box_input {
+        width:380px;
+        height: 47px;
+        align-items: center;
+        color: black;
+        background-color: var(--accent-blue-03);
+        border:none;
+        margin-bottom: 23px;
+        font-size: 18px;
+    }
+    .footer .nav a {
+        text-decoration: none;
+        border:3px solid var(--accent-blue-01);
+        border-radius:50em;
+        color: var(--accent-blue-01);
+        padding: 10px 10px;
+        margin: 0 4px;
+        font-weight: none;
+        font-size: 18px;
+    }
+
+    #patient_landing {
+        background-color: var(--accent-blue-02);
+        height:100vh;
+        display:grid;
+        grid-template-columns:
+            502px 
+            1fr
+            1fr
+        ;
+        grid-gap: 0px;
+        grid-template-rows:
+            303px
+            280px
+            1fr
+            1fr
+        ;
+        grid-template-areas: 
+            "p_header p_header p_header"
+            "p_buttons p_buttons p_buttons"
+            ". . ."
+            "p_footer p_footer p_footer"
+        ;
+    }
+    .p_calendar {
+        display:none;
+    }
+    .p_footer .nav {
+        justify-content: center;
+    }
+    #progress {
+        background-color: var(--accent-blue-02);
+        height:100vh;
+        display:grid;
+        grid-template-columns:
+            1fr
+            1fr
+            1fr
+            1fr
+            1fr
+            1fr
+        ;
+        grid-gap: 0px;
+        grid-template-rows:
+            116px
+            184px
+            1fr
+            200px
+        ;
+        grid-template-areas: 
+            "my_progress my_progress my_progress my_progress my_progress my_progress "
+            "data_types data_types data_types data_types data_types data_types"
+            "graph graph graph graph graph graph"
+            "logout logout . . back back"
+        ;
+    }
+    .my_progress {
+        grid-area: my_progress;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .my_progress h1 {
+        margin-top: 41px;
+        font-size: 40px;
+    }
+    .data_types .nav a {
+        font-size: 25px;
+    }
+    .graph {
+        grid-area: graph;
+        border-radius: 0em;
+    }
+    #data_preview .graph ul {
+        list-style: none;
+        display: inline-block;
+        margin: 0 0 16px 0;
+        padding:0;
+        position: relative;
+        color: var(--accent-blue-01);
+    }
+    #data_preview .graph {
+        border-radius: 3em;
+    }
+    .logout {
+        grid-area: logout;
+        text-align: right;
+    
+    }
+    .logout a, .back a {
+        font-size:25px;
+        padding: 20px 20px;
+        margin-top: 50px;
+        display: inline-block;
+    }
+    .back {
+        grid-area: back;
+        text-align: left;
+    }
+    .logout a:hover, .back a:hover, .data_types .nav a:hover, .data_types .nav .active {
+        background-color: var(--accent-grey-02);
+    }
+    #admin {
+        background-color: var(--accent-blue-01);
+        height: 100vh;
+        display: grid;
+        grid-template-columns: 
+            1fr
+            550px
+            1fr
+        ;
+        grid-gap:0px;
+        grid-template-rows: 
+            1fr
+            145px
+            317px
+            1fr
+            100px
+        ;
+        grid-template-areas: 
+        "headspace headspace headspace"
+        "a_header a_header a_header"
+        "a_buttons a_buttons a_buttons"
+        "blank_space blank_space blank_space"
+        "a_footer a_footer a_footer"
+        ;
+    }
+    #survey {
+        background-color: var(--accent-blue-06);
+        display: grid;
+    
+        grid-template-columns:
+            1fr 
+            150px 
+            150px
+            1fr 
+        ;
+        grid-template-rows: 
+            0px
+            91px
+            1fr
+            1fr
+            1fr
+            1fr
+            100px
+            1fr
+        ;
+        grid-template-areas: 
+        "headspace headspace headspace headspace"
+        "s_header s_header s_header s_header"
+        "pre_s pre_s pre_s pre_s"
+        "pre_s pre_s pre_s pre_s"
+        "pre_s pre_s pre_s pre_s"
+        "pre_s pre_s pre_s pre_s"
+        "s_cancel s_cancel s_submit s_submit"
+        ". . . ."
+        ;
+    }
+}
+
+
+@media screen and (max-width:730px) {
+        #login_wrap{
+            grid-template-areas: 
+            "header header header header"
+            "title title title title"
+            "login_box login_box login_box login_box"
+            "blank_space blank_space blank_space blank_space"
+            "footer footer footer footer"
+        
+            ;
+            grid-template-columns:
+            1fr 
+            1fr
+            1fr
+            1fr
+            ;   
+            grid-template-rows:
+            0px
+            170px
+            1fr
+            1fr
+            100px
+            ;
+        }
+        .header{
+            display: none;
+        }
+        .title h1 {
+            font-weight: normal;
+            font-size: 30px;
+        }
+        .login_box {
+            border-radius: 0em;
+        }
+        .login_box h2 {
+            margin-top: 0px;
+            margin-bottom: 23px;
+            text-align: center;
+            font-weight: lighter;
+            font-size: 20px;
+        }
+        .login_box .login_box_input {
+            width:380px;
+            height: 47px;
+            align-items: center;
+            color: black;
+            background-color: var(--accent-blue-03);
+            border:none;
+            margin-bottom: 23px;
+            font-size: 15px;
+            width: 15em;
+        }
+        .footer .nav a {
+            text-decoration: none;
+            border:3px solid var(--accent-blue-01);
+            border-radius:50em;
+            color: var(--accent-blue-01);
+            padding: 10px 10px;
+            margin: 0 4px;
+            font-weight: none;
+            font-size: 15px;
+        }
+        #bert {
+            background-color: var(--accent-blue-02);
+            height:100vh;
+            display:grid;
+            grid-template-columns:
+                1fr
+                200px
+            ;
+            grid-gap: 0px;
+            grid-template-rows:
+                119px
+                1fr
+                1fr
+                1fr
+            ;
+            grid-template-areas: 
+                "chatbot_online open_menu"
+                "chat_history chat_history"
+                "predefined_responses predefined_responses"
+                "text_area text_area"
+            ;
+        }
+        .chatbot_online ul li {
+            font-size: 20px;
+        }
+        .open_menu a {
+            font-size: 18px;
+            margin-top: 40px;
+        }
+        #survey {
+            background-color: var(--accent-blue-06);
+            display: grid;
+        
+            grid-template-columns:
+                1fr 
+                150px 
+                150px
+                1fr 
+            ;
+            grid-template-rows: 
+                0px
+                91px
+                1fr
+                1fr
+                1fr
+                1fr
+                100px
+            ;
+            grid-template-areas: 
+            "headspace headspace headspace headspace"
+            "s_header s_header s_header s_header"
+            "pre_s pre_s pre_s pre_s"
+            "pre_s pre_s pre_s pre_s"
+            "pre_s pre_s pre_s pre_s"
+            "pre_s pre_s pre_s pre_s"
+            "s_cancel s_cancel s_submit s_submit"
+            ;
+        }
+        .pre_session, .post_session {
+            border-radius: 0em;
+            border: none;
+        }
+        #data_preview {
+            background-color: var(--accent-grey-01);
+            display: grid;
+            grid-template-columns: 
+            0px
+            1fr
+            0px
+            ;
+            grid-template-rows: 
+            1fr
+            1fr
+            200px
+            200px
+            1fr
+            200px
+            3fr
+            ;
+            grid-template-areas: 
+            "headspace headspace headspace headspace"
+            ". prev_header prev_header ."
+            ". stats stats ."
+            ". stats stats ."
+            ". . . ."
+            "progress_footer progress_footer progress_footer progress_footer"
+            ". . . ."
+            ;
+        }
+        .prev_header {
+            margin-top: 0px;
+        }
+        #data_preview .graph {
+            border-radius: 0em;
+        }
+        #data_preview .progress_footer {
+            text-align: center;
+            margin-top: 0px;
+        }
+        #data_preview .progress_footer .nav {
+            display: block;
+        }
+        #data_preview .progress_footer .nav a {
+            display: inline-block;
+        }
+}
+
+@media screen and (max-width:480px) {
+    #login_wrap{
+        background-color: var(--accent-grey-01);
+        grid-template-areas: 
+        "header header header header"
+        "title title title title"
+        "login_box login_box login_box login_box"
+        "blank_space blank_space blank_space blank_space"
+        "footer footer footer footer"
+    
+        ;
+        grid-template-columns:
+        1fr 
+        1fr
+        1fr
+        1fr
+        ;   
+        grid-template-rows:
+        0px
+        200px
+        1fr
+        1fr
+        100px
+        ;
+    }
+    .header{
+        display: none;
+        background-color: var(--accent-grey-02);
+    }
+    .title h1 {
+        font-weight: normal;
+        font-size: 23px;
+        color: white;
+    }
+    .login_box {
+        border-radius: 0em;
+    }
+    .login_box h2 {
+        margin-top: 0px;
+        margin-bottom: 23px;
+        text-align: center;
+        font-weight: lighter;
+        font-size: 18px;
+    }
+    .login_box .login_box_input {
+        width:380px;
+        height: 47px;
+        align-items: center;
+        color: black;
+        background-color: var(--accent-blue-03);
+        border:none;
+        margin-bottom: 23px;
+        font-size: 15px;
+        width: 17em;
+    }
+    .login_box .nav a {
+        font-size: 15px;
+    }
+    .footer .nav a {
+        background-color: white;
+        font-size: 12px;
+    }
+    #patient_landing {
+        background-color: var(--accent-blue-02);
+        height:100vh;
+        display:grid;
+        text-align: center;
+        grid-template-columns:
+            1fr
+            300px
+            1fr
+        ;
+        grid-gap: 0px;
+        grid-template-rows:
+            303px
+            280px
+            1fr
+            1fr
+        ;
+        grid-template-areas: 
+            "p_header p_header p_header"
+            "p_buttons p_buttons p_buttons"
+            ". . ."
+            "p_footer p_footer p_footer"
+        ;
+    }
+    .p_header {
+        grid-area: p_header;
+        background-color: #C5DEEB;
+        color: black;
+        justify-content: center;
+    }
+    .p_header h1 {
+        margin-top: 134px;
+        margin-bottom: 0px;
+    }
+    .p_header h2 {
+        margin-top: 32px;
+        margin-bottom: 63px;
+    }
+    .p_buttons {
+        margin-top: 0px;
+        grid-area: p_buttons;
+        background-color: var(--accent-blue-02);
+    }
+    .p_buttons a {
+        text-decoration: none;
+        border:3px solid white;
+        border-radius:50em;
+        color: white;
+        background-color: var(--accent-blue-01);
+        padding: 10px 10px;
+        margin-top: 0px;
+        margin-bottom: 64px;
+        font-weight: none;
+        font-size: 20px;
+    }
+    .p_footer {
+        grid-area: p_footer;
+        background-color: var(--accent-blue-02);
+        text-align: center;
+    }
+    .p_footer .nav {
+        list-style:none;
+        padding: 0;
+        display:flex;
+        justify-content: center;
+        margin-left: 14px;
+        margin-bottom: 14px;
+    }
+    .p_footer .nav a {
+        text-decoration: none;
+        border:3px solid var(--accent-blue-01);
+        border-radius:130em;
+        color: var(--accent-blue-01);
+        padding: 15px 10px;
+        margin: 0px 4px;
+        font-weight: none;
+        background-color: white;
+    }
+    .p_footer #get_help .nav a {
+        padding: 10px 10px;
+    }
+    .p_footer .nav a:hover, .footer .nav .active {
+        background-color: var(--accent-grey-02);
+    }
+    #bert {
+        background-color: var(--accent-blue-02);
+        height:100vh;
+        display:grid;
+        grid-template-columns:
+            1fr
+            150px
+        ;
+        grid-gap: 0px;
+        grid-template-rows:
+            119px
+            1fr
+            1fr
+            1fr
+        ;
+        grid-template-areas: 
+            "chatbot_online open_menu"
+            "chat_history chat_history"
+            "predefined_responses predefined_responses"
+            "text_area text_area"
+        ;
+    }
+    .chatbot_online ul li {
+        font-size: 18px;
+    }
+    .open_menu a {
+        font-size: 15px;
+        margin-top: 40px;
+    }
+    .chat_history ul li {
+        font-size: 15px;
+    }
+    .predefined_responses .nav {
+        margin-left: 10px;
+    }
+    .predefined_responses .nav a {
+        font-size: 15px;
+    }
+    .text_area input {
+        font-size: 15px;
+    }
+
+    #progress {
+        background-color: var(--accent-blue-02);
+        height:100vh;
+        display:grid;
+        grid-template-columns:
+            1fr
+            1fr
+            1fr
+            1fr
+            1fr
+            1fr
+        ;
+        grid-gap: 0px;
+        grid-template-rows:
+            100px
+            100px
+            1fr
+            200px
+        ;
+        grid-template-areas: 
+            "my_progress my_progress my_progress my_progress my_progress my_progress "
+            "data_types data_types data_types data_types data_types data_types"
+            "graph graph graph graph graph graph"
+            "logout logout logout back back back"
+        ;
+    }
+    .my_progress {
+        grid-area: my_progress;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .my_progress h1 {
+        margin-top: 41px;
+        font-size: 40px;
+    }
+    .data_types {
+        text-align: left;
+    }
+    .data_types .nav {
+        list-style:none;
+        padding: 0;
+        display:flex;
+        justify-content: left;
+        margin-left: 5px;
+        margin-bottom: 14px;
+        margin-top: 0px;
+        text-align: center;
+    }
+    .data_types .nav a {
+        text-decoration: none;
+        border:3px solid var(--accent-blue-02);
+        border-radius: 5em;
+        color: var(--accent-blue-01);
+        padding: 4px 4px;
+        margin-top: 20px;
+        margin-right: 5px;
+        font-weight: none;
+        background-color: var(--accent-blue-02);
+        font-size: 15px;
+        display: inline-block;
+    }
+    .data_types .nav a:hover {
+        color: white;
+        border:3px solid white;
+    }
+    .data_types .nav .active {
+        border:3px solid white;
+    }
+    .graph {
+        grid-area: graph;
+        border-radius: 0em;
+    }
+    .logout {
+        grid-area: logout;
+        text-align: right;
+    
+    }
+    .logout a, .back a {
+        font-size:25px;
+        padding: 20px 20px;
+        margin-top: 50px;
+        display: inline-block;
+    }
+    .back {
+        grid-area: back;
+        text-align: left;
+    }
+    .logout a:hover, .back a:hover, .data_types .nav a:hover, .data_types .nav .active {
+        background-color: var(--accent-grey-02);
+    }
+    #admin {
+        background-color: var(--accent-blue-01);
+        height: 100vh;
+        display: grid;
+        grid-template-columns: 
+            1fr
+            300px
+            1fr
+        ;
+        grid-gap:0px;
+        grid-template-rows: 
+            1fr
+            145px
+            350px
+            1fr
+            100px
+        ;
+        grid-template-areas: 
+        "headspace headspace headspace"
+        "a_header a_header a_header"
+        "a_buttons a_buttons a_buttons"
+        "blank_space blank_space blank_space"
+        "a_footer a_footer a_footer"
+        ;
+    }
+    .a_header h1 {
+        font-size: 35px;
+    }
+    .a_header h3 {
+        font-size: 30px;
+    }
+    .a_buttons .nav a {
+        font-size: 25px;
+    }
+
+    .pre_session input, .post_session input {
+        font-size: 12px;
+    }
+    #survey {
+        background-color: var(--accent-blue-06);
+        display: grid;
+    
+        grid-template-columns:
+            1fr 
+            140px 
+            140px
+            1fr 
+        ;
+        grid-template-rows: 
+            0px
+            160px
+            1fr
+            1fr
+            0px
+            1fr
+            1fr
+            100px
+        ;
+        grid-template-areas: 
+        "headspace headspace headspace headspace"
+        "s_header s_header s_header s_header"
+        "pre_s pre_s pre_s pre_s"
+        "pre_s pre_s pre_s pre_s"
+        "blank_space blank_space blank_space blank_space"
+        "post_s post_s post_s post_s"
+        "post_s post_s post_s post_s"
+        "s_cancel s_cancel s_submit s_submit"
+        ;
+    }
+    .pre_session, .post_session {
+        border: none;
+    }
+    #data_preview {
+        background-color: var(--accent-grey-01);
+        display: grid;
+        grid-template-columns: 
+        0px
+        1fr
+        0px
+        ;
+        grid-template-rows: 
+        1fr
+        1fr
+        200px
+        200px
+        1fr
+        200px
+        1fr
+        ;
+        grid-template-areas: 
+        "headspace headspace headspace headspace"
+        ". prev_header prev_header ."
+        ". stats stats ."
+        ". stats stats ."
+        ". . . ."
+        "progress_footer progress_footer progress_footer progress_footer"
+        ". . . ."
+        ;
+    }
+    .prev_header {
+        margin-top: 0px;
+    }
+    #data_preview .graph {
+        border-radius: 0em;
+    }
+    #data_preview .progress_footer {
+        text-align: center;
+        margin-top: 0px;
+    }
+    #data_preview .progress_footer .nav {
+        display: block;
+    }
+    #data_preview .progress_footer .nav a {
+        display: inline-block;
+    }
+}

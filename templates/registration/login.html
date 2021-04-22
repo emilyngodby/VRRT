@@ -41,7 +41,8 @@
         </table>
         <ul class="nav">
           {# Assumes you setup the password_reset view in your URLconf #}
-          <li><a href="{% url 'password_reset' %}">Lost password?</a></li>
+          <!-- <li><a href="{% url 'password_reset' %}">Lost password?</a></li> -->
+          <li><input type="button" value="Lost password?" id="lost-pswd" onclick="location.href=`{% url 'password_reset' %}`"/></li>
           <li><input type="submit" value="Login" /></li>
           <li><input type="hidden" name="next" value="{{ next }}" /></li>
         </ul>
@@ -49,17 +50,16 @@
       
   </div>
       
-  <div class="blank_space">
-
-  </div>
   <div class="footer">
-      <ul class="nav">
-          <li><a href="#">About</a></li>
-          <li><a href="#">Mission</a></li>
-          <li><a href="#">Meet the Team</a></li>
-          <li><a href="#">Documentation</a></li>
-      </ul>
+    <ul class="nav">
+      <li><input type="button" value="Learn more about the developers" id="learn-btn"/></li>
+      <!-- <li><input type="button" value="About" id="about-btn"/></li>
+      <li><input type="button" value="Mission" id="mission-btn"/></li>
+      <li><input type="button" value="Meet the Team" id="meet-btn"/></li>
+      <li><input type="button" value="Documentation" id="doc-btn"/></li> -->
+    </ul>
   </div>
+  <script src="static/js/login.js"></script>
 </div>
 
   <!-- {% if form.errors %}

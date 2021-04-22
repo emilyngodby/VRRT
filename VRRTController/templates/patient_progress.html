@@ -1,26 +1,93 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+    <head>
+        <link href="http://cdn.pydata.org/bokeh/release/bokeh-2.3.0.min.css" rel="stylesheet" type="text/css">
+        <link href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-2.3.0.min.css" rel="stylesheet" type="text/css">
+        <script src="http://cdn.pydata.org/bokeh/release/bokeh-2.3.0.min.js"></script>
+        <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-2.3.0.min.js"></script>
+        {{ script | safe }}
+    </head>
     <div id="progress">
         <div class="my_progress">
             <h1>My Progress</h1>
         </div>
-        <div class="data_types">
-            <ul class="nav">
-                <li><a href="#" id="pain_score">Pain Score</a></li>
-                <li><a href="#" id="heart_rate">Heart Rate</a></li>
-                <li><a href="#" id="blood_pressure">Blood Pressure</a></li>
-                <li><a href="#" id="oxygen_saturation">Oxygen Saturation</a></li>
-                <li><a href="#" id="mood">Mood</a></li>
+        <div class="data_types" style="text-align: center;">
+            <ul style="list-style: none; display: block;">
+                <li style="justify-content: center;">
+                    <form class="myForm">
+                        <label>Discover your progress:</label>
+                        <select name = "dropdown" id="select_dataType" onchange="updateDataType(this)">
+                            <option value = "Pain Score" class="dropdown" >Pain Score</option>
+                            <option value = "Heart Rate" class="dropdown" >Heart Rate</option>
+                            <option value = "Blood Pressure" class="dropdown">Blood Pressure</option>
+                            <option value = "Respiration Rate" class="dropdown">Respiration Rate</option>
+                            <option value = "Oxygen Saturation" class="dropdown">Oxygen Saturation</option>
+                            <option value = "Mood" class="dropdown">Mood</option>
+                            <option value = "All Data" class="dropdown">All Data</option>
+                        </select>
+                    </form>
+                </li>
             </ul>
         </div>
         <div class="graph">
-        </div>
-        <div class="logout">
-            <a href="{% url 'logout'%}">Log Out</a>
+            <h2 style="margin-top: 10px; margin-left: 40px; text-align: center; color: #396378;" id="title_datatype">Change in Heart Rate</h2>
+            {{ div | safe}}
+            <div class="preview_analysis">
+            </div>
+
         </div>
         <div class="back">
-            <a href="patientLandingPage">Back</a>
+            <input type="button" value="Back" onclick="location.href=`patientLandingPage`"/>
         </div>
+        <div class="logout">
+            <input type="button" value="Logout" onclick="location.href=`{% url 'logout'%}`"/>
+        </div>
+        
+        <script>
+            const myForm = document.querySelector(".myForm");
+            const dataTypes = document.querySelector('.data_types');
+            const selectDataType = document.querySelector('#select_dataType');
+            const dataVal = selectDataType.value;
+            const titleDataType = document.querySelector('#title_datatype');
+
+            const previewAnalysis = document.querySelector('.preview_analysis');
+            
+            function updateDataType(type) {
+                titleDataType.innerHTML = `Change in ${type.value}`;
+                console.log(type.value);
+                switch (type.value) {
+                        case "Pain Score":
+                            localStorage.setItem("key", type.value);
+                            window.location.href="{%url 'patientProgressPagePainScore' %}";
+                            break;
+                        case "Heart Rate":
+                            window.location.href="{%url 'patientProgressPageHeartRate' %}";
+                            break;
+                        case "Blood Pressure":
+                            
+                            break;
+                        case "Oxygen Saturation":
+                            
+                            break;
+                        case "Respiration Rate":
+                            
+                            break;
+                        case "Mood":
+                            
+                            break;
+                        case "All Data":
+                            
+                            break;
+                        default:
+                            
+                            break;
+                    }
+            }
+
+            // myForm.addEventListener('submit', function(event) {
+            //     event.preventDefault();
+            // })
+        </script>
     </div>
 {% endblock %}

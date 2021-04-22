@@ -15,9 +15,9 @@
             </ul>
         </div>
         <div class="open_menu">
-            <a href="patientLandingPage">Leave conversation</a>
+          <input type="button" value="Leave Conversation" onclick="location.href='patientLandingPage'"/>
         </div>  
-        <div class="chat_history" style="display: flex; flex-direction: column-reverse; overflow: auto;">
+        <div class="chat_history" style="display: flex; flex-direction: column-reverse; padding: 0px;">
             <ul class="history" >
                 <li class="bert_answer" id="history_row">Hi, my name is Bert. How are you feeling today?</li> <br>
             </ul>
@@ -64,6 +64,7 @@
 
         $row.text(text);
         $chatlog.append($row);
+        $chatlog.scrollTop = $chatlog.scrollHeight;
       }
 
       function createRowUser(text) {
@@ -71,6 +72,7 @@
 
         $row.text(text);
         $chatlog.append($row);
+        $chatlog.scrollTop = $chatlog.scrollHeight;
       }
 
       function submitInput() {
@@ -96,7 +98,8 @@
             $input.val(''); 
 
             // Scroll to the bottom of the chat interface
-            $chathistory.scrollTop($chathistory[0].scrollHeight);
+            $chatlog.animate({
+            scrollTop: $chatlog.get(0).scrollHeight}, 2000);  
         });
 
         $submit.fail(function() {
