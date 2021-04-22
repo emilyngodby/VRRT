@@ -60,6 +60,10 @@ urlpatterns += [
 ]
 
 urlpatterns += [
+    path('adminBloodPressureProgressView', views.adminBloodPressureProgressView.as_view(), name='adminBloodPressureProgressView')
+]
+
+urlpatterns += [
     path('adminHearRateProgressView', views.adminHearRateProgressView.as_view(), name='adminHearRateProgressView')
 ]
 

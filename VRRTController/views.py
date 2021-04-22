@@ -80,6 +80,9 @@ A function that takes in a string
 Querrys the database of values for all the start and stops values
 """
 def databaseQuery(field):
+
+    results = []
+
     print("DATABASEQUERY CALLED")
     if field == 'painScore':
         startValues = SurveyInstance.objects.values_list('PainScoreStart')
@@ -88,9 +91,27 @@ def databaseQuery(field):
         startValues = SurveyInstance.objects.values_list('HeartRateStart')
         endValues = SurveyInstance.objects.values_list('HeartRateEnd')
     
+    #Blood pressure is handled differently because its two values for every one instance
     elif field == 'bloodPressure':
-        startValues = SurveyInstance.objects.values_list('PainScoreStart')
-        endValues = SurveyInstance.objects.values_list('PainScoreEnd')
+        startValuesBP1 = SurveyInstance.objects.values_list('BPStartValue1')
+        endValuesBP1 = SurveyInstance.objects.values_list('BPEndValue1')
+
+        startValuesBP2 = SurveyInstance.objects.values_list('BPStartValue2')
+        endValuesBP2 = SurveyInstance.objects.values_list('BPEndValue2')
+
+        BP1Vals = []
+        BP1Vals.append(startValuesBP1)
+        BP1Vals.append(endValuesBP1)
+
+        BP2Vals = []
+        BP2Vals.append(startValuesBP2)
+        BP2Vals.append(endValuesBP2)
+
+        results.append(BP1Vals)
+        results.append(BP2Vals)
+
+        return results
+
     
     elif field == 'respirationRate':
         startValues = SurveyInstance.objects.values_list('RespirationRateStart')
@@ -110,7 +131,7 @@ def databaseQuery(field):
 
     print("DATABASEQUERY: start list size: " + str(len(startValues)) + " end list size: " + str(len(endValues)))  
 
-    results = []
+    
     results.append(startValues)
     results.append(endValues)
     return results
@@ -123,8 +144,39 @@ returning it cleaned
 """
 
 def databaseQuerryParser(values,field):
+
+    results = []
+
+    #Special handler for blood pressure
     if field == 'bloodPressure':
-        pass
+        startValues1 = []
+        endValues1 = []
+
+        startValues2 = []
+        endValues2 = []
+
+        for i in range(len(values[0][0])):
+            startValues1.append(values[0][0][i])
+            endValues1.append(values[0][1][i])
+        for i in range(len(values[1][0])):
+            startValues2.append(values[1][0][i])
+            endValues2.append(values[1][1][i])
+        
+        BP1Vals  = []
+        BP2Vals = []
+
+        BP1Vals.append(startValues1)
+        BP1Vals.append(endValues1)
+
+        BP2Vals.append(startValues2)
+        BP2Vals.append(endValues2)
+
+        results.append(BP1Vals)
+        results.append(BP2Vals)
+
+        return results
+
+
 
     startValues = []
     endValues = []
@@ -140,7 +192,7 @@ def databaseQuerryParser(values,field):
     print("Starting values: " + str(startValues))
     print("Ending values: " + str(endValues))
 
-    results = []
+    
 
     results.append(startValues)
     results.append(endValues)
@@ -160,8 +212,11 @@ def databaseUserQuery(field, userName):
         endValues = SurveyInstance.objects.values_list('HeartRateEnd').filter(PatientID = userName)
     
     elif field == 'bloodPressure':
-        startValues = SurveyInstance.objects.values_list('PainScoreStart').filter(PatientID = userName)
-        endValues = SurveyInstance.objects.values_list('PainScoreEnd').filter(PatientID = userName)
+        startValuesBP1 = SurveyInstance.objects.values_list('BPStartValue1').filter(PatientID = userName)
+        endValuesBP1 = SurveyInstance.objects.values_list('BPEndValue1').filter(PatientID = userName)
+
+        startValuesBP2 = SurveyInstance.objects.values_list('BPStartValue1').filter(PatientID = userName)
+        endValuesBP2 = SurveyInstance.objects.values_list('BPEndValue1').filter(PatientID = userName)
     
     elif field == 'respirationRate':
         startValues = SurveyInstance.objects.values_list('RespirationRateStart').filter(PatientID = userName)
@@ -414,6 +469,22 @@ class adminPainScoreProgressView(LoginRequiredMixin, generic.View):
                      'minChange' : minChangeVal, 'significantChanges' : numOfSignificantChange}
 
         return pageUserAuth(request,'Staff',"admin_progress_preview.html",context)
+
+class adminBloodPressureProgressView(LoginRequiredMixin, generic.View):
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        fieldValue = 'bloodPressure'
+
+        results = databaseQuery(fieldValue)
+
+        results = databaseQuerryParser(results, fieldValue)
+
+        print(results)
+
+        return pageUserAuth(request,'Staff',"admin_progress_preview.html")
         
 
 class adminHearRateProgressView(LoginRequiredMixin, generic.View):
