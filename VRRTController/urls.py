@@ -83,10 +83,7 @@ urlpatterns += [
     path('export', views.export, name='export')
 ]
 
+urlpatterns += [
+    path('createpatient', views.create_patient, name="createpatient")
+]
 
-
-
-# urlpatterns += [
-#     path('SurveyInstance/', views.SurveyInstanceListView.as_view(), name='SurveyInstanceList')
-#     #path('SurveyInstance/<int:pk>', views.SurveyInstanceDetailView.as_view(), name='Survey-Instance-detail'),
-# ]

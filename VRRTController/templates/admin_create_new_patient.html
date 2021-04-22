@@ -1,0 +1,33 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div id="login_wrap">
+    <div class="login_box">
+        <h2>Create New Patient</h2>
+        <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <p>
+            {{ field.label_tag }}<br>
+            {{ field }}
+            {% if field.help_text %}
+                <small style="color: black">{{ field.help_text }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+                <p style="color: red">{{ error }}</p>
+            {% endfor %}
+            </p>
+        {% endfor %}
+        </form>
+        <!-- <form action="/patient-id/" method="post">
+            <label for="patient_id">Patient ID: </label>
+            <input id="patient-id" type="text" name="your_name" value="{{ current_name }}">
+            <label> Group</label>
+
+        </form> -->
+        <button type="submit">Create Patient</button>
+
+    </div>
+
+</div>
+{% endblock %}

@@ -1,11 +1,13 @@
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.detail import DetailView
 from VRRTController.models import Survey, SurveyInstance, SiteID
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 from chatterbot import ChatBot
@@ -241,6 +243,7 @@ def minChange(values):
     return currentMin
 
 
+
 """ 
 
 ************************ NON LOGIN VIEWS ************************
@@ -291,6 +294,20 @@ class MissionStatmentView(generic.View):
 
 class SiteListView(generic.ListView):
     model = SiteID
+
+def home_view(request):
+    return render(request, 'admin_landing_pg.html')
+
+def create_patient(request):
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+        form.save()
+        username = form.cleaned_data.get('patient_id')
+        password = form.cleaned_data.get('group')
+        user = authenticate(username=username, password=password)
+        login(request, user)
+        return redirect('admin_landing_pg')
+    return render(request, 'admin_create_new_patient.html', {'form':form})
 
 
 
