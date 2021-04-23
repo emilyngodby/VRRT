@@ -546,18 +546,51 @@ class adminHearRateProgressView(LoginRequiredMixin, generic.View):
     def get(self, request):
 
         fieldValue = 'heartRate'
+        #Setting a variable for the current field name
+        #Using databaseQuery to get the database instances off this object
         results = databaseQuery(fieldValue)
-
+        #Turning the results into a list
         results = databaseQuerryParser(results, fieldValue)
 
+
+        #Calculations
         averageChange = averageChageCalculation(results)
-
         maxPostiveChangeVal = maxPostiveChange(results)
-
         minChangeVal = minChange(results)
+        numOfSignificantChange = significantPainScoreChange(results)
 
 
-        context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal, 'minChange' : minChangeVal}
+        #Graph Stuff
+        startValues = results[0]
+        endValues = results[1]
+
+        xVals = []
+
+        for i in range(1,len(startValues)+1):
+            xVals.append(i)
+
+        #xVals = range(len(startValues))
+
+        source = ColumnDataSource(data=dict(
+            x = xVals,
+            y1 = startValues,
+            y2 = endValues
+        ))
+
+        p = figure( sizing_mode = "stretch_width", plot_height = 350)
+
+        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+
+        p.background_fill_color = None
+        p.border_fill_color = None
+
+        script, div = components(p)
+
+
+        #Dictionary of the variables to be passed to the webpage
+        context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
+                     'minChange' : minChangeVal, 'significantChanges' : numOfSignificantChange,
+                     'script' : script , 'div': div}
 
         return pageUserAuth(request,'Staff',"admin_progress_preview.html",context)
 
@@ -568,18 +601,50 @@ class adminResperationRateProgressView(LoginRequiredMixin, generic.View):
     def get(self, request):
 
         fieldValue = 'respirationRate'
+        #Using databaseQuery to get the database instances off this object
         results = databaseQuery(fieldValue)
-
+        #Turning the results into a list
         results = databaseQuerryParser(results, fieldValue)
 
+
+        #Calculations
         averageChange = averageChageCalculation(results)
-
         maxPostiveChangeVal = maxPostiveChange(results)
-
         minChangeVal = minChange(results)
+        numOfSignificantChange = significantPainScoreChange(results)
 
 
-        context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal, 'minChange' : minChangeVal}
+        #Graph Stuff
+        startValues = results[0]
+        endValues = results[1]
+
+        xVals = []
+
+        for i in range(1,len(startValues)+1):
+            xVals.append(i)
+
+        #xVals = range(len(startValues))
+
+        source = ColumnDataSource(data=dict(
+            x = xVals,
+            y1 = startValues,
+            y2 = endValues
+        ))
+
+        p = figure( sizing_mode = "stretch_width", plot_height = 350)
+
+        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+
+        p.background_fill_color = None
+        p.border_fill_color = None
+
+        script, div = components(p)
+
+
+        #Dictionary of the variables to be passed to the webpage
+        context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
+                     'minChange' : minChangeVal, 'significantChanges' : numOfSignificantChange,
+                     'script' : script , 'div': div}
 
         return pageUserAuth(request,'Staff',"admin_progress_preview.html",context)
 
@@ -590,18 +655,50 @@ class adminO2SaturationProgressView(LoginRequiredMixin, generic.View):
     def get(self, request):
 
         fieldValue = 'O2Saturation'
+        #Using databaseQuery to get the database instances off this object
         results = databaseQuery(fieldValue)
-
+        #Turning the results into a list
         results = databaseQuerryParser(results, fieldValue)
 
+
+        #Calculations
         averageChange = averageChageCalculation(results)
-
         maxPostiveChangeVal = maxPostiveChange(results)
-
         minChangeVal = minChange(results)
+        numOfSignificantChange = significantPainScoreChange(results)
 
 
-        context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal, 'minChange' : minChangeVal}
+        #Graph Stuff
+        startValues = results[0]
+        endValues = results[1]
+
+        xVals = []
+
+        for i in range(1,len(startValues)+1):
+            xVals.append(i)
+
+        #xVals = range(len(startValues))
+
+        source = ColumnDataSource(data=dict(
+            x = xVals,
+            y1 = startValues,
+            y2 = endValues
+        ))
+
+        p = figure( sizing_mode = "stretch_width", plot_height = 350)
+
+        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+
+        p.background_fill_color = None
+        p.border_fill_color = None
+
+        script, div = components(p)
+
+
+        #Dictionary of the variables to be passed to the webpage
+        context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
+                     'minChange' : minChangeVal, 'significantChanges' : numOfSignificantChange,
+                     'script' : script , 'div': div}
 
         return pageUserAuth(request,'Staff',"admin_progress_preview.html",context)
 
