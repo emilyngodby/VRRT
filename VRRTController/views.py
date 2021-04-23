@@ -880,6 +880,7 @@ class patientProgressPagePainScore(LoginRequiredMixin, generic.View):
         ))
 
         p = figure( sizing_mode = "stretch_width", plot_height = 350)
+        p.title = 'Change in Pain Score'
 
         p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
 
@@ -929,11 +930,110 @@ class patientProgressPageHeartRate(LoginRequiredMixin, generic.View):
         ))
 
         p = figure( sizing_mode = "stretch_width", plot_height = 350)
+        p.title = 'Change in Heart Rate'
 
         p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
 
         p.background_fill_color = None
         p.border_fill_color = None
+
+        script, div = components(p)
+
+        return pageUserAuth(request,'Patient',"patient_progress.html", {'script' : script , 'div': div} )
+
+class patientProgressPageOxygenSaturation(LoginRequiredMixin, generic.View):
+
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        fieldValue = "O2Saturation"
+
+        userName = ""
+        #Checks if the current uesr has been authed
+        if request.user.is_authenticated:
+            #Getting the current users username
+            userName = request.user.username
+
+        results = databaseUserQuery(fieldValue, userName)
+
+        results = databaseQuerryParser(results,fieldValue)
+
+        print("\t\tRESULTS: " + str(results))
+
+        startValues = results[0]
+        endValues = results[1]
+
+        xVals = []
+
+        for i in range(1,len(startValues)+1):
+            xVals.append(i)
+
+        #xVals = range(len(startValues))
+
+        source = ColumnDataSource(data=dict(
+            x = xVals,
+            y1 = startValues,
+            y2 = endValues
+        ))
+
+        p = figure( sizing_mode = "stretch_width", plot_height = 350)
+
+        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+
+        p.background_fill_color = None
+        p.border_fill_color = None
+        p.title = 'Change in Oxygen Saturation'
+
+        script, div = components(p)
+
+        return pageUserAuth(request,'Patient',"patient_progress.html", {'script' : script , 'div': div} )
+
+class patientProgressPageRespirationRate(LoginRequiredMixin, generic.View):
+
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        fieldValue = "respirationRate"
+
+        userName = ""
+        #Checks if the current uesr has been authed
+        if request.user.is_authenticated:
+            #Getting the current users username
+            userName = request.user.username
+
+        results = databaseUserQuery(fieldValue, userName)
+
+        results = databaseQuerryParser(results,fieldValue)
+
+        print("\t\tRESULTS: " + str(results))
+
+        startValues = results[0]
+        endValues = results[1]
+
+        xVals = []
+
+        for i in range(1,len(startValues)+1):
+            xVals.append(i)
+
+        #xVals = range(len(startValues))
+
+        source = ColumnDataSource(data=dict(
+            x = xVals,
+            y1 = startValues,
+            y2 = endValues
+        ))
+
+        p = figure( sizing_mode = "stretch_width", plot_height = 350)
+
+        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+
+        p.background_fill_color = None
+        p.border_fill_color = None
+        p.title = 'Change in Respiration Rate'
 
         script, div = components(p)
 

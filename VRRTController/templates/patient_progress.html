@@ -31,7 +31,7 @@
             </ul>
         </div>
         <div class="graph">
-            <h2 style="margin-top: 10px; margin-left: 40px; text-align: center; color: #396378;" id="title_datatype">Change in Heart Rate</h2>
+            <!-- <h2 style="margin-top: 10px; margin-left: 40px; text-align: center; color: #396378;" id="title_datatype">Change in Heart Rate</h2> -->
             {{ div | safe}}
             <div class="preview_analysis">
             </div>
@@ -49,29 +49,34 @@
             const dataTypes = document.querySelector('.data_types');
             const selectDataType = document.querySelector('#select_dataType');
             const dataVal = selectDataType.value;
-            const titleDataType = document.querySelector('#title_datatype');
+            // const titleDataType = document.querySelector('#title_datatype');
 
             const previewAnalysis = document.querySelector('.preview_analysis');
             
             function updateDataType(type) {
-                titleDataType.innerHTML = `Change in ${type.value}`;
+                // titleDataType.innerHTML = `Change in ${type.value}`;
                 console.log(type.value);
                 switch (type.value) {
                         case "Pain Score":
-                            localStorage.setItem("key", type.value);
                             window.location.href="{%url 'patientProgressPagePainScore' %}";
+                            // titleDataType = document.querySelector('#title_datatype');
+                            // titleDataType.innerHTML = `Change in ${type.value}`;
                             break;
                         case "Heart Rate":
                             window.location.href="{%url 'patientProgressPageHeartRate' %}";
+                            // titleDataType = document.querySelector('#title_datatype');
+                            // titleDataType.innerHTML = `Change in ${type.value}`;
                             break;
                         case "Blood Pressure":
                             
                             break;
                         case "Oxygen Saturation":
-                            
+                            window.location.href="{%url 'patientProgressPageOxygenSaturation' %}";
+                            // titleDataType = document.querySelector('#title_datatype');
+                            // titleDataType.innerHTML = `Change in ${type.value}`;
                             break;
                         case "Respiration Rate":
-                            
+                            window.location.href="{%url 'patientProgressPageRespirationRate' %}";
                             break;
                         case "Mood":
                             

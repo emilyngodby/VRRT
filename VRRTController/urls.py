@@ -82,6 +82,14 @@ urlpatterns += [
 ]
 
 urlpatterns += [
+    path('patientProgressPageOxygenSaturation', views.patientProgressPageOxygenSaturation.as_view(), name='patientProgressPageOxygenSaturation')
+]
+
+urlpatterns += [
+    path('patientProgressPageRespirationRate', views.patientProgressPageRespirationRate.as_view(), name='patientProgressPageRespirationRate')
+]
+
+urlpatterns += [
     path('export', views.export, name='export')
 ]
 
