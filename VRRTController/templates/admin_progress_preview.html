@@ -18,11 +18,9 @@
         
 
             <div class="data_stats">
+                <h3>Change in Blood Pressure</h3>
 
-
-                        <h2 style="margin-top: 10px; margin-left: 40px; text-align: center; color: #396378;" id="title_datatype">Change in Heart Rate</h2>
                         {{ div | safe}}
-
 
 
                 <div class="data_item">
@@ -42,12 +40,11 @@
         </div>
 
             <div class="data_stats" >
-                    <div class="graph">
+                <div class="data_item" style="padding: 20px 20px;">
                         {{ div | safe}}
                         <div class="preview_analysis">
                         </div>
-            
-                    </div>
+                </div>
                 <div class="data_item">
                     <h3>Average Change</h3>
                     <h4>{{ averageChange}}</h4>
