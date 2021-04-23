@@ -893,7 +893,7 @@ td #us {
     ;
     grid-gap:0px;
     grid-template-rows: 
-        1fr
+        100px
         1fr
         317px
         1fr
@@ -1004,6 +1004,138 @@ td #us {
         font-size: 4vw;
     }
 
+}
+
+/***********************/
+/* Create new patient */
+/*********************/
+#new_patient {
+    display: grid;
+    background-color: var(--accent-grey-01);
+    text-align: center;
+    margin: 0;
+    line-height: 2em;
+    grid-template-columns: 
+    1fr
+    3fr
+    1fr
+    ;
+
+    grid-template-rows: 
+    150px
+    2fr
+    1fr
+    ;
+    grid-template-areas:
+    ". np_title ."
+    ". np_form ."
+    ". . ."
+    ;
+}
+#new_patient .title {
+    grid-area: np_title;
+}
+#new_patient h1 {
+    font-size: 3vw;
+    margin-top: 50px;
+}
+.new_patient_form {
+    grid-area: np_form;
+    margin: 0 auto;
+    text-align: left;
+    font-size: 1.3vw;
+    color: black;
+}
+.new_patient_form .nav {
+    display: flex;
+    align-content: space-between;
+}
+#inp {
+    margin-left: 20px;
+    padding: 30px 30px;
+}
+.new_patient_form h2 {
+    text-align: center;
+    font-size: 2.5vw;
+}
+.new_patient_form form tr {
+    margin-right: 2px;
+}
+#new_patient .nav {
+    margin: 0 auto;
+}
+#new_patient input[type=button] {
+    margin-right: 10px;
+}
+.new_patient_form form .instructions {
+    font-size: 1.2vw;
+}
+@media screen and (max-width: 1100px) {
+    #new_patient {
+        display: grid;
+        background-color: var(--accent-grey-01);
+        text-align: center;
+        margin: 0;
+        line-height: 2em;
+        grid-template-columns: 
+        100vw
+        ;
+    
+        grid-template-rows: 
+        150px
+        2fr
+        1fr
+        ;
+        grid-template-areas:
+        "np_title"
+        "np_form"
+        "."
+        ;
+    }
+    .new_patient_form .nav {
+        display:block;
+        margin: 0 auto;
+    }
+    .new_patient_form #inst, .new_patient_form #inp {
+        padding: 10px 35px;
+    }
+    .new_patient_form .nav #buttons{
+        display: flex;
+        align-content: space-between;
+        font-size: 3vw;
+    }
+    #new_patient h1 {
+        font-size: 7vw;
+    }
+    .new_patient_form form .instructions {
+        font-size: 3vw;
+    }
+    .new_patient_form {
+        font-size: 2.8vw;
+    }
+    #new_patient input[type=button], #new_patient button {
+        font-size: 4vw;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #new_patient {
+        display: grid;
+        grid-template-columns: 
+        100vw
+        ;
+    
+        grid-template-rows: 
+        100px
+        2fr
+        1fr
+        ;
+        grid-template-areas:
+        "np_title"
+        "np_form"
+        "."
+        ;
+    }
 }
 
 /***********/

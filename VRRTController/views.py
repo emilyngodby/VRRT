@@ -387,7 +387,7 @@ def create_patient(request):
 
         
         
-        return redirect('staffLandingPage')
+        return render(request, 'admin_landing_pg.html')
     return render(request, 'admin_create_new_patient.html', {'form':form})
 
 

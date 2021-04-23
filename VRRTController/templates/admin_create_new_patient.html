@@ -1,33 +1,45 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<div id="login_wrap">
+<div id="new_patient">
 
     <div class="title">
-        <h1>Patient Creation Page</h1>
+        <h1>Create New Patient</h1>
     </div>
 
-    <div class="login_box">
-        <h2>Create New Patient</h2>
+    <div class="new_patient_form">
         <form method="post">
-
         {% csrf_token %}
-        <table>
-            <tr>
-            {% for field in form %}
-                {{ field.label_tag }}<br>
-                {{ field }}<br>
-                {% if field.help_text %}
-                    <small style="color: black">{{ field.help_text }}</small>
-                {% endif %}
-                {% for error in field.errors %}
-                    <p style="color: red">{{ error }}</p>
-                {% endfor %}
-            </p>
-            {% endfor %}
-            </tr>
-        </table>
-        <button type="submit">Create Patient</button>
+        <ul class="nav">
+            <li id = "inst">
+                <div class="instructions" style="background-color: #102b3d; color: white; padding: 10px 25px; border-radius: 3em;">
+                <p><u><b>Please note:</b></u></p>
+                <p><b>Username</b> should follow structure: <i>VA_XX_YY</i></p>
+                <p>X = Site Number</p>
+                <p>Y = Patient Number</p>
+                <p style="line-height: 2em;"><b>Password must:</b> <br> 1. Contain 8 characters <br> 2. Not be commonly used<br> 3. Different than the patient's username<br> 3. Cannot be entirely numeric.</p>
+                </div>
+            </li>
+                <br>
+            <li id="inp">
+                <div class="fieldWrapper">
+                    {% for field in form %}
+                            <b style="line-height: 2em;">{{ field.label_tag }}</b>
+                            {{ field }}<br>
+                    {% if field.help_text %}
+                
+                    {% endif %}
+                        {% for error in field.errors %}
+                        <p style="color: rgb(197, 0, 0); line-height: 2em;">{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </li>
+        </ul>
+        <ul class="nav" id="buttons" style="text-align: center;">
+            <input type="button" class="SubmitButton" value="Cancel" onclick="location.href=`staffLandingPage`"/>
+            <button type="submit" class="SubmitButton" style="text-align: center;">Create Patient</button>
+        </ul>
         </form>
     </div>
 </div>
