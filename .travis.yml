@@ -16,6 +16,9 @@ script:
     - rasa test
     - cd ..
 
+before_deploy:
+    - python manage.py runserver
+
 deploy:
     provider: heroku
     api_key:
