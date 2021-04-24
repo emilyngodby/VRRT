@@ -11,4 +11,7 @@ install:
 
 script:
     - python manage.py test
+    - cd bert
+    - rasa train
+    - rasa test
 
