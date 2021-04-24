@@ -15,3 +15,11 @@ script:
     - rasa train
     - rasa test
 
+deploy:
+    provider: heroku
+    api_key:
+        secure: "svdml+2FISnb/4ws39VMnpmdhjyEsossr4CCPap1IO2EHNp7Qx6L2D7bOD97PqeHO9FDVUlcOeuvQv10KUFs+d5xSdNvZNvdI6yFDA1v88/wsCQqpgKiceq+3bFLFhb50q5jlzGplh9oEzuCszQMBIuGrTgWNrVFLZCDCdD0tB3EruX3x6oFGHKga69gZiC81UkLMm+86Yvba7L0JfbIq54xHpIxN9s8f5lr9Xg//u7KbXMq2QQTS+9QEvsu/La301NyJVFxhgedoM1Mgi3GLgyg746+ffV/5tYaZRKeI3TOHDUjDk1s0QclgjaXQqFTeeeM6e6Fiu6CHJBJg3QL7XfoPN0q5Hc9LPVMM2HOSk404U9ZxKGy33WrXeXm+9JhxwRaiNMlNcCB2vZuzD622cyUGBabybsVshAZI/3vfEMhBUe9p+YstyuBHq7QzIxPtCgG0+mfoaNmGL/jMnSe00FD3XNHYjKX3aCEVygrWtpsJKeu5KHT1VoaNq1/IcIDeoTZ390OJ3nvtTGW0f3Tnmomwqx4y6rMxijebL5/eDym1uVzxT4P8S7/tuB2c39s53JdQAn/8uHuOxUIxw2FVOyoI4qMDVS2p3QxGO6knR2Cn0UdPg53dZVLU6M0zmLwkiIj5EatQBIn/JsWV7pmI08QWnT3ntlZqIlM0vqpnOM="
+    app: va-vrrt
+    on:
+        repo: emilyngodby/VRRT
+
