@@ -123,23 +123,23 @@ class ChatbotPageViewTest(TestCase):
         response = self.client.get(reverse('chatbotPage')) 
         self.assertEqual(response.status_code, 200)
 
-class ChatterBotApiViewTest(TestCase):
-    def setUp(self):
-        self.client = Client()
-        self.user = User.objects.create_user(username='testuser', password='12345')
-        self.group = Group(name='Patient')
-        self.group.save()    
-    def test_user_with_no_group_redirected_to_login(self):
-        self.client.login(username='testuser', password='12345')
-        response = self.client.get(reverse('login'))
-        print(Group.objects.all())
-        self.assertEqual(response.status_code, 200)
-    def test_patient_sent_to_chatterbot_api(self):
-        self.user.groups.add(self.group)
-        self.user.save()
-        self.client.login(username='testuser', password='12345')
-        response = self.client.get(reverse('ChatterBotApiView')) 
-        self.assertEqual(response.status_code, 200)
+# class ChatterBotApiViewTest(TestCase):
+#     def setUp(self):
+#         self.client = Client()
+#         self.user = User.objects.create_user(username='testuser', password='12345')
+#         self.group = Group(name='Patient')
+#         self.group.save()    
+#     def test_user_with_no_group_redirected_to_login(self):
+#         self.client.login(username='testuser', password='12345')
+#         response = self.client.get(reverse('login'))
+#         print(Group.objects.all())
+#         self.assertEqual(response.status_code, 200)
+#     def test_patient_sent_to_chatterbot_api(self):
+#         self.user.groups.add(self.group)
+#         self.user.save()
+#         self.client.login(username='testuser', password='12345')
+#         response = self.client.get(reverse('ChatterBotApiView')) 
+#         self.assertEqual(response.status_code, 200)
 
 # Admin Views Tests
 class AdminProgressResultsPageViewTest(TestCase):
