@@ -1,4 +1,4 @@
 Django==3.1.7
-rasa==2.5.0
-rasa-sdk==2.5.0
-bokeh==2.3.0
+rasa
+rasa-sdk
+bokeh
