@@ -5,6 +5,7 @@ stories:
   - intent: greet
   - action: utter_greet
   - intent: mood_good
+  - action: utter_affirmations
   - action: chat_form
   - active_loop: chat_form
 - story: survey stop
@@ -26,9 +27,52 @@ stories:
   - intent: greet
   - action: utter_greet
   - intent: mood_good
+  - action: utter_affirmations
   - action: chat_form
   - active_loop: chat_form
   - intent: out_of_scope
   - action: utter_ask_continue
   - intent: affirm
   - action: chat_form
+  - active_loop: chat_form
+- story: emergency
+  steps:
+  - intent: help
+  - action: utter_help
+- story: greet unhappy
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: chat_form
+  - active_loop: chat_form
+- story: greet happy
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_good
+  - action: utter_affirmations
+  - action: chat_form
+  - active_loop: chat_form
+- story: get info
+  steps:
+  - intent: inform
+  - action: chat_form
+  - active_loop: chat_form
+- story: negative response
+  steps:
+  - intent: deny
+  - action: utter_default_neutral
+  - action: chat_form
+  - active_loop: chat_form
+- story: positive response
+  steps: 
+  - intent: affirm
+  - action: utter_default_neutral
+  - action: chat_form
+  - active_loop: chat_form
+- story: weird question
+  steps:
+  - intent: out_of_scope
+  - action: utter_ask_continue

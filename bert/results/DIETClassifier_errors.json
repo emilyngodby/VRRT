@@ -1,0 +1,16 @@
+[
+  {
+    "text": "Call 911",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "pain",
+        "start": 5,
+        "end": 8,
+        "confidence_entity": 0.48347270488739014,
+        "value": "911",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  }
+]
