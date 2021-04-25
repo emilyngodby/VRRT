@@ -1,0 +1,46 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div id="new_patient">
+
+    <div class="title">
+        <h1>Create New Patient</h1>
+    </div>
+
+    <div class="new_patient_form">
+        <form method="post">
+        {% csrf_token %}
+        <ul class="nav">
+            <li id = "inst">
+                <div class="instructions" style="background-color: #102b3d; color: white; padding: 10px 25px; border-radius: 3em;">
+                <p><u><b>Please note:</b></u></p>
+                <p><b>Username</b> should follow structure: <i>VA_Staff_XX_YY</i></p>
+                <p>X = Site Number</p>
+                <p>Y = Staff Number</p>
+                <p style="line-height: 2em;"><b>Password must:</b> <br> 1. Contain 8 characters <br> 2. Not be commonly used<br> 3. Different than the patient's username<br> 3. Cannot be entirely numeric.</p>
+                </div>
+            </li>
+                <br>
+            <li id="inp">
+                <div class="fieldWrapper">
+                    {% for field in form %}
+                            <b style="line-height: 2em;">{{ field.label_tag }}</b>
+                            {{ field }}<br>
+                    {% if field.help_text %}
+                
+                    {% endif %}
+                        {% for error in field.errors %}
+                        <p style="color: rgb(197, 0, 0); line-height: 2em;">{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </li>
+        </ul>
+        <ul class="nav" id="buttons" style="text-align: center;">
+            <input type="button" class="SubmitButton" value="Cancel" onclick="location.href=`staffLandingPage`"/>
+            <button type="submit" class="SubmitButton" style="text-align: center;">Create Patient</button>
+        </ul>
+        </form>
+    </div>
+</div>
+{% endblock %}

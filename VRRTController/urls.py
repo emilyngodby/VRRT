@@ -74,6 +74,10 @@ urlpatterns += [
 ]
 
 urlpatterns += [
+    path('patientProgressBloodPressure', views.patientProgressBloodPressure.as_view(), name='patientProgressBloodPressure')
+]
+
+urlpatterns += [
     path('patientProgressPagePainScore', views.patientProgressPagePainScore.as_view(), name='patientProgressPagePainScore')
 ]
 
@@ -94,6 +98,15 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('createpatient', views.create_patient, name="createpatient")
+    path('accountCreationSelection', views.accountCreationSelection.as_view(), name="accountCreationSelection")
+]
+
+
+urlpatterns += [
+    path('createPatient', views.createPatient, name="createPatient")
+]
+
+urlpatterns += [
+    path('createStaff', views.createStaff, name="createStaff")
 ]
 

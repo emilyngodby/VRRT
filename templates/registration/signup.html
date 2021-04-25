@@ -1,0 +1,35 @@
+{% extends "base_generic.html" %}   
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+
+<div id="login_wrap">
+
+  <div class="title">
+    <h1>Virtual Reality Innovation Project </h1>
+    <h1>Veteran's Association</h1>
+  </div>
+
+  <div class="login_box">
+    <h2>Sign up</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+  
+</div>
+
+<div class="login_box">
+  <h2>Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign Up</button>
+  </form>
+</div>
+
+  
+{% endblock %}

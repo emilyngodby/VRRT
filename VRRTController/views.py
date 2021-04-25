@@ -12,10 +12,10 @@ from django.urls import reverse_lazy
 from django.http import JsonResponse
 from bokeh.plotting import figure, output_file, show
 from bokeh.embed import components
-from bokeh.models import ColumnDataSource
+from bokeh.models import ColumnDataSource, Legend, LegendItem
 import json
 
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import User, Group
 """
 ************************ METHODS ************************
 """
@@ -368,27 +368,7 @@ class SiteListView(generic.ListView):
 def home_view(request):
     return render(request, 'admin_landing_pg.html')
 
-def create_patient(request):
-    form = UserCreationForm(request.POST)
-    if form.is_valid(): 
 
-        form.save()
-        username = form.cleaned_data.get('username')
-
-        password = form.cleaned_data.get('password1')
-
-        user = authenticate(username=username, password=password)
-
-        user.save()
-
-        user_group = Group.objects.get(name='Patient') 
-
-        user.groups.add(user_group)
-
-        
-        
-        return render(request, 'admin_landing_pg.html')
-    return render(request, 'admin_create_new_patient.html', {'form':form})
 
 
 
@@ -450,6 +430,10 @@ class adminProgressPreviewPage(LoginRequiredMixin, generic.View):
 
 
 
+        
+
+
+
         return pageUserAuth(request,'Staff',"admin_progress_preview.html")
 
         return render(request, "admin_progress_preview.html")
@@ -484,8 +468,6 @@ class adminPainScoreProgressView(LoginRequiredMixin, generic.View):
         for i in range(1,len(startValues)+1):
             xVals.append(i)
 
-        #xVals = range(len(startValues))
-
         source = ColumnDataSource(data=dict(
             x = xVals,
             y1 = startValues,
@@ -493,11 +475,24 @@ class adminPainScoreProgressView(LoginRequiredMixin, generic.View):
         ))
 
         p = figure( sizing_mode = "stretch_width", plot_height = 350)
-
-        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+        r = p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
 
         p.background_fill_color = None
         p.border_fill_color = None
+
+        p.yaxis.axis_label = "Pain Score"
+        p.xaxis.axis_label = "Session"
+
+        legend = Legend(items=[
+            LegendItem(label="Start Values", renderers=[r],  index=0),
+            LegendItem(label="End Values", renderers=[r], index=1),
+            ])
+        p.add_layout(legend)
+
+        p.legend.location = "top_left"
+        p.legend.title_text_font = 'Arial'
+        p.legend.title_text_font_size = '20pt'
+
 
         script, div = components(p)
 
@@ -528,11 +523,53 @@ class adminBloodPressureProgressView(LoginRequiredMixin, generic.View):
 
         diastolicStartAvgChange = averageChageCalculation(list(results[1]))
 
+        #Graph Stuff
+        startValuesSystolic = results[0][0]
+        endValuesSystolic = results[0][1]
+
+        startValuesDiastolic = results[1][0]
+        endValuesDiastolic = results[1][1]
+
+        xVals = []
+
+        for i in range(1,len(startValuesSystolic)+1):
+            xVals.append(i)
+
+        # source = ColumnDataSource(data=dict(
+        #     x = xVals,
+        #     y1 = startValues,
+        #     y2 = endValues
+        # ))
+
+        p = figure( sizing_mode = "stretch_width", plot_height = 350)
+        r = p.multi_line([xVals,xVals,xVals,xVals],[startValuesSystolic,endValuesSystolic,startValuesDiastolic,endValuesDiastolic], color=["firebrick", "firebrick","blue","blue"], alpha=[1, 0.3,1, 0.3], line_width=4)
+
+        p.background_fill_color = None
+        p.border_fill_color = None
+
+        p.yaxis.axis_label = "Pain Score"
+        p.xaxis.axis_label = "Session"
+
+        legend = Legend(items=[
+            LegendItem(label="Systolic Start Values", renderers=[r],  index=0),
+            LegendItem(label="Systolic End Values", renderers=[r], index=1),
+            LegendItem(label="Diastolic Start Values", renderers=[r],  index=2),
+            LegendItem(label="Diastolic End Values", renderers=[r], index=3),
+            ])
+        p.add_layout(legend)
+
+        p.legend.location = "top_left"
+        p.legend.title_text_font = 'Arial'
+        p.legend.title_text_font_size = '20pt'
+
+
+        script, div = components(p)
 
 
 
         context = { 'bloodPressure' : bloodPressure, 'systolicStartAvgChange' : systolicStartAvgChange,
-                    'diastolicStartAvgChange' : diastolicStartAvgChange}
+                    'diastolicStartAvgChange' : diastolicStartAvgChange,
+                    'script' : script , 'div': div}
 
         
 
@@ -579,10 +616,23 @@ class adminHearRateProgressView(LoginRequiredMixin, generic.View):
 
         p = figure( sizing_mode = "stretch_width", plot_height = 350)
 
-        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+        r = p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
 
         p.background_fill_color = None
         p.border_fill_color = None
+
+        p.yaxis.axis_label = "BPM"
+        p.xaxis.axis_label = "Session"
+
+        legend = Legend(items=[
+            LegendItem(label="Start Values", renderers=[r],  index=0),
+            LegendItem(label="End Values", renderers=[r], index=1),
+            ])
+        p.add_layout(legend)
+
+        p.legend.location = "top_left"
+        p.legend.title_text_font = 'Arial'
+        p.legend.title_text_font_size = '20pt'
 
         script, div = components(p)
 
@@ -633,10 +683,23 @@ class adminResperationRateProgressView(LoginRequiredMixin, generic.View):
 
         p = figure( sizing_mode = "stretch_width", plot_height = 350)
 
-        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+        r = p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
 
         p.background_fill_color = None
         p.border_fill_color = None
+
+        p.yaxis.axis_label = "Resperation Rate(Breaths/m)"
+        p.xaxis.axis_label = "Session"
+
+        legend = Legend(items=[
+            LegendItem(label="Start Values", renderers=[r],  index=0),
+            LegendItem(label="End Values", renderers=[r], index=1),
+            ])
+        p.add_layout(legend)
+
+        p.legend.location = "top_left"
+        p.legend.title_text_font = 'Arial'
+        p.legend.title_text_font_size = '20pt'
 
         script, div = components(p)
 
@@ -679,18 +742,35 @@ class adminO2SaturationProgressView(LoginRequiredMixin, generic.View):
 
         #xVals = range(len(startValues))
 
-        source = ColumnDataSource(data=dict(
-            x = xVals,
-            y1 = startValues,
-            y2 = endValues
-        ))
+        # source = ColumnDataSource(data=dict(
+        #     x = xVals,
+        #     y1 = startValues,
+        #     y2 = endValues
+        # ))
+
+        legends = {'labels': ["Starting Values", "Ending Values"] }
+
+
 
         p = figure( sizing_mode = "stretch_width", plot_height = 350)
 
-        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+        r = p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
 
         p.background_fill_color = None
         p.border_fill_color = None
+
+        p.yaxis.axis_label = "Oxygen Saturation(%)"
+        p.xaxis.axis_label = "Session"
+
+        legend = Legend(items=[
+            LegendItem(label="Start Values", renderers=[r],  index=0),
+            LegendItem(label="End Values", renderers=[r], index=1),
+            ])
+        p.add_layout(legend)
+
+        p.legend.location = "top_left"
+        p.legend.title_text_font = 'Arial'
+        p.legend.title_text_font_size = '20pt'
 
         script, div = components(p)
 
@@ -732,21 +812,88 @@ from django.http import HttpResponse
 from .models import SurveyInstance
 
 def export(request):
-    response = HttpResponse(content_type='text/csv')
 
-    writer = csv.writer(response)
-    writer.writerow(['Survey ID','Patient ID','Pain Score Start','Pain Score End'
-                ,'Heart Rate Start','Heart Rate End', 'Starting Systolic', 'Starting Diastolic'
-                ,'End Systolic', 'End Diastolic','O2 Saturation Start','O2 Saturation End'
-                ,'Resperation Start','Resperation End'])
 
-    for row in SurveyInstance.objects.all().values_list('id','PatientID','PainScoreStart','PainScoreEnd','HeartRateStart','HeartRateEnd','BPStartValue1','BPStartValue2',
-                                                        'BPEndValue1','BPEndValue2','O2SaturationStart','O2SaturationEnd','RespirationRateStart','RespirationRateEnd'):
-        writer.writerow(row)
+    usersGroup = request.user.groups.filter(user=request.user)[0]
 
-    response['Content-Disposition'] = 'attachment; filename="SurveyResponses.csv'
+    if usersGroup.name == "Staff":
+        response = HttpResponse(content_type='text/csv')
 
-    return response
+        writer = csv.writer(response)
+        writer.writerow(['Survey ID','Patient ID','Pain Score Start','Pain Score End'
+                    ,'Heart Rate Start','Heart Rate End', 'Starting Systolic', 'Starting Diastolic'
+                    ,'End Systolic', 'End Diastolic','O2 Saturation Start','O2 Saturation End'
+                    ,'Resperation Start','Resperation End'])
+
+        for row in SurveyInstance.objects.all().values_list('id','PatientID','PainScoreStart','PainScoreEnd','HeartRateStart','HeartRateEnd','BPStartValue1','BPStartValue2',
+                                                            'BPEndValue1','BPEndValue2','O2SaturationStart','O2SaturationEnd','RespirationRateStart','RespirationRateEnd'):
+            writer.writerow(row)
+
+        response['Content-Disposition'] = 'attachment; filename="SurveyResponses.csv'
+
+        return response
+    return reverse_lazy('login')             
+            
+class accountCreationSelection(LoginRequiredMixin, generic.View):
+
+    login_url = 'login'
+    redirect_field_name = 'login'
+
+    def get(self, request):
+
+        return pageUserAuth(request,'Staff',"admin_create_new_selection.html")
+
+def createPatient(request):
+
+    usersGroup = request.user.groups.filter(user=request.user)[0]
+
+    if usersGroup.name == "Staff":
+        form = UserCreationForm(request.POST)
+        if form.is_valid(): 
+
+            form.save()
+            username = form.cleaned_data.get('username')
+
+            password = form.cleaned_data.get('password1')
+
+            user = authenticate(username=username, password=password)
+
+            user.save()
+
+            user_group = Group.objects.get(name='Patient') 
+
+            user.groups.add(user_group)
+
+            
+            
+            return render(request, 'admin_landing_pg.html')
+        return render(request, 'admin_create_new_patient.html', {'form':form})
+        
+def createStaff(request):
+
+    usersGroup = request.user.groups.filter(user=request.user)[0]
+
+    if usersGroup.name == "Staff":
+        form = UserCreationForm(request.POST)
+        if form.is_valid(): 
+
+            form.save()
+            username = form.cleaned_data.get('username')
+
+            password = form.cleaned_data.get('password1')
+
+            user = authenticate(username=username, password=password)
+
+            user.save()
+
+            user_group = Group.objects.get(name='Staff') 
+
+            user.groups.add(user_group)
+
+            
+            return pageUserAuth(request,'Staff',"admin_landing_pg.html")
+
+        return pageUserAuth(request,'Staff',"admin_create_new_staff.html", {'form':form})
 
 """
     These two functions are from before and need to be updated
@@ -890,6 +1037,74 @@ class patientProgressPagePainScore(LoginRequiredMixin, generic.View):
         script, div = components(p)
 
         return pageUserAuth(request,'Patient',"patient_progress.html", {'script' : script , 'div': div} )
+
+class patientProgressBloodPressure(LoginRequiredMixin, generic.View):
+
+    def get(self, request):
+        fieldValue = 'bloodPressure'
+        bloodPressure = True
+
+        results = databaseQuery(fieldValue)
+
+        results = databaseQuerryParser(results, fieldValue)
+
+        print(results[0])
+
+        systolicStartAvgChange = averageChageCalculation(list(results[0]))
+
+        diastolicStartAvgChange = averageChageCalculation(list(results[1]))
+
+        #Graph Stuff
+        startValuesSystolic = results[0][0]
+        endValuesSystolic = results[0][1]
+
+        startValuesDiastolic = results[1][0]
+        endValuesDiastolic = results[1][1]
+
+        xVals = []
+
+        for i in range(1,len(startValuesSystolic)+1):
+            xVals.append(i)
+
+        # source = ColumnDataSource(data=dict(
+        #     x = xVals,
+        #     y1 = startValues,
+        #     y2 = endValues
+        # ))
+
+        p = figure( sizing_mode = "stretch_width", plot_height = 350)
+        r = p.multi_line([xVals,xVals,xVals,xVals],[startValuesSystolic,endValuesSystolic,startValuesDiastolic,endValuesDiastolic], color=["firebrick", "firebrick","blue","blue"], alpha=[1, 0.3,1, 0.3], line_width=4)
+
+        p.background_fill_color = None
+        p.border_fill_color = None
+
+        p.yaxis.axis_label = "Pain Score"
+        p.xaxis.axis_label = "Session"
+
+        legend = Legend(items=[
+            LegendItem(label="Systolic Start Values", renderers=[r],  index=0),
+            LegendItem(label="Systolic End Values", renderers=[r], index=1),
+            LegendItem(label="Diastolic Start Values", renderers=[r],  index=2),
+            LegendItem(label="Diastolic End Values", renderers=[r], index=3),
+            ])
+        p.add_layout(legend)
+
+        p.legend.location = "top_left"
+        p.legend.title_text_font = 'Arial'
+        p.legend.title_text_font_size = '20pt'
+
+
+        script, div = components(p)
+
+
+
+        context = { 'bloodPressure' : bloodPressure, 'systolicStartAvgChange' : systolicStartAvgChange,
+                    'diastolicStartAvgChange' : diastolicStartAvgChange,
+                    'script' : script , 'div': div}
+
+        
+
+        return pageUserAuth(request,'Patient',"patient_progress.html", context)
 
 
 class patientProgressPageHeartRate(LoginRequiredMixin, generic.View):
