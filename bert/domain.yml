@@ -21,6 +21,9 @@ entities:
   - stress
   - feedback
 
+actions:
+- action_submit
+
 responses:
   utter_greet:
   - text: "I am Bert. How are you today?"
