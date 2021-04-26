@@ -688,6 +688,150 @@ td #us {
     margin-left: 16px;
 }
 
+/*************************/
+/***** Rasa Chatbot *****/
+/***********************/
+
+#rasa {
+    background-color: var(--accent-grey-02);
+    height:100vh;
+    display:grid;
+    grid-template-columns:
+        100vw
+    ;
+    grid-gap: 0px;
+    grid-template-rows:
+        100px
+        2.5fr
+        100px
+        1fr
+    ;
+    grid-template-areas: 
+        "rasa-title"
+        "rasa-chats"
+        "rasa-buttons"
+        "."
+    ;
+}
+
+
+.chatroom {
+    height: 80vh;
+    max-height: 95vh;
+    background-color: var(--accent-grey-02);
+    color: white;
+    margin-bottom: 10px;
+    box-shadow: 0 0 0 2px var(--accent-grey-02);
+}
+.chatroom h3 {
+    grid-area: rasa-title;
+    background-color:#102b3d;
+    font-size: 2vw;
+    height: 5vh;
+}
+.chatroom .chats {
+    grid-area: rasa-chats;
+    height: calc(100% - 100px);
+}
+.chatroom .chats .chat{
+    background:#1a6692;
+    font-size: 1.5vw;
+    padding: 10px 20px;
+}
+.chatroom .chats .time {
+    font-size: 0.8vw;
+}
+.chatroom .chats .chat.left {
+    background: white;
+    color: black;
+}
+.chatroom .chats .chat.right {
+    background: black;
+    color: white;
+}
+.chatroom .input input[type="submit"] {
+    background-color: black;
+}
+.chatroom .input input[type="submit"]:hover {
+    background-color: #1a6692;
+}
+.chatroom #speech-input {
+    background-color: black;
+}
+
+.chatroom #speech-input:hover {
+    background-color: #1a6692;
+}
+
+.chatroom .input input[type="text"] {
+    background-color: white;
+}
+
+.chatroom .input input[type="text"]:focus {
+    background-color:#eaf8ff;
+}
+.chatroom .input {
+    grid-area: rasa-buttons;
+    background-color: var(--accent-grey-02);
+}
+
+
+@media screen and (max-width: 1050px) {
+    #rasa {
+        background-color: var(--accent-grey-02);
+        height:100vh;
+        display:grid;
+        grid-template-columns:
+            100vw
+        ;
+        grid-gap: 0px;
+        grid-template-rows:
+            200px
+            200px
+            150px
+            10px
+        ;
+        grid-template-areas: 
+            "rasa-title"
+            "rasa-chats"
+            "rasa-buttons"
+            "."
+        ;
+    }
+
+    .chatroom {
+        height: 90vh;
+    }
+    .chatroom h3 {
+        font-size: 4vh;
+        height: 1em;
+    }
+    .chatroom .chats .chat {
+        font-size: 2vh;
+    }
+    .chatroom .chats .time {
+        font-size: 1.5vh;
+    }
+    .chatroom .input input[type="submit"] {
+        font-size: 1.5vh;
+        height: 2vh;
+    }
+    .chatroom .chats .chat-buttons {
+        font-size: 1.5vh;
+    }
+    .chatroom #speech-input {
+        height: 2vh;
+        width: 2vh;
+    }
+    .chatroom .input {
+        
+    }
+    .chatroom .input input[type="text"] {
+        font-size: 1.5vh;
+        height: 2vh;
+    }
+}
+
 @media screen and (max-width: 1200px) {
     #bert {
         grid-template-columns:
