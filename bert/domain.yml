@@ -11,6 +11,7 @@ intents:
   - inform
   - thankyou
   - out_of_scope
+  - help
 
 entities:
   - pain
@@ -25,6 +26,8 @@ responses:
   - text: "I am Bert. How are you today?"
   utter_cheer_up:
   - text: "I am sorry to hear that."
+  utter_affirmations:
+  - text: "I am happy to hear that!"
 
   utter_ask_pain:
   - text: "On a scale of 1-10 how would you rate your pain today"
@@ -33,7 +36,7 @@ responses:
   utter_ask_missed_events:
   - text: "Have you missed any events such as work, school, or doctor appointments because of your pain today?"
   utter_ask_sleep:
-  - text: "How much sleep did you get last night?"
+  - text: "Did you get a full or interrupted night of sleep?"
   utter_ask_stress:
   - text: "Is your stress level low, medium, or high?"
   utter_ask_feedback:
@@ -44,10 +47,15 @@ responses:
   - text: "Thank you for speaking with me today."
   utter_ask_continue:
   - text: "Sorry, I don't quite understand. Do you want to continue?"
+  utter_default_neutral:
+  - text: "Okay. I will take note of that."
 
 
   utter_iamabot:
   - text: "I am a bot, created by a group of computer science students at the University of Nevada, Reno"
+
+  utter_help:
+  - text: "This tool does not provide medical advice it is intended for data collection purposes only. If you think you may have a medical emergency, immediately call your doctor or dial 911."
 
 slots:
   pain:

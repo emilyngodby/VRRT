@@ -1,0 +1,11 @@
+version: "2.0"
+stories:
+- story: survey happy path (./tests/test_stories.yml)
+  steps:
+  - user: |-
+      hi
+  - action: utter_greet  # predicted: action_default_fallback
+  - intent: mood_good
+  - action: utter_affirmations
+  - action: chat_form
+  - active_loop: chat_form

@@ -9,94 +9,179 @@ nlu:
     - good evening
     - hey there
     - Hi
+    - Hey
+    - Good morning
+    - Good evening
+    - Hello
+    - Hey there
+    - Hi!
+    - Hey!
 - intent: goodbye
   examples: |
     - bye
+    - Bye
     - goodbye
+    - Goodbye
     - see you around
     - see you later
+    - I'm leaving
+    - See you later alligator
 - intent: affirm
   examples: |
     - yes
+    - Yes
     - indeed
+    - Indeed
     - of course
+    - Of course
     - that sounds good
+    - That sounds good
     - correct
+    - Correct
     - sure
+    - Sure
     - ok
+    - okay
+    - OK
+    - Okay
     - why not
+    - Why not
     - ok great
+    - Okay great
+    - Okay, great!
     - yes I did
+    - Yes I did
     - yeah, great
+    - Yeah, great
     - pretty good
+    - Pretty good
     - fine
+    - Fine
     - You bet
     - I sure did
     - more or less
 - intent: deny
   examples: |
     - no
+    - No
     - never
+    - Never
     - I don't think so
     - no way
+    - No way
     - not really
+    - Not really
     - none
+    - None
     - absolutely not
+    - Absolutely not
     - no thanks
+    - No thanks
     - didn't do any
+    - Didn't do any
     - no I didn't
+    - No I didn't
     - could have been better
+    - Could have been better
     - not great
+    - Not great
     - nope
+    - Nope
 - intent: thankyou
   examples: |
     - okay great thanks
+    - Okay, great. Thanks!
     - thank you
+    - Thank you!
     - sure thanks
+    - Sure, thanks
     - thanks bye
+    - Thanks. Bye
     - thanks
+    - Thanks
 - intent: bot_challenge
   examples: |
     - are you a bot?
+    - Are you a bot?
     - are you a human?
+    - Are you a human?
     - am I talking to a bot?
+    - Am I talking to a bot?
     - am I talking to a human?
+    - Am I talking to a human?
+    - who are you
+    - Who are you?
+    - what is this
+    - What is this?
+    - what is your name?
+    - What is your name?
+    - Who created you?
+    - Who am I talking to?
+    - Bert? Who is that?
+    - Where does your name come from?
 - intent: mood_good
   examples: |
     - good
+    - Good
     - perfect
+    - Perfect
     - great
+    - Great
     - amazing
+    - Amazing
     - feeling like a king
+    - I feel like a kind
     - wonderful
+    - Wonderful
     - I am feeling very good
     - I am great
     - I am amazing
     - I am going to save the world
     - super stoked
+    - Super stoked
     - extremely good
+    - Extremely good
     - so so perfect
     - so good
     - so perfect
+    - never been better
+    - Never been better
+    - much better
+    - Much better
 - intent: mood_unhappy
   examples: |
     - my day was horrible
+    - I had a horrible day
+    - the worst
     - I am sad
+    - I'm sad
     - I don't feel very well
+    - I feel awful
     - I am disappointed
+    - I'm disappointed
     - super sad
+    - Super sad
     - I'm so sad
     - sad
+    - Sad
     - very sad
+    - Very sad
     - unhappy
+    - Unhappy
     - not good
+    - Not good
     - not very good
+    - Not Very Good
     - extremly sad
+    - Extremely sad
     - so saad
     - so sad
     - bad
+    - Bad
     - so bad
+    - So bad
     - horrible
+    - Horrible
 - intent: inform
   examples: |
     - [8](pain)
@@ -105,17 +190,54 @@ nlu:
     - a full [8 hours](sleep)
     - only [four hours](sleep)
     - about [six hours](sleep)
+    - [full](sleep)
+    - [interrupted](sleep)
+    - [partial](sleep)
+    - [Full] night's sleep(sleep)
+    - [Partial] night's sleep(sleep)
+    - I didn't sleep(sleep)
+    - none (sleep)
+    - I had no stress (stress)
+    - [Low](stress)
     - [low](stress)
+    - [Medium](stress)
     - [medium](stress)
+    - [High](stress)
     - [high](stress)
     - my [head](pain_location) hurts
+    - my [back](pain_location)
     - [legs](pain_location)
+    - [everywhere](pain_location)
+    - [back](pain_location)
+    - [knees](pain_location)
+    - [head](pain_location)
+    - [hand](pain_location)
+    - [chest](pain_location)
+    - [neck](pain_location)
+    - [wrist](pain_location)
+    - [head](pain_location)
+    - [eyes](pain_location)
+    - [fingers](pain_location)
+    - [shoulders](pain_location)
+    - [shoulder](pain_location)
+    - [foot](pain_location)
     - i feel pain in my [chest](pain_location)
-    - I hate the VR therapy
-    - I like the VR therapy
-    - it's been working well
-    - I want to continue to do it
-    - I enjoy the sessions
+    - I hate the VR therapy(feedback)
+    - I like the VR therapy(feedback)
+    - I like it(feedback)
+    - I love it(feedback)
+    - I hate it(feedback)
+    - It's okay(feedback)
+    - It's ok(feedback)
+    - it's ok(feedback)
+    - I don't like it(feedback)
+    - I don't like it very much(feedback)
+    - It makes me feel sick(feedback)
+    - I'm not sure yet(feedback)
+    - it's been working well(feedback)
+    - I want to continue to do it(feedback)
+    - I enjoy the sessions(feedback)
+    - I enjoy it(feedback)
  
 - intent: out_of_scope
   examples: |
@@ -136,3 +258,19 @@ nlu:
     - nevermind
     - I want to do something else
     - I changed my mind
+    - huh?
+    - what?
+    - I do not understand the question
+    - how are you?
+
+- intent: help
+  examples: |
+    - help
+    - Help
+    - I need help
+    - Call my doctor
+    - Call 911
+    - I need to go to the hospital
+    - the pain is unbearable
+    - Unbearable
+    - unbearable

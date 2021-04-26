@@ -1,0 +1,10 @@
+[
+  {
+    "text": "it's been working well",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.9594923257827759
+    }
+  }
+]
