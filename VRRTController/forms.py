@@ -41,9 +41,9 @@ datatypes = [
 
 class AnalysisSelectionForm(forms.Form):
 
-    select_patient = forms.ChoiceField(choices = patients)
-    select_site = forms.ChoiceField(choices = sites)
-    select_datatype = forms.ChoiceField(choices = datatypes)
+    select_patient = forms.ChoiceField(choices = patients, label = "Patient")
+    select_site = forms.ChoiceField(choices = sites, label = "Site")
+    select_datatype = forms.ChoiceField(choices = datatypes, label = "DataType")
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm

@@ -446,16 +446,16 @@ class adminProgressPage(LoginRequiredMixin, generic.View):
         if request.method == 'POST':
             form = AnalysisSelectionForm(request.POST)
             #print("The fourm data type is: " + str(type(request.POST)))
-
+            #print("Thr fourm is: " + str((form)))
             buffer = request.POST
 
             dropDownVal = list(buffer.values())[3]
-            patientVal = list(buffer.values())[2]
+            patientVal = form.data.get('select_patient')
             siteVal = list(buffer.values())[1]
 
-            print("dropDownVal: |" + dropDownVal + "| patientVal: " + patientVal + " siteVal: " + siteVal)
+            print("dropDownVal: |" + dropDownVal + "| patientVal: " + str(patientVal) + " siteVal: " + siteVal)
             
-            if int(patientVal) == 6 and int(siteVal) == 3:
+            if True:
                 if dropDownVal == 'Pain Score':
                     return HttpResponseRedirect(reverse_lazy('adminPainScoreProgressView'))
                 elif dropDownVal == 'Heart Rate':
@@ -1128,10 +1128,23 @@ class patientProgressPagePainScore(LoginRequiredMixin, generic.View):
         p = figure( sizing_mode = "stretch_width", plot_height = 350)
         p.title = 'Change in Pain Score'
 
-        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+        r = p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
 
         p.background_fill_color = None
         p.border_fill_color = None
+
+        p.yaxis.axis_label = "Pain Score"
+        p.xaxis.axis_label = "Session"
+
+        legend = Legend(items=[
+            LegendItem(label="Start Values", renderers=[r],  index=0),
+            LegendItem(label="End Values", renderers=[r], index=1),
+            ])
+        p.add_layout(legend)
+
+        p.legend.location = "top_left"
+        p.legend.title_text_font = 'Arial'
+        p.legend.title_text_font_size = '20pt'
 
         script, div = components(p)
 
@@ -1192,7 +1205,6 @@ class patientProgressBloodPressure(LoginRequiredMixin, generic.View):
         p.legend.title_text_font = 'Arial'
         p.legend.title_text_font_size = '20pt'
 
-
         script, div = components(p)
 
 
@@ -1246,10 +1258,23 @@ class patientProgressPageHeartRate(LoginRequiredMixin, generic.View):
         p = figure( sizing_mode = "stretch_width", plot_height = 350)
         p.title = 'Change in Heart Rate'
 
-        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+        r = p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
 
         p.background_fill_color = None
         p.border_fill_color = None
+
+        p.yaxis.axis_label = "Heart Rate(BPM)"
+        p.xaxis.axis_label = "Session"
+
+        legend = Legend(items=[
+            LegendItem(label="Start Values", renderers=[r],  index=0),
+            LegendItem(label="End Values", renderers=[r], index=1),
+            ])
+        p.add_layout(legend)
+
+        p.legend.location = "top_left"
+        p.legend.title_text_font = 'Arial'
+        p.legend.title_text_font_size = '20pt'
 
         script, div = components(p)
 
@@ -1294,11 +1319,24 @@ class patientProgressPageOxygenSaturation(LoginRequiredMixin, generic.View):
 
         p = figure( sizing_mode = "stretch_width", plot_height = 350)
 
-        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+        r = p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
 
         p.background_fill_color = None
         p.border_fill_color = None
         p.title = 'Change in Oxygen Saturation'
+
+        p.yaxis.axis_label = "Oxygen Saturation(%)"
+        p.xaxis.axis_label = "Session"
+
+        legend = Legend(items=[
+            LegendItem(label="Start Values", renderers=[r],  index=0),
+            LegendItem(label="End Values", renderers=[r], index=1),
+            ])
+        p.add_layout(legend)
+
+        p.legend.location = "top_left"
+        p.legend.title_text_font = 'Arial'
+        p.legend.title_text_font_size = '20pt'
 
         script, div = components(p)
 
@@ -1343,11 +1381,24 @@ class patientProgressPageRespirationRate(LoginRequiredMixin, generic.View):
 
         p = figure( sizing_mode = "stretch_width", plot_height = 350)
 
-        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+        r = p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
 
         p.background_fill_color = None
         p.border_fill_color = None
         p.title = 'Change in Respiration Rate'
+
+        p.yaxis.axis_label = "RespirationRate(Breaths/m)"
+        p.xaxis.axis_label = "Session"
+
+        legend = Legend(items=[
+            LegendItem(label="Start Values", renderers=[r],  index=0),
+            LegendItem(label="End Values", renderers=[r], index=1),
+            ])
+        p.add_layout(legend)
+
+        p.legend.location = "top_left"
+        p.legend.title_text_font = 'Arial'
+        p.legend.title_text_font_size = '20pt'
 
         script, div = components(p)
 
