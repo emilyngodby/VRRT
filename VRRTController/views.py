@@ -14,6 +14,7 @@ from bokeh.plotting import figure, output_file, show
 from bokeh.embed import components
 from bokeh.models import ColumnDataSource, Legend, LegendItem
 from django.contrib.auth import get_user_model
+from django.http import QueryDict
 import json
 import sqlite3
 from .forms import SignUpForm
@@ -416,6 +417,7 @@ class adminProgressPage(LoginRequiredMixin, generic.View):
 
         if request.method == 'POST':
             form = AnalysisSelectionForm(request.POST)
+            
             if form.is_valid():
                 return HttpResponseRedirect('/thanks/')
         else:
@@ -439,6 +441,37 @@ class adminProgressPage(LoginRequiredMixin, generic.View):
 
         return render(request, "admin_progress.html", {'form': form})
         return pageUserAuth(request,'Staff',"admin_progress.html")
+    def post(self,request):
+        
+        if request.method == 'POST':
+            form = AnalysisSelectionForm(request.POST)
+            #print("The fourm data type is: " + str(type(request.POST)))
+
+            buffer = request.POST
+
+            dropDownVal = list(buffer.values())[3]
+            patientVal = list(buffer.values())[2]
+            siteVal = list(buffer.values())[1]
+
+            print("dropDownVal: |" + dropDownVal + "| patientVal: " + patientVal + " siteVal: " + siteVal)
+            
+            if int(patientVal) == 6 and int(siteVal) == 3:
+                if dropDownVal == 'Pain Score':
+                    return HttpResponseRedirect(reverse_lazy('adminPainScoreProgressView'))
+                elif dropDownVal == 'Heart Rate':
+                    return HttpResponseRedirect(reverse_lazy('adminHearRateProgressView'))
+                elif dropDownVal == 'Blood Pressure':
+                    return HttpResponseRedirect(reverse_lazy('adminBloodPressureProgressView'))
+                elif dropDownVal == 'Resperation Rate':
+                    return HttpResponseRedirect(reverse_lazy('adminResperationRateProgressView'))
+                elif dropDownVal == 'Oxygen Saturation':
+                    return HttpResponseRedirect(reverse_lazy('adminO2SaturationProgressView'))
+
+            if form.is_valid():
+                print("Fourm is valid ")
+                
+        else:
+            form = AnalysisSelectionForm()
 
 
 class adminProgressPreviewPage(LoginRequiredMixin, generic.View):

@@ -8,7 +8,7 @@
         <div class="choose_site">
             <ul style="list-style: none; display: block;">
                 <li style="justify-content: center;">
-                    <form action="" method="GET" class="myForm">
+                    <form action="" method="POST" class="myForm">
                         {% csrf_token %}
                         <!-- {{ form.as_ul }} -->
                         
@@ -46,7 +46,7 @@
                 <input type="button" value = "Back to main" onclick="location.href=`staffLandingPage`"/>
             </ul>
         </div>
-        <script>
+        <!-- <script>
             const myForm = document.querySelector(".myForm");
             // const selectSite = document.querySelector("#select_site");
             // const selectPatient = document.querySelector("#select_patient");
@@ -97,6 +97,6 @@
                 }
             })
 
-        </script>
+        </script> -->
     </div>
 {% endblock %}
