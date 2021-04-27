@@ -9,9 +9,9 @@ users = User.objects.filter(groups__name='Patient')
 patients = []
 
 for i in range(len(users)):
-    patients.append((str(i), str(users[i])))
+    patients.append((str(users[i]),str(users[i])))
 
-patients.append((str(len(patients) + 1), 'All Patients'))
+patients.append(('All Patients', 'All Patients'))
 
 # sitesIds = SiteID.objects.all().values_list('SiteName')
 

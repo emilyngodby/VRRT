@@ -455,7 +455,7 @@ class adminProgressPage(LoginRequiredMixin, generic.View):
 
             print("dropDownVal: |" + dropDownVal + "| patientVal: " + str(patientVal) + " siteVal: " + siteVal)
             
-            if True:
+            if patientVal == 'All Patients':
                 if dropDownVal == 'Pain Score':
                     return HttpResponseRedirect(reverse_lazy('adminPainScoreProgressView'))
                 elif dropDownVal == 'Heart Rate':
@@ -467,11 +467,188 @@ class adminProgressPage(LoginRequiredMixin, generic.View):
                 elif dropDownVal == 'Oxygen Saturation':
                     return HttpResponseRedirect(reverse_lazy('adminO2SaturationProgressView'))
 
+            else:
+                if dropDownVal == 'Pain Score':
+                    return staffUserReview(patientVal,dropDownVal,request)
+                elif dropDownVal == 'Heart Rate':
+                    return staffUserReview(patientVal,dropDownVal,request)
+                elif dropDownVal == 'Blood Pressure':
+                    return staffUserReview(patientVal,dropDownVal,request)
+                elif dropDownVal == 'Respiration Rate':
+                    return staffUserReview(patientVal,dropDownVal,request)
+                elif dropDownVal == 'Oxygen Saturation':
+                    return staffUserReview(patientVal,dropDownVal,request)
+
             if form.is_valid():
                 print("Fourm is valid ")
                 
         else:
             form = AnalysisSelectionForm()
+
+def staffUserReview(patientID,field,request):
+
+        if field == "Pain Score":
+            fieldValue = 'painScore'
+        elif field == 'Heart Rate':
+            fieldValue = 'heartRate'
+        elif field == 'Blood Pressure':
+            fieldValue = 'bloodPressure'
+            fieldValue = 'bloodPressure'
+            bloodPressure = True
+
+            results = databaseQuery(fieldValue)
+
+            results = databaseQuerryParser(results, fieldValue)
+
+            print(results[0])
+
+            systolicStartAvgChange = averageChageCalculation(list(results[0]))
+
+            diastolicStartAvgChange = averageChageCalculation(list(results[1]))
+
+            #Graph Stuff
+            startValuesSystolic = results[0][0]
+            endValuesSystolic = results[0][1]
+
+            startValuesDiastolic = results[1][0]
+            endValuesDiastolic = results[1][1]
+
+            xVals = []
+
+            for i in range(1,len(startValuesSystolic)+1):
+                xVals.append(i)
+
+            # source = ColumnDataSource(data=dict(
+            #     x = xVals,
+            #     y1 = startValues,
+            #     y2 = endValues
+            # ))
+
+            p = figure( sizing_mode = "stretch_width", plot_height = 350)
+            r = p.multi_line([xVals,xVals,xVals,xVals],[startValuesSystolic,endValuesSystolic,startValuesDiastolic,endValuesDiastolic], color=["firebrick", "firebrick","blue","blue"], alpha=[1, 0.3,1, 0.3], line_width=4)
+
+            p.background_fill_color = None
+            p.border_fill_color = None
+
+            p.yaxis.axis_label = "Pain Score"
+            p.xaxis.axis_label = "Session"
+
+            legend = Legend(items=[
+                LegendItem(label="Systolic Start Values", renderers=[r],  index=0),
+                LegendItem(label="Systolic End Values", renderers=[r], index=1),
+                LegendItem(label="Diastolic Start Values", renderers=[r],  index=2),
+                LegendItem(label="Diastolic End Values", renderers=[r], index=3),
+                ])
+            p.add_layout(legend)
+
+            p.legend.location = "top_left"
+            p.legend.title_text_font = 'Arial'
+            p.legend.title_text_font_size = '20pt'
+
+            script, div = components(p)
+
+
+
+            context = { 'bloodPressure' : bloodPressure, 'systolicStartAvgChange' : systolicStartAvgChange,
+                        'diastolicStartAvgChange' : diastolicStartAvgChange,
+                        'script' : script , 'div': div}
+            return pageUserAuth(request,'Staff',"admin_progress_preview.html", context )
+        elif field == 'Respiration Rate':
+            fieldValue = 'respirationRate'
+        elif field == 'Oxygen Saturation':
+            fieldValue = 'O2Saturation'
+        
+
+
+        #fieldValue = field
+
+        userName = patientID
+        
+
+        results = databaseUserQuery(fieldValue, userName)
+
+        results = databaseQuerryParser(results,fieldValue)
+
+
+        #Calculations
+        averageChange = averageChageCalculation(results)
+        maxPostiveChangeVal = maxPostiveChange(results)
+        minChangeVal = minChange(results)
+        if fieldValue == 'painScore':
+            numOfSignificantChange = significantPainScoreChange(results)
+
+        print("\t\tRESULTS: " + str(results))
+
+        startValues = []
+        endValues = []
+
+        startValues = results[0]
+        endValues = results[1]
+
+        xVals = []
+
+        for i in range(1,len(startValues)+1):
+            xVals.append(i)
+
+        #xVals = range(len(startValues))
+
+        source = ColumnDataSource(data=dict(
+            x = xVals,
+            y1 = startValues,
+            y2 = endValues
+        ))
+
+        p = figure( sizing_mode = "stretch_width", plot_height = 350)
+        p.title = 'Change in Heart Rate'
+
+        r = p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+
+        p.background_fill_color = None
+        p.border_fill_color = None
+
+        p.yaxis.axis_label = "Heart Rate(BPM)"
+        p.xaxis.axis_label = "Session"
+
+        legend = Legend(items=[
+            LegendItem(label="Start Values", renderers=[r],  index=0),
+            LegendItem(label="End Values", renderers=[r], index=1),
+            ])
+        p.add_layout(legend)
+
+        p.legend.location = "top_left"
+        p.legend.title_text_font = 'Arial'
+        p.legend.title_text_font_size = '20pt'
+
+        script, div = components(p)
+
+        if fieldValue == 'painScore':
+            context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
+                        'minChange' : minChangeVal, 'significantChanges' : numOfSignificantChange,
+                        'script' : script , 'div': div}
+        elif field == 'Heart Rate':
+            fieldValue = 'heartRate'
+            context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
+                    'minChange' : minChangeVal, 
+                    'script' : script , 'div': div}
+        elif field == 'Blood Pressure':
+            fieldValue = 'bloodPressure'
+            context = { 'bloodPressure' : bloodPressure, 'systolicStartAvgChange' : systolicStartAvgChange,
+                    'diastolicStartAvgChange' : diastolicStartAvgChange,
+                    'script' : script , 'div': div}
+        elif field == 'Respiration Rate':
+            fieldValue = 'respirationRate'
+            context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
+                     'minChange' : minChangeVal,
+                     'script' : script , 'div': div}
+        elif field == 'Oxygen Saturation':
+            fieldValue = 'O2Saturation'
+            context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
+                     'minChange' : minChangeVal,
+                     'script' : script , 'div': div}
+
+       
+
+        return pageUserAuth(request,'Staff',"admin_progress_preview.html", context )
 
 
 class adminProgressPreviewPage(LoginRequiredMixin, generic.View):
@@ -702,7 +879,7 @@ class adminHearRateProgressView(LoginRequiredMixin, generic.View):
 
         #Dictionary of the variables to be passed to the webpage
         context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
-                     'minChange' : minChangeVal, 'significantChanges' : numOfSignificantChange,
+                     'minChange' : minChangeVal,
                      'script' : script , 'div': div}
 
         return pageUserAuth(request,'Staff',"admin_progress_preview.html",context)
@@ -769,7 +946,7 @@ class adminResperationRateProgressView(LoginRequiredMixin, generic.View):
 
         #Dictionary of the variables to be passed to the webpage
         context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
-                     'minChange' : minChangeVal, 'significantChanges' : numOfSignificantChange,
+                     'minChange' : minChangeVal,
                      'script' : script , 'div': div}
 
         return pageUserAuth(request,'Staff',"admin_progress_preview.html",context)
@@ -840,7 +1017,7 @@ class adminO2SaturationProgressView(LoginRequiredMixin, generic.View):
 
         #Dictionary of the variables to be passed to the webpage
         context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
-                     'minChange' : minChangeVal, 'significantChanges' : numOfSignificantChange,
+                     'minChange' : minChangeVal,
                      'script' : script , 'div': div}
 
         return pageUserAuth(request,'Staff',"admin_progress_preview.html",context)
