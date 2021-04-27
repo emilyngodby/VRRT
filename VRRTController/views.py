@@ -13,8 +13,10 @@ from django.http import JsonResponse
 from bokeh.plotting import figure, output_file, show
 from bokeh.embed import components
 from bokeh.models import ColumnDataSource, Legend, LegendItem
+from django.contrib.auth import get_user_model
 import json
 import sqlite3
+from .forms import SignUpForm
 
 from django.contrib.auth.models import User, Group
 """
@@ -197,6 +199,8 @@ def databaseQuerryParser(values,field):
     results.append(endValues)
 
     return results
+    
+
 
 #Takes in the field (heart rate, pain score, etc) and userName is the current users name
 def databaseUserQuery(field, userName):
@@ -406,6 +410,21 @@ class adminProgressPage(LoginRequiredMixin, generic.View):
     redirect_field_name = 'login'
 
     def get(self, request):
+
+        #Get the user stuff
+        User = get_user_model()
+        #Get the list of patients
+        users = User.objects.filter(groups__name = "Patient")
+
+        #making an empty list that records the patients
+        patientList = []
+
+        #Step through the list of patients
+        for i in range(len(users)):
+            #Append just the patient name to the the patientsList
+            patientList.append(str(users[i]))
+
+        print("USERS: " + str(patientList))
 
         return pageUserAuth(request,'Staff',"admin_progress.html")
 
@@ -883,13 +902,15 @@ def createPatient(request):
     usersGroup = request.user.groups.filter(user=request.user)[0]
 
     if usersGroup.name == "Staff":
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid(): 
 
             form.save()
             username = form.cleaned_data.get('username')
 
             password = form.cleaned_data.get('password1')
+
+            #email = form.cleaned_data.get('email')
 
             user = authenticate(username=username, password=password)
 
@@ -909,7 +930,7 @@ def createStaff(request):
     usersGroup = request.user.groups.filter(user=request.user)[0]
 
     if usersGroup.name == "Staff":
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid(): 
 
             form.save()
