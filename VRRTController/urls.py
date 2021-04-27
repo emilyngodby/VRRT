@@ -1,3 +1,4 @@
+from os import name
 from django.urls import path
 from . import views
 
@@ -108,5 +109,9 @@ urlpatterns += [
 
 urlpatterns += [
     path('createStaff', views.createStaff, name="createStaff")
+]
+
+urlpatterns += [
+    path('exportChat',views.exportChat, name="exportChat")
 ]
 

@@ -14,6 +14,7 @@ from bokeh.plotting import figure, output_file, show
 from bokeh.embed import components
 from bokeh.models import ColumnDataSource, Legend, LegendItem
 import json
+import sqlite3
 
 from django.contrib.auth.models import User, Group
 """
@@ -832,8 +833,42 @@ def export(request):
         response['Content-Disposition'] = 'attachment; filename="SurveyResponses.csv'
 
         return response
-    return reverse_lazy('login')             
-            
+    return reverse_lazy('login')
+
+import os
+def exportChat(request):
+    usersGroup = request.user.groups.filter(user=request.user)[0]
+
+    
+
+    if usersGroup.name == "Staff":            
+        response = HttpResponse(content_type='text/csv')
+
+        connection = sqlite3.connect("bert//actions//rasa.db")
+    
+        csvWriter = csv.writer(response)
+        c = connection.cursor()
+
+        csvWriter.writerow(["Pain","Pain Location","Missed Events","Sleep","Stress","VR Feedback"])
+
+        c.execute("select * from slots")
+
+        rows = c.fetchall()
+
+        print("Rows: " + str(rows))
+
+        for x in rows:
+            print("Writing row: " + str(x))
+            csvWriter.writerow(x)
+
+        response['Content-Disposition'] = 'attachment; filename="ChatData.csv'
+
+        return response
+    return reverse_lazy('login')
+        
+
+
+
 class accountCreationSelection(LoginRequiredMixin, generic.View):
 
     login_url = 'login'
