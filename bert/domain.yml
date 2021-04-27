@@ -23,6 +23,7 @@ entities:
 
 actions:
 - action_submit
+- pause_conversation
 
 responses:
   utter_greet:
