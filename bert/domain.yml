@@ -48,7 +48,7 @@ responses:
   utter_goodbye:
   - text: "Goodbye"
   utter_submit:
-  - text: "Thank you for speaking with me today."
+  - text: "Thank you for checking in today. You can visit tomorrow to chat with me again."
   utter_ask_continue:
   - text: "Sorry, I don't quite understand. Do you want to continue?"
   utter_default_neutral:
