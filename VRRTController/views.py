@@ -16,6 +16,9 @@ from bokeh.models import ColumnDataSource, Legend, LegendItem
 import json
 import sqlite3
 
+from .forms import AnalysisSelectionForm
+from django import forms
+
 from django.contrib.auth.models import User, Group
 """
 ************************ METHODS ************************
@@ -407,9 +410,15 @@ class adminProgressPage(LoginRequiredMixin, generic.View):
 
     def get(self, request):
 
-        return pageUserAuth(request,'Staff',"admin_progress.html")
+        if request.method == 'POST':
+            form = AnalysisSelectionForm(request.POST)
+            if form.is_valid():
+                return HttpResponseRedirect('/thanks/')
+        else:
+            form = AnalysisSelectionForm()
 
-        return render(request, "admin_progress.html")
+        return render(request, "admin_progress.html", {'form': form})
+        return pageUserAuth(request,'Staff',"admin_progress.html")
 
 
 class adminProgressPreviewPage(LoginRequiredMixin, generic.View):
