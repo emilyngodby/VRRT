@@ -13,8 +13,10 @@ from django.http import JsonResponse
 from bokeh.plotting import figure, output_file, show
 from bokeh.embed import components
 from bokeh.models import ColumnDataSource, Legend, LegendItem
+from django.contrib.auth import get_user_model
 import json
 import sqlite3
+# from .forms import SignUpForm
 
 from .forms import AnalysisSelectionForm
 from django import forms
@@ -200,6 +202,8 @@ def databaseQuerryParser(values,field):
     results.append(endValues)
 
     return results
+    
+
 
 #Takes in the field (heart rate, pain score, etc) and userName is the current users name
 def databaseUserQuery(field, userName):
@@ -416,6 +420,22 @@ class adminProgressPage(LoginRequiredMixin, generic.View):
                 return HttpResponseRedirect('/thanks/')
         else:
             form = AnalysisSelectionForm()
+        # #Get the user stuff
+        # User = get_user_model()
+        # #Get the list of patients
+        # users = User.objects.filter(groups__name = "Patient")
+
+        # #making an empty list that records the patients
+        # patientList = []
+
+        # #Step through the list of patients
+        # for i in range(len(users)):
+        #     #Append just the patient name to the the patientsList
+        #     patientList.append(str(users[i]))
+
+        # print("USERS: " + str(patientList))
+
+        # return pageUserAuth(request,'Staff',"admin_progress.html")
 
         return render(request, "admin_progress.html", {'form': form})
         return pageUserAuth(request,'Staff',"admin_progress.html")
@@ -892,13 +912,15 @@ def createPatient(request):
     usersGroup = request.user.groups.filter(user=request.user)[0]
 
     if usersGroup.name == "Staff":
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid(): 
 
             form.save()
             username = form.cleaned_data.get('username')
 
             password = form.cleaned_data.get('password1')
+
+            #email = form.cleaned_data.get('email')
 
             user = authenticate(username=username, password=password)
 
@@ -918,7 +940,7 @@ def createStaff(request):
     usersGroup = request.user.groups.filter(user=request.user)[0]
 
     if usersGroup.name == "Staff":
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid(): 
 
             form.save()
