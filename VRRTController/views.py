@@ -16,7 +16,7 @@ from bokeh.models import ColumnDataSource, Legend, LegendItem
 from django.contrib.auth import get_user_model
 import json
 import sqlite3
-# from .forms import SignUpForm
+from .forms import SignUpForm
 
 from .forms import AnalysisSelectionForm
 from django import forms
