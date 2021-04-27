@@ -25,3 +25,12 @@ Run the rasa server by starting the venv and running
 Then run the django server in another terminal by doing
 
 `python3 manage.py runserver`
+
+## To use Chatbot with django with action server
+
+`rasa run --model models --enable-api --cors "*" --debug & rasa run actions`
+
+Then run the django server in another terminal by doing
+
+`python3 manage.py runserver`
+
