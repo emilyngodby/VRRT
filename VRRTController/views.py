@@ -13,7 +13,14 @@ from django.http import JsonResponse
 from bokeh.plotting import figure, output_file, show
 from bokeh.embed import components
 from bokeh.models import ColumnDataSource, Legend, LegendItem
+from django.contrib.auth import get_user_model
+from django.http import QueryDict
 import json
+import sqlite3
+from .forms import SignUpForm
+
+from .forms import AnalysisSelectionForm
+from django import forms
 
 from django.contrib.auth.models import User, Group
 """
@@ -196,6 +203,8 @@ def databaseQuerryParser(values,field):
     results.append(endValues)
 
     return results
+    
+
 
 #Takes in the field (heart rate, pain score, etc) and userName is the current users name
 def databaseUserQuery(field, userName):
@@ -406,9 +415,240 @@ class adminProgressPage(LoginRequiredMixin, generic.View):
 
     def get(self, request):
 
-        return pageUserAuth(request,'Staff',"admin_progress.html")
+        if request.method == 'POST':
+            form = AnalysisSelectionForm(request.POST)
+            
+            if form.is_valid():
+                return HttpResponseRedirect('/thanks/')
+        else:
+            form = AnalysisSelectionForm()
+        # #Get the user stuff
+        # User = get_user_model()
+        # #Get the list of patients
+        # users = User.objects.filter(groups__name = "Patient")
 
-        return render(request, "admin_progress.html")
+        # #making an empty list that records the patients
+        # patientList = []
+
+        # #Step through the list of patients
+        # for i in range(len(users)):
+        #     #Append just the patient name to the the patientsList
+        #     patientList.append(str(users[i]))
+
+        # print("USERS: " + str(patientList))
+
+        # return pageUserAuth(request,'Staff',"admin_progress.html")
+
+        return render(request, "admin_progress.html", {'form': form})
+        return pageUserAuth(request,'Staff',"admin_progress.html")
+    def post(self,request):
+        
+        if request.method == 'POST':
+            form = AnalysisSelectionForm(request.POST)
+            #print("The fourm data type is: " + str(type(request.POST)))
+            #print("Thr fourm is: " + str((form)))
+            buffer = request.POST
+
+            dropDownVal = list(buffer.values())[3]
+            patientVal = form.data.get('select_patient')
+            siteVal = list(buffer.values())[1]
+
+            print("dropDownVal: |" + dropDownVal + "| patientVal: " + str(patientVal) + " siteVal: " + siteVal)
+            
+            if patientVal == 'All Patients':
+                if dropDownVal == 'Pain Score':
+                    return HttpResponseRedirect(reverse_lazy('adminPainScoreProgressView'))
+                elif dropDownVal == 'Heart Rate':
+                    return HttpResponseRedirect(reverse_lazy('adminHearRateProgressView'))
+                elif dropDownVal == 'Blood Pressure':
+                    return HttpResponseRedirect(reverse_lazy('adminBloodPressureProgressView'))
+                elif dropDownVal == 'Resperation Rate':
+                    return HttpResponseRedirect(reverse_lazy('adminResperationRateProgressView'))
+                elif dropDownVal == 'Oxygen Saturation':
+                    return HttpResponseRedirect(reverse_lazy('adminO2SaturationProgressView'))
+
+            else:
+                if dropDownVal == 'Pain Score':
+                    return staffUserReview(patientVal,dropDownVal,request)
+                elif dropDownVal == 'Heart Rate':
+                    return staffUserReview(patientVal,dropDownVal,request)
+                elif dropDownVal == 'Blood Pressure':
+                    return staffUserReview(patientVal,dropDownVal,request)
+                elif dropDownVal == 'Respiration Rate':
+                    return staffUserReview(patientVal,dropDownVal,request)
+                elif dropDownVal == 'Oxygen Saturation':
+                    return staffUserReview(patientVal,dropDownVal,request)
+
+            if form.is_valid():
+                print("Fourm is valid ")
+                
+        else:
+            form = AnalysisSelectionForm()
+
+def staffUserReview(patientID,field,request):
+
+        if field == "Pain Score":
+            fieldValue = 'painScore'
+        elif field == 'Heart Rate':
+            fieldValue = 'heartRate'
+        elif field == 'Blood Pressure':
+            fieldValue = 'bloodPressure'
+            fieldValue = 'bloodPressure'
+            bloodPressure = True
+
+            results = databaseQuery(fieldValue)
+
+            results = databaseQuerryParser(results, fieldValue)
+
+            print(results[0])
+
+            systolicStartAvgChange = averageChageCalculation(list(results[0]))
+
+            diastolicStartAvgChange = averageChageCalculation(list(results[1]))
+
+            #Graph Stuff
+            startValuesSystolic = results[0][0]
+            endValuesSystolic = results[0][1]
+
+            startValuesDiastolic = results[1][0]
+            endValuesDiastolic = results[1][1]
+
+            xVals = []
+
+            for i in range(1,len(startValuesSystolic)+1):
+                xVals.append(i)
+
+            # source = ColumnDataSource(data=dict(
+            #     x = xVals,
+            #     y1 = startValues,
+            #     y2 = endValues
+            # ))
+
+            p = figure( sizing_mode = "stretch_width", plot_height = 350)
+            r = p.multi_line([xVals,xVals,xVals,xVals],[startValuesSystolic,endValuesSystolic,startValuesDiastolic,endValuesDiastolic], color=["firebrick", "firebrick","blue","blue"], alpha=[1, 0.3,1, 0.3], line_width=4)
+
+            p.background_fill_color = None
+            p.border_fill_color = None
+
+            p.yaxis.axis_label = "Pain Score"
+            p.xaxis.axis_label = "Session"
+
+            legend = Legend(items=[
+                LegendItem(label="Systolic Start Values", renderers=[r],  index=0),
+                LegendItem(label="Systolic End Values", renderers=[r], index=1),
+                LegendItem(label="Diastolic Start Values", renderers=[r],  index=2),
+                LegendItem(label="Diastolic End Values", renderers=[r], index=3),
+                ])
+            p.add_layout(legend)
+
+            p.legend.location = "top_left"
+            p.legend.title_text_font = 'Arial'
+            p.legend.title_text_font_size = '20pt'
+
+            script, div = components(p)
+
+
+
+            context = { 'bloodPressure' : bloodPressure, 'systolicStartAvgChange' : systolicStartAvgChange,
+                        'diastolicStartAvgChange' : diastolicStartAvgChange,
+                        'script' : script , 'div': div}
+            return pageUserAuth(request,'Staff',"admin_progress_preview.html", context )
+        elif field == 'Respiration Rate':
+            fieldValue = 'respirationRate'
+        elif field == 'Oxygen Saturation':
+            fieldValue = 'O2Saturation'
+        
+
+
+        #fieldValue = field
+
+        userName = patientID
+        
+
+        results = databaseUserQuery(fieldValue, userName)
+
+        results = databaseQuerryParser(results,fieldValue)
+
+
+        #Calculations
+        averageChange = averageChageCalculation(results)
+        maxPostiveChangeVal = maxPostiveChange(results)
+        minChangeVal = minChange(results)
+        if fieldValue == 'painScore':
+            numOfSignificantChange = significantPainScoreChange(results)
+
+        print("\t\tRESULTS: " + str(results))
+
+        startValues = []
+        endValues = []
+
+        startValues = results[0]
+        endValues = results[1]
+
+        xVals = []
+
+        for i in range(1,len(startValues)+1):
+            xVals.append(i)
+
+        #xVals = range(len(startValues))
+
+        source = ColumnDataSource(data=dict(
+            x = xVals,
+            y1 = startValues,
+            y2 = endValues
+        ))
+
+        p = figure( sizing_mode = "stretch_width", plot_height = 350)
+        p.title = 'Change in Heart Rate'
+
+        r = p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+
+        p.background_fill_color = None
+        p.border_fill_color = None
+
+        p.yaxis.axis_label = "Heart Rate(BPM)"
+        p.xaxis.axis_label = "Session"
+
+        legend = Legend(items=[
+            LegendItem(label="Start Values", renderers=[r],  index=0),
+            LegendItem(label="End Values", renderers=[r], index=1),
+            ])
+        p.add_layout(legend)
+
+        p.legend.location = "top_left"
+        p.legend.title_text_font = 'Arial'
+        p.legend.title_text_font_size = '20pt'
+
+        script, div = components(p)
+
+        if fieldValue == 'painScore':
+            context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
+                        'minChange' : minChangeVal, 'significantChanges' : numOfSignificantChange,
+                        'script' : script , 'div': div}
+        elif field == 'Heart Rate':
+            fieldValue = 'heartRate'
+            context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
+                    'minChange' : minChangeVal, 
+                    'script' : script , 'div': div}
+        elif field == 'Blood Pressure':
+            fieldValue = 'bloodPressure'
+            context = { 'bloodPressure' : bloodPressure, 'systolicStartAvgChange' : systolicStartAvgChange,
+                    'diastolicStartAvgChange' : diastolicStartAvgChange,
+                    'script' : script , 'div': div}
+        elif field == 'Respiration Rate':
+            fieldValue = 'respirationRate'
+            context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
+                     'minChange' : minChangeVal,
+                     'script' : script , 'div': div}
+        elif field == 'Oxygen Saturation':
+            fieldValue = 'O2Saturation'
+            context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
+                     'minChange' : minChangeVal,
+                     'script' : script , 'div': div}
+
+       
+
+        return pageUserAuth(request,'Staff',"admin_progress_preview.html", context )
 
 
 class adminProgressPreviewPage(LoginRequiredMixin, generic.View):
@@ -639,7 +879,7 @@ class adminHearRateProgressView(LoginRequiredMixin, generic.View):
 
         #Dictionary of the variables to be passed to the webpage
         context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
-                     'minChange' : minChangeVal, 'significantChanges' : numOfSignificantChange,
+                     'minChange' : minChangeVal,
                      'script' : script , 'div': div}
 
         return pageUserAuth(request,'Staff',"admin_progress_preview.html",context)
@@ -706,7 +946,7 @@ class adminResperationRateProgressView(LoginRequiredMixin, generic.View):
 
         #Dictionary of the variables to be passed to the webpage
         context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
-                     'minChange' : minChangeVal, 'significantChanges' : numOfSignificantChange,
+                     'minChange' : minChangeVal,
                      'script' : script , 'div': div}
 
         return pageUserAuth(request,'Staff',"admin_progress_preview.html",context)
@@ -777,7 +1017,7 @@ class adminO2SaturationProgressView(LoginRequiredMixin, generic.View):
 
         #Dictionary of the variables to be passed to the webpage
         context = { 'averageChange' : averageChange, 'maxPostiveChange' : maxPostiveChangeVal,
-                     'minChange' : minChangeVal, 'significantChanges' : numOfSignificantChange,
+                     'minChange' : minChangeVal,
                      'script' : script , 'div': div}
 
         return pageUserAuth(request,'Staff',"admin_progress_preview.html",context)
@@ -832,8 +1072,42 @@ def export(request):
         response['Content-Disposition'] = 'attachment; filename="SurveyResponses.csv'
 
         return response
-    return reverse_lazy('login')             
-            
+    return reverse_lazy('login')
+
+import os
+def exportChat(request):
+    usersGroup = request.user.groups.filter(user=request.user)[0]
+
+    
+
+    if usersGroup.name == "Staff":            
+        response = HttpResponse(content_type='text/csv')
+
+        connection = sqlite3.connect("bert//actions//rasa.db")
+    
+        csvWriter = csv.writer(response)
+        c = connection.cursor()
+
+        csvWriter.writerow(["Pain","Pain Location","Missed Events","Sleep","Stress","VR Feedback"])
+
+        c.execute("select * from slots")
+
+        rows = c.fetchall()
+
+        print("Rows: " + str(rows))
+
+        for x in rows:
+            print("Writing row: " + str(x))
+            csvWriter.writerow(x)
+
+        response['Content-Disposition'] = 'attachment; filename="ChatData.csv'
+
+        return response
+    return reverse_lazy('login')
+        
+
+
+
 class accountCreationSelection(LoginRequiredMixin, generic.View):
 
     login_url = 'login'
@@ -848,13 +1122,15 @@ def createPatient(request):
     usersGroup = request.user.groups.filter(user=request.user)[0]
 
     if usersGroup.name == "Staff":
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid(): 
 
             form.save()
             username = form.cleaned_data.get('username')
 
             password = form.cleaned_data.get('password1')
+
+            #email = form.cleaned_data.get('email')
 
             user = authenticate(username=username, password=password)
 
@@ -874,7 +1150,7 @@ def createStaff(request):
     usersGroup = request.user.groups.filter(user=request.user)[0]
 
     if usersGroup.name == "Staff":
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid(): 
 
             form.save()
@@ -1029,10 +1305,23 @@ class patientProgressPagePainScore(LoginRequiredMixin, generic.View):
         p = figure( sizing_mode = "stretch_width", plot_height = 350)
         p.title = 'Change in Pain Score'
 
-        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+        r = p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
 
         p.background_fill_color = None
         p.border_fill_color = None
+
+        p.yaxis.axis_label = "Pain Score"
+        p.xaxis.axis_label = "Session"
+
+        legend = Legend(items=[
+            LegendItem(label="Start Values", renderers=[r],  index=0),
+            LegendItem(label="End Values", renderers=[r], index=1),
+            ])
+        p.add_layout(legend)
+
+        p.legend.location = "top_left"
+        p.legend.title_text_font = 'Arial'
+        p.legend.title_text_font_size = '20pt'
 
         script, div = components(p)
 
@@ -1093,7 +1382,6 @@ class patientProgressBloodPressure(LoginRequiredMixin, generic.View):
         p.legend.title_text_font = 'Arial'
         p.legend.title_text_font_size = '20pt'
 
-
         script, div = components(p)
 
 
@@ -1147,10 +1435,23 @@ class patientProgressPageHeartRate(LoginRequiredMixin, generic.View):
         p = figure( sizing_mode = "stretch_width", plot_height = 350)
         p.title = 'Change in Heart Rate'
 
-        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+        r = p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
 
         p.background_fill_color = None
         p.border_fill_color = None
+
+        p.yaxis.axis_label = "Heart Rate(BPM)"
+        p.xaxis.axis_label = "Session"
+
+        legend = Legend(items=[
+            LegendItem(label="Start Values", renderers=[r],  index=0),
+            LegendItem(label="End Values", renderers=[r], index=1),
+            ])
+        p.add_layout(legend)
+
+        p.legend.location = "top_left"
+        p.legend.title_text_font = 'Arial'
+        p.legend.title_text_font_size = '20pt'
 
         script, div = components(p)
 
@@ -1195,11 +1496,24 @@ class patientProgressPageOxygenSaturation(LoginRequiredMixin, generic.View):
 
         p = figure( sizing_mode = "stretch_width", plot_height = 350)
 
-        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+        r = p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
 
         p.background_fill_color = None
         p.border_fill_color = None
         p.title = 'Change in Oxygen Saturation'
+
+        p.yaxis.axis_label = "Oxygen Saturation(%)"
+        p.xaxis.axis_label = "Session"
+
+        legend = Legend(items=[
+            LegendItem(label="Start Values", renderers=[r],  index=0),
+            LegendItem(label="End Values", renderers=[r], index=1),
+            ])
+        p.add_layout(legend)
+
+        p.legend.location = "top_left"
+        p.legend.title_text_font = 'Arial'
+        p.legend.title_text_font_size = '20pt'
 
         script, div = components(p)
 
@@ -1244,11 +1558,24 @@ class patientProgressPageRespirationRate(LoginRequiredMixin, generic.View):
 
         p = figure( sizing_mode = "stretch_width", plot_height = 350)
 
-        p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
+        r = p.multi_line([xVals,xVals],[startValues,endValues], color=["firebrick", "navy"], alpha=[0.8, 0.3], line_width=4)
 
         p.background_fill_color = None
         p.border_fill_color = None
         p.title = 'Change in Respiration Rate'
+
+        p.yaxis.axis_label = "RespirationRate(Breaths/m)"
+        p.xaxis.axis_label = "Session"
+
+        legend = Legend(items=[
+            LegendItem(label="Start Values", renderers=[r],  index=0),
+            LegendItem(label="End Values", renderers=[r], index=1),
+            ])
+        p.add_layout(legend)
+
+        p.legend.location = "top_left"
+        p.legend.title_text_font = 'Arial'
+        p.legend.title_text_font_size = '20pt'
 
         script, div = components(p)
 

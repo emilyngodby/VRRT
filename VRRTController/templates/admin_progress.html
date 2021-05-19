@@ -8,21 +8,14 @@
         <div class="choose_site">
             <ul style="list-style: none; display: block;">
                 <li style="justify-content: center;">
-                    <form action="" method="post" class="myForm">
+                    <form action="" method="POST" class="myForm">
                         {% csrf_token %}
+                        <!-- {{ form.as_ul }} -->
+                        
                         <h4>Select site:</h4>
-                            <select name = "dropdown" id="select_site">
-                                <option value = "Site 1" class="dropdown" >Site 1 - Reno, NV</option>
-                                <option value = "Site 2" class="dropdown">Site 2 - Las Vegas, NV</option>
-                                <option value = "Site 3" class="dropdown">Site 3 - Carson City, NV</option>
-                                <option value = "All Sites" class="dropdown">All Sites</option>
-                        </select>
+                            {{ form.select_site }}
                         <h4>Select patient group:</h4>
-                            <select name = "dropdown" id="select_patient">
-                                <option value = "All Patients" class="dropdown">All Patients</option>
-                                <option value = "Patient 1" class="dropdown" >Patient 1 - TEST_PATIENT</option>
-                                
-                            </select>
+                            {{ form.select_patient }}
                         <h4>Select data type:</h4>
                             <select name = "dropdown" id="select_dataType" >
                                 <option value = "Pain Score" class="dropdown" >Pain Score</option>
@@ -32,6 +25,8 @@
                                 <option value = "Oxygen Saturation" class="dropdown">Oxygen Saturation</option>
                                 <option value = "All Data" class="dropdown">All Data</option>
                             </select>
+
+                            
                             <br>
                             <button type="submit" class="see-results">See Results</button>
                     </form>
@@ -47,20 +42,24 @@
             <ul class="nav">
                 <input type="button" value = "Add new data" onclick="location.href=`{% url 'Survey_Instance_Create' %}`"/>
                 <input type="button" value = "Export data" onclick="location.href=`{% url 'export' %}`"/>
+                <input type="button" value = "Export chat data" onclick="location.href=`{% url 'exportChat' %}`"/>
                 <input type="button" value = "Back to main" onclick="location.href=`staffLandingPage`"/>
             </ul>
         </div>
-        <script>
+        <!-- <script>
             const myForm = document.querySelector(".myForm");
-            const selectSite = document.querySelector("#select_site");
-            const selectPatient = document.querySelector("#select_patient");
+            // const selectSite = document.querySelector("#select_site");
+            // const selectPatient = document.querySelector("#select_patient");
             
 
-            const siteVal = selectSite.value;
-            const patientVal = selectPatient.value;
+            // const siteVal = selectSite.value;
+            // const patientVal = selectPatient.value;
             
 
             myForm.addEventListener('submit', function(event) {
+                var patientID = document.getElementById("id_select_patient").val;
+                console.log(patientID);
+                
                 const selectDataType = document.getElementById("select_dataType");
                 const dataVal = selectDataType.value;
 
@@ -68,11 +67,7 @@
                 // find site num + patient type + data type combination
 
                 //when we add other site support this will need to be updated
-                if(
-                    (siteVal == "Site 1" || siteVal == "Site 2" || siteVal == "Site3") &&
-                    (patientVal == "Patient 1" || patientVal == "All Patients") 
-                ){
-                    console.log(dataVal)
+                console.log(dataVal)
                     switch (dataVal) {
                         case "Pain Score":
                             window.location.href="adminPainScoreProgressView";
@@ -98,11 +93,10 @@
                         default:
                             window.location.href="adminProgressPreviewPage";
                             break;
-                    }
                     
                 }
             })
 
-        </script>
+        </script> -->
     </div>
 {% endblock %}
