@@ -3,15 +3,6 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth import get_user_model
 from .models import SiteID
 
-User = get_user_model()
-users = User.objects.filter(groups__name='Patient')
-
-patients = []
-
-for i in range(len(users)):
-    patients.append((str(users[i]),str(users[i])))
-
-patients.append(('All Patients', 'All Patients'))
 
 # sitesIds = SiteID.objects.all().values_list('SiteName')
 
@@ -40,6 +31,16 @@ datatypes = [
 
 
 class AnalysisSelectionForm(forms.Form):
+
+    User = get_user_model()
+    users = User.objects.filter(groups__name='Patient')
+
+    patients = []
+
+    for i in range(len(users)):
+        patients.append((str(users[i]),str(users[i])))
+
+    patients.append(('All Patients', 'All Patients'))
 
     select_patient = forms.ChoiceField(choices = patients, label = "Patient")
     select_site = forms.ChoiceField(choices = sites, label = "Site")
