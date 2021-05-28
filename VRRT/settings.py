@@ -26,20 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 #SECRET_KEY = '0j%i%vbqs8e&f=cg3fnl80w*t0)^+_&vl10ohn1nh=i&5yuw$$'
-<<<<<<< HEAD
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
-=======
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '0j%i%vbqs8e&f=cg3fnl80w*t0)^+_&vl10ohn1nh=i&5yuw$$')
->>>>>>> ac17c109bbf21559ccc2584a1070d6f9fc32bcea
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-<<<<<<< HEAD
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-=======
-ALLOWED_HOSTS = ['stark-island-93332.herokuapp.com', '127.0.0.1']
->>>>>>> ac17c109bbf21559ccc2584a1070d6f9fc32bcea
+ALLOWED_HOSTS = ['boiling-mesa-75948.herokuapp.com', '127.0.0.1']
 
 LOGIN_URL = 'login'
 
@@ -127,8 +119,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-<<<<<<< HEAD
-=======
 CHATTERBOT = {
     'name': 'Bert',
     'trainer': 'chatterbot.trainers.ChatterBotCorpusTrainer',
@@ -151,7 +141,6 @@ CHATTERBOT = {
     # 'trainer': 'chatterbot..corpus.english.conversations',
     
 }
->>>>>>> ac17c109bbf21559ccc2584a1070d6f9fc32bcea
 
 
 # Internationalization
@@ -172,23 +161,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 # STATIC_URL = '/static/'
-<<<<<<< HEAD
 # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-=======
->>>>>>> ac17c109bbf21559ccc2584a1070d6f9fc32bcea
 
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'static'),
 # ]
-<<<<<<< HEAD
-=======
 
 # The absolute path to the directory where collectstatic will collect static files for deployment.
 STATIC_ROOT = BASE_DIR / 'staticfiles'  #. os.path.join(BASE_DIR, 'staticfiles')
 
 # The URL to use when referring to static files (where they will be served from)
 STATIC_URL = '/static/'
->>>>>>> ac17c109bbf21559ccc2584a1070d6f9fc32bcea
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = 'logInRedirect'
@@ -199,7 +182,6 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-<<<<<<< HEAD
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
@@ -217,9 +199,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # The URL to use when referring to static files (where they will be served from)
 STATIC_URL = '/static/'
-=======
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
->>>>>>> ac17c109bbf21559ccc2584a1070d6f9fc32bcea
