@@ -75,6 +75,7 @@ urlpatterns += [
 ]
 
 urlpatterns += [
+<<<<<<< HEAD
     path('patientProgressBloodPressure', views.patientProgressBloodPressure.as_view(), name='patientProgressBloodPressure')
 ]
 
@@ -101,6 +102,11 @@ urlpatterns += [
 urlpatterns += [
     path('accountCreationSelection', views.accountCreationSelection.as_view(), name="accountCreationSelection")
 ]
+=======
+    path('export', views.export, name='export')
+]
+
+>>>>>>> ac17c109bbf21559ccc2584a1070d6f9fc32bcea
 
 
 urlpatterns += [

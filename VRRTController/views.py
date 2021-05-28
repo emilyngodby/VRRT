@@ -1052,6 +1052,7 @@ from django.http import HttpResponse
 from .models import SurveyInstance
 
 def export(request):
+<<<<<<< HEAD
 
 
     usersGroup = request.user.groups.filter(user=request.user)[0]
@@ -1170,6 +1171,24 @@ def createStaff(request):
             return pageUserAuth(request,'Staff',"admin_landing_pg.html")
 
         return pageUserAuth(request,'Staff',"admin_create_new_staff.html", {'form':form})
+=======
+    response = HttpResponse(content_type='text/csv')
+
+    writer = csv.writer(response)
+    writer.writerow(['Survey ID','Patient ID','Pain Score Start','Pain Score End'
+                ,'Heart Rate Start','Heart Rate End', 'Starting Systolic', 'Starting Diastolic'
+                ,'End Systolic', 'End Diastolic','O2 Saturation Start','O2 Saturation End'
+                ,'Resperation Start','Resperation End'])
+
+    for row in SurveyInstance.objects.all().values_list('id','PatientID','PainScoreStart','PainScoreEnd','HeartRateStart','HeartRateEnd','BPStartValue1','BPStartValue2',
+                                                        'BPEndValue1','BPEndValue2','O2SaturationStart','O2SaturationEnd','RespirationRateStart','RespirationRateEnd'):
+        writer.writerow(row)
+
+    response['Content-Disposition'] = 'attachment; filename="SurveyResponses.csv'
+
+    return response
+
+>>>>>>> ac17c109bbf21559ccc2584a1070d6f9fc32bcea
 
 """
     These two functions are from before and need to be updated
