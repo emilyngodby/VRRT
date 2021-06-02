@@ -2,6 +2,8 @@ import os
 from django.core.management.utils import get_random_secret_key
 import sys
 import dj_database_url
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
 
 """
 Django settings for VRRT project.
